@@ -1,0 +1,57 @@
+<div class="hidden-xs dpa-sidebar">
+  <div class="nav-side-menu style-1">
+      <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+      
+      <div class="menu-list">
+          <div class="nav-brand">
+              <a href="#"><img [src]="'assets/img/dp-logo.png'"></a>
+          </div>
+          <div class="nav-user">
+              <div class="info">
+                  <span class="position">Admin</span>
+              </div>
+          </div>
+          <div class="nav-user">
+              <img class="profile" [src]="'assets/img/temp/user-icon.png'">
+              <div class="info">
+                  <p class="name">Firstname Lastname</p>
+                  <span class="position">Position</span>
+              </div>
+          </div>
+          <ul id="menu-content" class="menu-content collapse out">
+              <li routerLink="/dashboard" routerLinkActive="active">
+                  <a><i class="fa fa-home fa-lg"></i>Dashboard</a>
+              </li>
+              <li routerLink="/employees" routerLinkActive="active">
+                  <a><i class="fa fa-user fa-lg"></i>Employees</a>
+              </li>
+              <li routerLink="/assessments" routerLinkActive="active">
+                  <a><i class="fa fa-edit fa-lg"></i>Assessment</a>
+              </li>
+              <li routerLink="/user-settings" routerLinkActive="active">
+                  <a><i class="fa fa-list-ol fa-lg"></i>Questionnaire</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>
+<div class="dpa-page">
+    <div>
+      <nav class="navbar navbar-default">
+          <div class="container-fluid">
+              <div class="nav-hamburger">
+                  <span class="fa fa-bars"></span>
+              </div>
+              <ul class="pull-right">
+                  <li><a class="btn-out">
+                      <span class="fa fa-cog"></span>Account Settings
+                  </a></li>
+                  <li><a class="btn-out">
+                      <span class="fa fa-sign-out"></span>Sign Out
+                  </a></li>
+              </ul>
+          </div>
+      </nav>
+    </div>
+    <router-outlet></router-outlet>
+</div>

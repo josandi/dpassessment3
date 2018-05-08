@@ -1,0 +1,45 @@
+<section id="page-employees">
+    <div class="content-title">Employees
+        <button class="btn dpabtn-yellow" (click)="showEdit('')">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+
+    <div class="table-responsive style-1">
+        <table class="dpa-table table table-striped">
+            <thead class="dpa-table-header">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Position</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of pageEmployees.data">
+                    <td (click)="showEmployee($event, employee)">{{ employee.firstname }}</td>
+                    <td>{{ employee.email_address }}</td>
+                    <td>{{ employee.contact_number }}</td>
+                    <td>{{ employee.position }}</td>
+                    <td class="btn-tools">
+                        <button class="btn btn-success btn-xs row-btn" (click)="showEdit(employee)">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button class="btn btn-danger btn-xs row-btn">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- <div class="page-pagination">
+            <ul uib-pagination total-items="employees.length" 
+                ng-model="pagination.currentPage" max-size="pagination.maxSize"
+                boundary-links="true" force-ellipses="true"
+                previous-text="&lsaquo;" next-text="&rsaquo;" 
+                first-text="&laquo;" last-text="&raquo;"
+                class="pagination-md">
+            </ul>
+        </div> -->
+    </div>
+</section>

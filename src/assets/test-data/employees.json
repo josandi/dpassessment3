@@ -1,0 +1,74 @@
+{
+    "data": [
+        {
+            "employee_id": 1,
+            "firstname": "Reinhard",
+            "middlename": "von",
+            "lastname": "Lohengramm",
+            "email_address": "rlohengramm@gmail.com",
+            "contact_number": "09099010961",
+            "position_id": 2,
+            "position": "Manager"
+        },
+        {
+            "employee_id": 2,
+            "firstname": "Siegfred",
+            "middlename": "",
+            "lastname": "Kircheis",
+            "email_address": "skircheis@gmail.com",
+            "contact_number": "09099010962",
+            "position_id": 3,
+            "position": "Team Leader"
+        },
+        {
+            "employee_id": 3,
+            "firstname": "Oskar",
+            "middlename": "von",
+            "lastname": "Reuenthal",
+            "email_address": "oreuenthal@gmail.com",
+            "contact_number": "09099010963",
+            "position_id": 4,
+            "position": "Developer"
+        },
+        {
+            "employee_id": 4,
+            "firstname": "Wolfgang",
+            "middlename": "",
+            "lastname": "Mittemeyer",
+            "email_address": "wmittemeyer@gmail.com",
+            "contact_number": "09099010964",
+            "position_id": 4,
+            "position": "Developer"
+        },
+        {
+            "employee_id": 5,
+            "firstname": "Yang",
+            "middlename": "",
+            "lastname": "Wenli",
+            "email_address": "ywenli@gmail.com",
+            "contact_number": "09099010965",
+            "position_id": 2,
+            "position": "Manager"
+        },
+        {
+            "employee_id": 6,
+            "firstname": "Dusty",
+            "middlename": "",
+            "lastname": "Attenborough",
+            "email_address": "dattenborough@gmail.com",
+            "contact_number": "09099010966",
+            "position_id": 3,
+            "position": "Team Leader"
+        },
+        {
+            "employee_id": 7,
+            "firstname": "Julian",
+            "middlename": "",
+            "lastname": "Minci",
+            "email_address": "jminci@gmail.com",
+            "contact_number": "09099010967",
+            "position_id": 4,
+            "position": "Developer"
+        }
+    ]
+}

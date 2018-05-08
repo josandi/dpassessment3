@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "position_id": 1,
+            "position": "Admin"
+        },
+        {
+            "position_id": 2,
+            "position": "Manager"
+        },
+        {
+            "position_id": 3,
+            "position": "Team Leader"
+        },
+        {
+            "position_id": 4,
+            "position": "Developer"
+        }
+    ]
+}

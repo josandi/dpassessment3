@@ -1,0 +1,54 @@
+{
+    "data": [
+        {
+            "assessment_id": 1,
+            "assessment_name": "Assessment A",
+            "description": "First personal assessment for 2018. ",
+            "questions_count": 50,
+            "date_created": "04-15-2018",
+            "deadline": "04-30-2018",
+            "date_submitted": "04-16-2018",
+            "status": "Completed"
+        },
+        {
+            "assessment_id": 2,
+            "assessment_name": "Assessment B",
+            "description": "Second personal assessment for 2018",
+            "questions_count": 50,
+            "date_created": "11-01-2018",
+            "deadline": "11-15-2018",
+            "date_submitted": null,
+            "status": "Unanswered"
+        },
+        {
+            "assessment_id": 3,
+            "assessment_name": "Other Assessment A",
+            "description": "Some other assessment",
+            "questions_count": 15,
+            "date_created": "06-01-2018",
+            "deadline": "06-15-2018",
+            "date_submitted": "06-10-2018",
+            "status": "Completed"
+        },
+        {
+            "assessment_id": 4,
+            "assessment_name": "Other Assessment B",
+            "description": "Another assessment for different purpose",
+            "questions_count": 15,
+            "date_created": "08-01-2019",
+            "deadline": "08-15-2019",
+            "date_submitted": null,
+            "status": "Unanswered"
+        },
+        {
+            "assessment_id": 5,
+            "assessment_name": "Other Assessment C",
+            "description": "Different assessment from others",
+            "questions_count": 15,
+            "date_created": "02-15-2018",
+            "deadline": "02-30-2018",
+            "date_submitted": null,
+            "status": "Unanswered"
+        }
+    ]
+}

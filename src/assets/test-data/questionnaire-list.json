@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "questionnaire_id": 1,
+            "description": "Questionnaire A",
+            "questions_count": 15
+        },
+        {
+            "questionnaire_id": 2,
+            "description": "Questionnaire B",
+            "questions_count": 30
+        },
+        {
+            "questionnaire_id": 3,
+            "description": "Questionnaire C",
+            "questions_count": 20
+        }
+    ]
+}
