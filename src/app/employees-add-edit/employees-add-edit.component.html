@@ -1,0 +1,45 @@
+<div class="dpa-modal container-fluid">
+    <div class="row">
+        <div class="col-md-4 user-photo">
+            <img class="profile-img" src="assets/img/temp/user-icon.png">
+        </div>
+        <div class="col-md-8">
+            <!-- {{list | json}} -->
+            <form name="formUserProfile" id="formUserProfile" class="dpa-modal-form" role="form">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="firstname" class="dpa-label">First Name</label>
+                        <input type="text" name="firstname" [(ngModel)]="employeeData.firstname" 
+                            ng-disabled="isShowOnly" class="form-control" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="middlename" class="dpa-label">Middle Name</label>
+                        <input type="text" name="middlename" [(ngModel)]="employeeData.middlename" 
+                            ng-disabled="isShowOnly" class="form-control" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="lastname" class="dpa-label">Last Name</label>
+                        <input type="text" name="lastname" [(ngModel)]="employeeData.lastname" 
+                            ng-disabled="isShowOnly" class="form-control" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="email" class="dpa-label">Email Address</label>
+                        <input type="email" name="email" [(ngModel)]="employeeData.email_address" 
+                            ng-disabled="isShowOnly" class="form-control" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="contactnum" class="dpa-label">Contact Number</label>
+                        <input type="text" name="contactnum" [(ngModel)]="employeeData.contact_number" 
+                            ng-disabled="isShowOnly" class="form-control" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="dpa-label">Position</label>
+                        <select [(ngModel)]="selectedPosition">
+                          <option *ngFor="let pdata of positionList.data" [ngValue]="pdata.position_id">{{pdata.position}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

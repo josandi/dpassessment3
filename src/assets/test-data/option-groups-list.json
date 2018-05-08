@@ -1,0 +1,12 @@
+{
+    "data": [
+        {
+            "optiongroup_id": 1,
+            "description": "Frequency"
+        },
+        {
+            "optiongroup_id": 2,
+            "description": "Open Question"
+        }
+    ]
+}

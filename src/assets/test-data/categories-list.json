@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "category_id": 1,
+            "category": "Category A"
+        },
+        {
+            "category_id": 2,
+            "category": "Category B"
+        },
+        {
+            "category_id": 1,
+            "category": "Essay"
+        }
+    ]
+}
