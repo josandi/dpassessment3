@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { EmployeesService } from './service/employees.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     ModalModule.forRoot(),
     FormsModule,
+    MaterialModule,
     AppRoutingModule
   ],
   providers: [EmployeesService],

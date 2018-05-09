@@ -26,7 +26,7 @@ export class EmployeesComponent implements OnInit {
 	bsModalRef: BsModalRef;
 
   constructor( private _employeeService: EmployeesService, 
-  			   private _modalService: BsModalService ) { }
+  			   private modalService: BsModalService ) { }
 
   	activate() {
 	    //this.getAllEmployees();
@@ -139,9 +139,10 @@ export class EmployeesComponent implements OnInit {
 	    const initialState = {
 	      employeeData: this.employee,
 	      positionList: this.empPositions,
-	      title: 'Modal with component'
+	      title: 'Modal with component',
+	      closeBtnName: 'Cancel'
 	    };
-	    this.bsModalRef = this._modalService.show(EmployeesAddEditComponent, {initialState});
+	    this.bsModalRef = this.modalService.show(EmployeesAddEditComponent, {initialState});
 	    this.bsModalRef.content.closeBtnName = 'Close';
 	}
 

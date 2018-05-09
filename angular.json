@@ -28,7 +28,9 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/font-awesome/css/font-awesome.css"
+              "node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
