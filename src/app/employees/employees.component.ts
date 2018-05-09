@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeesService } from '../_services/employees.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { EmployeesAddEditComponent } from './../employees-add-edit/employees-add-edit.component';
+import { EmployeesAddEditComponent } from '../employees-add-edit/employees-add-edit.component';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { EmployeesAddEditComponent } from './../employees-add-edit/employees-add
 })
 export class EmployeesComponent implements OnInit {
 
-	pageEmployees: any[] = [];
+	pageEmployees;
 	errorMsg;
 	pagination = {
 		currentPage: 1,
@@ -38,7 +38,7 @@ export class EmployeesComponent implements OnInit {
 	    this._employeeService.getAllEmployees()
       		.subscribe(data =>
       			this.pageEmployees = data, 
-            	error => this.errorMsg = error);
+				error => this.errorMsg = error);
 	}
 
 	getEmployeePositionList() {
@@ -67,9 +67,10 @@ export class EmployeesComponent implements OnInit {
 
 	    const initialState = {
 	      employeeData: this.employee,
-	      positionList: this.empPositions,
+		  positionList: this.empPositions,
+		  selectedPosition: 1,
 	      title: 'Modal with component',
-	      closeBtnName: 'Cancel'
+	      btnName: employee ? 'Update' : 'Save'
 	    };
 	    this.bsModalRef = this.modalService.show(EmployeesAddEditComponent, {initialState});
 	    this.bsModalRef.content.closeBtnName = 'Close';

@@ -13,6 +13,7 @@ export class EmployeesAddEditComponent implements OnInit {
   btnName;
   employeeData;
   positionList;
+  selectedPosition;
 
   constructor(public bsModalRef: BsModalRef) {}
  

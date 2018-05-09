@@ -1,17 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { query } from '@angular/animations';
-
-export interface AssessmentData {
-  "assessment_id": number,
-  "assessment_name": string,
-  "description": string,
-  "questions_count": number,
-  "date_created": string,
-  "deadline": string,
-  "date_submitted": string,
-  "status": string
-}
+import { AssessmentData } from '../_models/assessment';
+import { QuestionnaireListData } from '../_models/questionnaire';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +34,7 @@ export class AssessmentsService {
   }
 
   getQuestionnairesList()  {
-    return this.http.get<Array<AssessmentData>>(this._url + 'questionnaire-list.json'/*, {
+    return this.http.get<Array<QuestionnaireListData>>(this._url + '/questionnaire-list.json'/*, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
     }*/);
   }

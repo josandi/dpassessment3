@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { AssessmentsService } from '../_services/assessments.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AssessmentsAddEditComponent } from '../assessments-add-edit/assessments-add-edit.component';
 
 @Component({
   selector: 'app-assessments',
@@ -10,14 +12,13 @@ import { AssessmentsService } from '../_services/assessments.service';
 export class AssessmentsComponent implements OnInit {
   private _url: string = "/assets/test-data";
   assessments;
+  singleAssessment;
   questionnaires;
   errorMsg;
+  bsModalRef: BsModalRef;
 
-  constructor( private _assessmentsService: AssessmentsService ) { }
-
-  ngOnInit() {
-    this.getAllAsessments();
-  }
+  constructor( private _assessmentsService: AssessmentsService,
+                private modalService: BsModalService ) { }
 
   getAllAsessments() {
     this._assessmentsService.getAllAssessments()
@@ -34,7 +35,15 @@ export class AssessmentsComponent implements OnInit {
   }
 
   showEdit(assessment) {
-    this.getQuestionnairesList();         
+    this.singleAssessment = assessment;
+    const initialState = {
+        assessmentData: this.singleAssessment ,
+        questionnairesData: this.questionnaires,
+        title: 'Modal with component',
+        closeBtnName: 'Cancel'
+      };
+      this.bsModalRef = this.modalService.show(AssessmentsAddEditComponent, {initialState});
+      this.bsModalRef.content.closeBtnName = 'Close';
 
     /*$ngConfirm({
         title: '',
@@ -54,5 +63,10 @@ export class AssessmentsComponent implements OnInit {
             }
         }
     });*/
-  } 
+  }
+
+  ngOnInit() {
+    this.getAllAsessments();
+    this.getQuestionnairesList();   
+  }
 }

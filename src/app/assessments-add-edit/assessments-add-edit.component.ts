@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-assessments-add-edit',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssessmentsAddEditComponent implements OnInit {
 
-  constructor() { }
+  assessmentData;
+  questionnairesData;
+  title;
+  closeBtnName;
+  
+  constructor(public bsModalRef: BsModalRef) { }
+
+  showQuestionnaire(value) {
+  }
 
   ngOnInit() {
+    console.log(this.questionnairesData);
   }
+
+  
 
 }
