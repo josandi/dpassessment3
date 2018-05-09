@@ -1,3 +1,33 @@
+/* G L O B A L */
+
+/* overrides */
+
+a, span {
+    text-decoration: none;
+}
+
+a:focus {
+    text-decoration: none;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.pre-scrollable {
+    max-height: 200px;
+}
+
+textarea {
+    resize: none;
+}
+
+/* N A V I G A T I O N */
+
+/* sidebar*/
+
 .nav-side-menu {
     overflow: auto;
     font-family: verdana;
@@ -141,8 +171,6 @@
 .nav-side-menu .menu-list .menu-content {
     display: block;
 }
-  
-/* added this */
 
 .menu-list {
     position: absolute;
@@ -191,6 +219,8 @@
 
 /* toolbar */
 
+
+
 .dpa-toolbar ul li{
     display: inline;
     margin: 5px;
@@ -225,24 +255,9 @@
     margin-left: 30px;
     display: none;
 }
-a, span {
-    text-decoration: none;
-}
 
-a:focus {
-    text-decoration: none;
-}
-.container {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-.pre-scrollable {
-    max-height: 200px;
-}
-textarea {
-    resize: none;
-}
+/* C O N T E N T */
+
 .dpa-page {
     padding-left: 300px;
     color: #686666;

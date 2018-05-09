@@ -1,0 +1,26 @@
+.group-assessment {
+    margin: 10px 0;
+}
+
+.tbl-btntake {
+    width: 100px;
+}
+
+/* custom status */
+
+.dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 3px;
+    background-color: gray;
+}
+
+.status-completed {
+    background-color: rgb(60, 187, 89);
+}
+
+.status-unanswered {
+    background-color: rgb(216, 177, 60);
+}

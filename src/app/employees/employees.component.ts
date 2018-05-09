@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeesService } from './../service/employees.service';
+// import { EmployeesService } from './../service/employees.service';
+import { EmployeesService } from '../_services/employees.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { EmployeesAddEditComponent } from './../employees-add-edit/employees-add-edit.component';
@@ -12,13 +13,13 @@ import { EmployeesAddEditComponent } from './../employees-add-edit/employees-add
 })
 export class EmployeesComponent implements OnInit {
 
-  	pageEmployees: any[] = [];
-  	errorMsg;
-  	pagination = {
-    	currentPage: 1,
-    	numPerPage: 15,
-    	maxSize: 5
-  	};
+	pageEmployees: any[] = [];
+	errorMsg;
+	pagination = {
+		currentPage: 1,
+		numPerPage: 15,
+		maxSize: 5
+	};
 	empPositions = [];
 	selectedPosition = {};
 	isShowOnly = false;
@@ -28,9 +29,9 @@ export class EmployeesComponent implements OnInit {
   constructor( private _employeeService: EmployeesService, 
   			   private modalService: BsModalService ) { }
 
-  	activate() {
-	    //this.getAllEmployees();
-	    //this.getEmployeePositionList();
+	ngOnInit() {
+		this.getAllEmployees();
+		this.getEmployeePositionList();
 	}
 
 	getAllEmployees() {
@@ -56,6 +57,22 @@ export class EmployeesComponent implements OnInit {
 
 	deleteEmployee(employee) {
 	    console.log("deleteEmployee clicked!");
+	}
+
+	// modal display
+
+	showEdit(employee) {
+	    this.isShowOnly = false;
+	    this.employee = employee;
+
+	    const initialState = {
+	      employeeData: this.employee,
+	      positionList: this.empPositions,
+	      title: 'Modal with component',
+	      closeBtnName: 'Cancel'
+	    };
+	    this.bsModalRef = this.modalService.show(EmployeesAddEditComponent, {initialState});
+	    this.bsModalRef.content.closeBtnName = 'Close';
 	}
 
 	/*getPosition(posId) {
@@ -112,43 +129,5 @@ export class EmployeesComponent implements OnInit {
 	    });
 	}
 	*/
-	showEdit(employee) {
-	    this.isShowOnly = false;
-	    this.employee = employee;
-
-	    /*$ngConfirm({
-	        title: '',
-	        scope: $scope,
-	        contentUrl: 'admin/employees/employee-edit.html',
-	        type: 'orange',
-	        closeIcon: true,
-	        escapeKey: true,
-	        backgroundDismiss: true,
-	        buttons: {
-	            btn: {
-	                text: (employee) ? 'Update' : 'Save',
-	                btnClass: 'btn-warning',
-	                action: function(scope, button){
-	                    vm.employee.position_id = vm.selectedPosition.position_id;
-	                    vm.employee.position = vm.selectedPosition.position;
-	                    console.log(vm.employee)
-	                }
-	            }
-	        }
-	    });*/
-	    const initialState = {
-	      employeeData: this.employee,
-	      positionList: this.empPositions,
-	      title: 'Modal with component',
-	      closeBtnName: 'Cancel'
-	    };
-	    this.bsModalRef = this.modalService.show(EmployeesAddEditComponent, {initialState});
-	    this.bsModalRef.content.closeBtnName = 'Close';
-	}
-
-  ngOnInit() {
-  	this.getAllEmployees();
-  	this.getEmployeePositionList();
-  }
 
 }

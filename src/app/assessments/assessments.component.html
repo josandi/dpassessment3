@@ -1,3 +1,52 @@
-<p>
-  assessments works!
-</p>
+<section id="page-assessment">
+  <div class="content-title">Assessment
+      <button class="btn dpabtn-yellow" (click)="showEdit('')">
+          <i class="fa fa-plus"></i>
+      </button>
+  </div>
+  
+  <div class="group-assessment">
+      <div class="table-responsive style-1 ep-table-request">
+          <table class="dpa-table table table-striped">
+              <thead class="dpa-table-header">
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Date Created</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th></th>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let assessment of assessments.data"
+                      (click)="showAssessment(assessment)">
+                      <td>{{ assessment.assessment_name }}</td>
+                      <td>{{ assessment.description }}</td>
+                      <td>{{ assessment.date_created | date}}</td>
+                      <td>{{ assessment.deadline }}</td>
+                      <td><span class="dot status-{{assessment.status | lowercase}}"></span>
+                          {{ assessment.status }}
+                      </td>
+                      <td class="btn-tools" (click)="$event.stopPropagation()">
+                          <button (click)="showEdit(assessment)" class="btn btn-success btn-xs row-btn">
+                              <i class="fa fa-pencil"></i>
+                          </button>
+                          <button (click)="deleteAssessment(assessment)" class="btn btn-danger btn-xs row-btn">
+                              <i class="fa fa-times"></i>
+                          </button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+
+          <!-- <div class="page-pagination">
+              <ul uib-pagination total-items="vm.assessments.length" 
+                  ng-model="vm.pagination.currentPage" max-size="vm.pagination.maxSize"
+                  boundary-links="true" force-ellipses="true"
+                  previous-text="&lsaquo;" next-text="&rsaquo;" 
+                  first-text="&laquo;" last-text="&raquo;"
+                  class="pagination-md">
+              </ul>
+          </div> -->
+      </div>
+  </div>
+</section>
