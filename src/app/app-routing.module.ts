@@ -5,6 +5,7 @@ import { AssessmentsComponent } from './assessments/assessments.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { EmployeesAddEditComponent } from './employees-add-edit/employees-add-edit.component';
+import { AssessmentsAddEditComponent } from './assessments-add-edit/assessments-add-edit.component';
 
 
 const routes: Routes = [
@@ -18,11 +19,13 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  entryComponents : [EmployeesAddEditComponent]
+  entryComponents : [EmployeesAddEditComponent,
+                    AssessmentsAddEditComponent]
 })
 export class AppRoutingModule { }
 export const routingComponents = [DashboardComponent,
                                   AssessmentsComponent,
                                   EmployeesComponent,
                                   UserSettingsComponent,
-                                  EmployeesAddEditComponent];
+                                  EmployeesAddEditComponent,
+                                  AssessmentsAddEditComponent];

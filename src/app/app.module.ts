@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EmployeesService } from './service/employees.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
@@ -21,7 +20,7 @@ import { MaterialModule } from './material.module';
     MaterialModule,
     AppRoutingModule
   ],
-  providers: [EmployeesService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

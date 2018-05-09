@@ -1,25 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { query } from '@angular/animations';
+import { EmployeeData } from '../_models/employee';
 
-export interface EmployeeData {
-    "employee_id": number,
-    "firstname": string,
-    "middlename": string,
-    "lastname": string,
-    "email_address": string,
-    "contact_number": number,
-    "position_id": number,
-    "position": string
-}
-
-
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class EmployeesService {
 
     private _url: string = "/assets/test-data";
 
-     constructor(private http:HttpClient) { }
+     constructor(private http: HttpClient) { }
 
      getAllEmployees() {
         return this.http.get<Array<EmployeeData>>(this._url + '/employees.json'/*, {
