@@ -115,32 +115,11 @@ export class EmployeesComponent implements OnInit {
 	showEdit(employee) {
 	    this.isShowOnly = false;
 	    this.employee = employee;
-
-	    /*$ngConfirm({
-	        title: '',
-	        scope: $scope,
-	        contentUrl: 'admin/employees/employee-edit.html',
-	        type: 'orange',
-	        closeIcon: true,
-	        escapeKey: true,
-	        backgroundDismiss: true,
-	        buttons: {
-	            btn: {
-	                text: (employee) ? 'Update' : 'Save',
-	                btnClass: 'btn-warning',
-	                action: function(scope, button){
-	                    vm.employee.position_id = vm.selectedPosition.position_id;
-	                    vm.employee.position = vm.selectedPosition.position;
-	                    console.log(vm.employee)
-	                }
-	            }
-	        }
-	    });*/
 	    const initialState = {
 	      employeeData: this.employee,
 	      positionList: this.empPositions,
 	      title: 'Modal with component',
-	      closeBtnName: 'Cancel'
+	      btnName:  (employee) ? 'Update' : 'Save'
 	    };
 	    this.bsModalRef = this.modalService.show(EmployeesAddEditComponent, {initialState});
 	    this.bsModalRef.content.closeBtnName = 'Close';
