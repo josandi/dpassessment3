@@ -9,8 +9,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 export class EmployeesAddEditComponent implements OnInit {
 
-  title: string;
-  closeBtnName: string;
+  title; 
+  btnName;
   employeeData;
   positionList;
 
