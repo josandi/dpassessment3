@@ -61,6 +61,21 @@ export class EmployeesComponent implements OnInit {
 
 	// modal display
 
+	showEmployee(employee) {
+		this.isShowOnly = false;
+	    this.employee = employee;
+
+	    const initialState = {
+	      employeeData: this.employee,
+		  positionList: this.empPositions,
+		  selectedPosition: 1,
+	      title: 'Modal with component',
+	      btnName: employee ? 'Update' : 'Save'
+	    };
+	    this.bsModalRef = this.modalService.show(EmployeesAddEditComponent, {initialState});
+	    this.bsModalRef.content.closeBtnName = 'Close';
+	}
+
 	showEdit(employee) {
 	    this.isShowOnly = false;
 	    this.employee = employee;

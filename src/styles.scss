@@ -1,5 +1,111 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* O V E R R I D E S */
+
+body {
+    background: #F1F3FA;
+}
+
+/* modal */
+
 .modal, .modal-backdrop {
     z-index: unset !important;
+}
+
+/* bootstrap */
+
+form .btn {
+    font-weight: bold;
+}
+
+/* C O N T E N T S */
+
+.dpa-page {
+    padding-left: 300px;
+    color: #686666;
+}
+
+.user-auth-page .dpa-page {
+    padding: 0 100px;
+}
+
+.content-title {
+    font-size: 22px;
+    font-weight: 600;
+    padding: 20px 0;
+}
+
+/* F O R M S */
+
+.dpabtn-yellow {
+    background-color: #ffbb41;
+    border: 1px solid #f1b03d;
+    color: black;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.3);
+}
+
+.dpa-label {
+    font-weight: 500;
+}
+
+.btn-cotainer {
+    margin-top: 20px;
+}
+
+.dpa-form .btn {
+    line-height: 32px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.dpa-form .btn-section {
+    margin: 40px 0;
+}
+
+/* T A B L E */
+
+thead.dpa-table-header>tr>th {
+    padding: 15px 10px;
+}
+
+.dpa-table tbody tr:hover td {
+    border-top: 1px solid #ffbb41;
+    border-bottom: 1px solid #ffbb41;
+    cursor: pointer;
+}
+
+.dpa-table td.btn-tools{
+    width: 1%;
+    white-space: nowrap;
+}
+
+.dpa-table td.btn-tools button{
+    margin: 0 2px;
+}
+
+/* M O D A L */
+
+.dpa-modal {
+    padding: 30px 50px 10px 50px!important;
+}
+
+.dpa-modal-form {
+    margin: 20px 0;
+}
+
+.dpa-modal-form .row div{
+    margin-bottom: 10px;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+/* R E S P O N S I V E */
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 600px !important;
+    }
 }

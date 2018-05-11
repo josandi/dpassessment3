@@ -6,14 +6,18 @@ import { AppComponent } from './app.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
+import { LoginComponent } from './login/login.component';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     HttpClientModule,
     ModalModule.forRoot(),
     FormsModule,

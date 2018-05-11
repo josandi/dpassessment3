@@ -6,6 +6,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { EmployeesAddEditComponent } from './employees-add-edit/employees-add-edit.component';
 import { AssessmentsAddEditComponent } from './assessments-add-edit/assessments-add-edit.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
 	{ path: 'assessments', component: AssessmentsComponent },
 	{ path: 'employees', component: EmployeesComponent },
 	{ path: 'user-settings', component: UserSettingsComponent },
+	{ path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

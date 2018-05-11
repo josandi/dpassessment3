@@ -1,0 +1,54 @@
+<nav class="navbar navbar-inverse login-topnav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><img src="../../assets/img/dp-logo.png"></a>
+        </div>
+    </div>
+</nav>
+<section class="dpa-page">
+    <div class="content-title">Dev Partners Employees Portal</div>
+    <hr>
+    
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="mainbox col-md-6">
+            <div class="panel panel-info container-3d" >
+                <div class="panel-header">
+                    <label class="dpa-label">Login to Employee Portal</label>
+                </div>
+
+                <div class="panel-body">
+                    <form #loginForm="ngForm" (ngSubmit)="login()"
+                        class="dpa-form form-horizontal" role="form">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger" *ngIf="errorMsg">
+                                {{ errorMsg }}
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="email" class="dpa-label">Email</label>
+                            <input type="text" class="form-control" 
+                                name="email" [(ngModel)]="model.email" required>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="password" class="dpa-label">Password</label>
+                            <input type="password" class="form-control" 
+                                name="password" [(ngModel)]="model.password" required>
+                        </div>
+                        <div class="row form-group btn-section">
+                            <div class="col-md-6 pull-left">
+                                <button class="btn btn-ep">Cancel</button>
+                            </div>
+                            <div class="col-md-6 pull-right">
+                                <button type="submit" [disabled]="!loginForm.valid"
+                                    class="btn dpabtn-yellow" >
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

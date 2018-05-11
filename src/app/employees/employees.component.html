@@ -1,4 +1,4 @@
-<section id="page-employees">
+<section class="page-employees">
     <div class="content-title">Employees
         <button class="btn dpabtn-yellow" (click)="showEdit('')">
             <i class="fa fa-plus"></i>
@@ -14,16 +14,16 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr *ngFor="let employee of pageEmployees.data">
-                    <td (click)="showEmployee(employee)">{{ employee.firstname }}</td>
+                <tr *ngFor="let employee of pageEmployees.data" (click)="showEmployee(employee)">
+                    <td>{{ employee.firstname }}</td>
                     <td>{{ employee.email_address }}</td>
                     <td>{{ employee.contact_number }}</td>
                     <td>{{ employee.position }}</td>
                     <td class="btn-tools">
-                        <button class="btn btn-success btn-xs row-btn" (click)="showEdit(employee)">
+                        <button class="btn btn-success btn-sm row-btn" (click)="showEdit(employee)">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button class="btn btn-danger btn-xs row-btn" (click)="deleteEmployee(employee)">
+                        <button class="btn btn-danger btn-sm row-btn" (click)="deleteEmployee(employee)">
                             <i class="fa fa-times"></i>
                         </button>
                     </td>
