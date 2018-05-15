@@ -1,34 +1,43 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { query } from '@angular/animations';
-import { EmployeeData } from '../_models/employee';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { map } from 'rxjs/operators';
+import { EmployeeData, EmployeeAssessment } from '../_models/employee';
+import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EmployeesService {
 
-    private _url: string = "/assets/test-data";
+    private baseUrl: string = 'http://13.75.89.123:881/api/';
 
-     constructor(private http: HttpClient) { }
+    constructor(private http: Http) { }
 
-     getAllEmployees() {
-        return this.http.get<Array<EmployeeData>>(this._url + '/employees.json'/*, {
-          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-        }*/);
+    // main functions
+
+    getAllEmployees() {
+        return this.http.get(this.baseUrl + 'Employees', this.requestOptions())
+            .pipe(map((response: Response) => {
+                return response.json();
+            })
+        );
     }
 
     getEmployeeAssessments(empId) {
-        return this.http.get<Array<EmployeeData>>(this._url + '/user-assessment-list.json'/*, {
-          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-        }*/);
+        return this.http.get('/assets/test-data/user-assessment-list.json')
+            .pipe(map((response: Response) => {
+                return response.json();
+            })
+        );
     }
 
     // utilities
-    getPositionList() {
-        return this.http.get<Array<EmployeeData>>(this._url + '/employee-position.json'/*, {
-          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-        }*/);
-    }
 
+    private requestOptions() {
+        const headers = new Headers({
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return new RequestOptions({headers: headers});
+    }
 }

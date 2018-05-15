@@ -1,0 +1,41 @@
+<div class="dpa-modal container-fluid">
+  <form name="formUserProfile" id="formUserProfile" class="dpa-modal-form" role="form">
+      <div class="row">
+          <div class="col-md-4 user-photo">
+              <img class="profile-img" src="assets/img/temp/user-icon.png">
+          </div>
+          <div class="col-md-8 user-details">
+              <div class="row">
+                <h5 class="col-md-12">{{ employeeData.fullName | uppercase }}</h5>
+                <h6 class="col-md-12">{{ employeeData.position }}</h6>
+                <p class="col-md-12">{{ employeeData.email }}</p>
+                <p class="col-md-12">{{ employeeData.contactNumber }}</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <div class="row table-responsive style-1 pre-scrollable">
+          <table class="dpa-table table table-striped">
+              <thead class="dpa-table-header">
+                  <th>Name</th>
+                  <th>Status</th>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let assessment of empAssessments.data">
+                      <td>{{ assessment.assessment_name }}</td>
+                      <td>
+                          <span class="dot status-{{assessment.status | lowercase}}"></span>
+                          {{ assessment.status }}
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <div class="row modal-footer">
+        <button type="button" class="btn btn-default col-md-4" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+      </div>
+  </form>
+</div>
