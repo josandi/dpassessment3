@@ -33,10 +33,6 @@ export class EmployeesComponent implements OnInit {
 				error => this.errorMsg = error);
 	}
 
-	deleteEmployee(employee) {
-	    console.log("deleteEmployee clicked!");
-	}
-
 	// modal display
 
 	showEmployee(employee) {
@@ -48,18 +44,5 @@ export class EmployeesComponent implements OnInit {
 	    this.bsModalRef = this.modalService.show(EmployeeShowComponent, {initialState});
 	    this.bsModalRef.content.closeBtnName = 'Close';
 	}
-
-	showEdit(employee) {
-	    this.employee = employee;
-
-	    const initialState = {
-	      employeeData: this.employee,
-		  selectedPosition: 1,
-	      title: 'Modal with component',
-	      btnName: employee ? 'Update' : 'Save'
-	    };
-	    this.bsModalRef = this.modalService.show(EmployeesAddEditComponent, {initialState});
-	    this.bsModalRef.content.closeBtnName = 'Close';
-	}
-
+	
 }

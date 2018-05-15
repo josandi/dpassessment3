@@ -17,8 +17,7 @@
                   <th></th>
               </thead>
               <tbody>
-                  <tr *ngFor="let assessment of assessments.data"
-                      (click)="showAssessment(assessment)">
+                  <tr *ngFor="let assessment of assessments.data">
                       <td>{{ assessment.assessment_name }}</td>
                       <td>{{ assessment.description }}</td>
                       <td>{{ assessment.date_created | date}}</td>
@@ -30,7 +29,7 @@
                           <button (click)="showEdit(assessment)" class="btn btn-success btn-xs row-btn">
                               <i class="fa fa-pencil"></i>
                           </button>
-                          <button (click)="deleteAssessment(assessment)" class="btn btn-danger btn-xs row-btn">
+                          <button class="btn btn-danger btn-xs row-btn">
                               <i class="fa fa-times"></i>
                           </button>
                       </td>

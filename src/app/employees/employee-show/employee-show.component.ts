@@ -25,7 +25,7 @@ export class EmployeeShowComponent implements OnInit {
 	    	.subscribe(data =>
 	    		this.empAssessments = data, 
 				error => this.errorMsg = error)
-	}
-
+  }
+  
 }
 

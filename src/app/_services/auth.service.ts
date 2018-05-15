@@ -22,6 +22,7 @@ export class AuthService {
                     .pipe(map((response: Response) => {
                       const user = response.json();
                       if(user) {
+                        console.log(user.jwt);
                         localStorage.setItem('token', user.jwt);
                         this.userToken = user.jwt;
                       }
@@ -36,8 +37,11 @@ export class AuthService {
   // utilities
 
   requestOptions() {
-    const headers = new Headers({ 'Content-type': 'application/json' });
-    return new RequestOptions({ headers: headers });
+    const headers = new Headers({
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+    });
+    return new RequestOptions({headers: headers});
   }
 
   authorizedHeader() {

@@ -1,0 +1,37 @@
+<section class="page-employees">
+    <div class="content-title">Questionnaire
+        <button class="btn dpabtn-yellow" (click)="addQuestionnaire()">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    <div class="table-responsive style-1">
+        <table class="dpa-table table table-striped">
+            <thead class="dpa-table-header">
+                <th>Description</th>
+                <th>Instructions</th>
+                <th>Created by</th>
+                <th>Date Created</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let questionnaire of questionnaires" (click)="showQuestionnaire(questionnaire)">
+                    <td>{{ questionnaire.questionaireDescription }}</td>
+                    <td>
+                        {{ questionnaire.questionaireInstructions | slice:0:50 }}
+                        <span *ngIf="questionnaire.questionaireInstructions.length > 50">...</span>
+                    </td>
+                    <td>{{ questionnaire.createdBy }}</td>
+                    <td>{{ questionnaire.modifiedDateTime | date: "MM-dd-yyyy" }}</td>
+                    <td class="btn-tools" (click)="$event.stopPropagation()">
+                        <button class="btn btn-success btn-sm row-btn" (click)="editQuestionnaire(questionnaire)">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm row-btn" (click)="deleteQuestionnaire(questionnaire)">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

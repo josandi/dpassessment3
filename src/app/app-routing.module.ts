@@ -7,6 +7,8 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { EmployeeShowComponent } from './employees/employee-show/employee-show.component';
 import { EmployeesAddEditComponent } from './employees-add-edit/employees-add-edit.component';
 import { AssessmentsAddEditComponent } from './assessments-add-edit/assessments-add-edit.component';
+import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
+import { QuestionnaireShowComponent } from './questionnaires/questionnaire-show/questionnaire-show.component';
 import { LoginComponent } from './login/login.component';
 
 
@@ -15,6 +17,7 @@ const routes: Routes = [
 	{ path: 'dashboard', component: DashboardComponent },
 	{ path: 'assessments', component: AssessmentsComponent },
 	{ path: 'employees', component: EmployeesComponent },
+	{ path: 'questionnaires', component: QuestionnairesComponent },
 	{ path: 'user-settings', component: UserSettingsComponent },
 	{ path: 'login', component: LoginComponent },
 ];
@@ -24,7 +27,8 @@ const routes: Routes = [
   exports: [RouterModule],
   entryComponents : [EmployeeShowComponent,
                     EmployeesAddEditComponent,
-                    AssessmentsAddEditComponent]
+                    AssessmentsAddEditComponent,
+                    QuestionnaireShowComponent]
 })
 export class AppRoutingModule { }
 export const routingComponents = [DashboardComponent,
@@ -33,4 +37,6 @@ export const routingComponents = [DashboardComponent,
                                   UserSettingsComponent,
                                   EmployeeShowComponent,
                                   EmployeesAddEditComponent,
-                                  AssessmentsAddEditComponent];
+                                  AssessmentsAddEditComponent,
+                                  QuestionnairesComponent,
+                                  QuestionnaireShowComponent];
