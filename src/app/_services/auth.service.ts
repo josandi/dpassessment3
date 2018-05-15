@@ -1,6 +1,7 @@
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
   baseUrl = 'http://13.75.89.123:881/api/account/';
-  userToken: any;
+  userToken;
   isLoggedIn: boolean = false;
 
   constructor(private http: Http) { }
@@ -32,5 +33,14 @@ export class AuthService {
     return !!token;
   }
 
-  
+  // utilities
+
+  requestOptions() {
+    const headers = new Headers({ 'Content-type': 'application/json' });
+    return new RequestOptions({ headers: headers });
+  }
+
+  authorizedHeader() {
+    return new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  }
 }
