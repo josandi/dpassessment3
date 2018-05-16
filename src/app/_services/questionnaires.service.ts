@@ -23,4 +23,30 @@ export class QuestionnairesService {
     );
   }
 
+  // utilities
+
+  getQuestionCategories() {
+    return this.http.get(this.baseUrl + 'QuestionCategories', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json();
+      })
+    );
+  }
+
+  getQuestionOptGroups() {
+    return this.http.get(this.baseUrl + 'OptionGroups', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json();
+      })
+    );
+  }
+
+  getOptionsList() {
+    return this.http.get('/assets/test-data/options-list.json', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json().data;
+      })
+    );
+  }
+
 }

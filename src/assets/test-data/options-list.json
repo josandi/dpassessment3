@@ -1,0 +1,46 @@
+{
+    "data": [
+        {
+            "option_id": 1,
+            "optionGroupId": 1,
+            "option_value": 1,
+            "option_text": "Never"
+        },
+        {
+            "option_id": 2,
+            "optionGroupId": 1,
+            "option_value": 2,
+            "option_text": "Rarely"
+        },
+        {
+            "option_id": 3,
+            "optionGroupId": 1,
+            "option_value": 3,
+            "option_text": "Sometimes"
+        },
+        {
+            "option_id": 4,
+            "optionGroupId": 1,
+            "option_value": 4,
+            "option_text": "Most of the time"
+        },
+        {
+            "option_id": 5,
+            "optionGroupId": 1,
+            "option_value": 5,
+            "option_text": "Always"
+        },
+        {
+            "option_id": 6,
+            "optionGroupId": 3,
+            "option_value": 1,
+            "option_text": "Test 1"
+        },
+        {
+            "option_id": 7,
+            "optionGroupId": 3,
+            "option_value": 1,
+            "option_text": "Test 2"
+        }
+    ]
+}

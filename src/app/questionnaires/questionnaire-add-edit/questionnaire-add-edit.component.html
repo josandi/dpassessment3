@@ -1,0 +1,74 @@
+<div class="dpa-modal container-fluid">
+    <form name="formAssessment" id="formAssessment" class="dpa-modal-form" role="form">
+      <div class="row">
+          <div class="col-md-12">
+            <label for="description" class="dpa-label"> Questionnaire Description </label>
+            <input type="text" name="description" [(ngModel)]="questionnaire.description"
+              class="form-control" required />
+          </div>
+        <div class="col-md-12">
+          <label for="description" class="dpa-label"> Instructions </label>
+          <textarea type="text" name="description" [(ngModel)]="questionnaire.instructions"
+            class="form-control" required ></textarea>
+        </div>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="description" class="dpa-label" ng-hide="vm.isQuestionFldsValid">
+            New Question
+            <span class="dpa-field-error" *ngIf="!questionFldsValid">
+                *All fields are required.
+            </span>
+          </label>
+          <textarea type="text" name="description" id="newquestion" 
+            [(ngModel)]="question.description" class="form-control" required ></textarea>
+        </div>
+        <div class="col-md-6">
+          <select class="form-control" [(ngModel)]="question.selectedCategory" name="questionCategory">
+            <option *ngFor="let qstCategory of questionCategories" [ngValue]="qstCategory">
+              {{ qstCategory.questionCategoryDesc }}
+            </option>
+          </select>  
+        </div>
+        <div class="col-md-6">
+          <select class="form-control" [(ngModel)]="question.selectedOptGroup" name="questionOptGroup">
+            <option *ngFor="let optGroup of questionOptGroups" [ngValue]="optGroup">
+              {{ optGroup.optionGroupDesc }}
+            </option>
+          </select>  
+        </div>
+        <div class="col-md-12 pull-right">
+          <button class="btn dpabtn-yellow col-md-4 pull-right" (click)="addQuestion()">
+            Add Question
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <div class="row pre-scrollable qst-questions">
+        <fieldset  ng-disabled="true">
+          <div *ngFor="let category of categories" class="qst-category">
+              <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
+              <ol>
+                <li *ngFor="let question of questionnaire.questions 
+                  | questionCategoryFilter:category.questionCategoryId">
+                  <div class="qst-question col-md-12">
+                    {{ question.question }}
+                  </div>
+                  <div class="qst-options" ng-if="question.options">
+                    <label *ngFor="let option of optionsList | optionGroupFilter: question.optionGroupId">
+                      <input type="radio" [value]="option.option_text" required />
+                        {{option.option_text}}
+                    </label>
+                  </div>
+                </li>
+              </ol>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionnairesService } from '../_services/questionnaires.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { QuestionnaireShowComponent } from './questionnaire-show/questionnaire-show.component';
+import { QuestionnaireAddEditComponent } from './questionnaire-add-edit/questionnaire-add-edit.component';
 
 @Component({
   selector: 'app-questionnaires',
@@ -47,7 +47,8 @@ export class QuestionnairesComponent implements OnInit {
 	// modal display
 
 	addQuestionnaire() {
-    this.bsModalRef = this.modalService.show(QuestionnaireShowComponent);
+    this.bsModalRef = this.modalService.show(QuestionnaireAddEditComponent, 
+      {class: 'modal-lg'});
     this.bsModalRef.content.closeBtnName = 'Close';
 	}
 

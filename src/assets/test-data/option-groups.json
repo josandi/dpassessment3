@@ -1,0 +1,40 @@
+{
+    "data": [
+        {
+            "optiongroup_id": 1,
+            "description": "Frequency",
+            "options": [
+                {
+                    "option_id": 1,
+                    "option_value": 1,
+                    "option_text": "Never"
+                },
+                {
+                    "option_id": 2,
+                    "option_value": 2,
+                    "option_text": "Rarely"
+                },
+                {
+                    "option_id": 3,
+                    "option_value": 3,
+                    "option_text": "Sometimes"
+                },
+                {
+                    "option_id": 4,
+                    "option_value": 4,
+                    "option_text": "Most of the time"
+                },
+                {
+                    "option_id": 5,
+                    "option_value": 5,
+                    "option_text": "Always"
+                }
+            ]
+        },
+        {
+            "optiongroup_id": 2,
+            "description": "Open Question",
+            "options": null
+        }
+    ]
+}
