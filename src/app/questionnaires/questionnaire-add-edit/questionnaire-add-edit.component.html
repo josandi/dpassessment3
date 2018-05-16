@@ -61,7 +61,8 @@
                   </div>
                   <div class="qst-options" ng-if="question.options">
                     <label *ngFor="let option of optionsList | optionGroupFilter: question.optionGroupId">
-                      <input type="radio" [value]="option.option_text" required />
+                      <input type="radio" name="qstopt-{{question.question_id}}" required
+                        [(ngModel)]="question.answer" [value]="option.option_text"/>
                         {{option.option_text}}
                     </label>
                   </div>

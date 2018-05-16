@@ -39,6 +39,7 @@ export class QuestionnaireAddEditComponent implements OnInit {
         this.categories.push(category);
       
       this.questionnaire.questions.push({
+        'question_id': this.questionnaire.questions.length + 1,
         'question': question,
         'questionCategoryId': category.questionCategoryId,
         'optionGroupId': optgroup.optionGroupId
