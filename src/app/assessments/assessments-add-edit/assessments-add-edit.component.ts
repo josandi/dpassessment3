@@ -8,18 +8,30 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
   styleUrls: ['./assessments-add-edit.component.scss']
 })
 export class AssessmentsAddEditComponent implements OnInit {
-
-  assessmentData;
-  questionnairesData;
-  title;
-  closeBtnName;
+  assessmentData: any;
+  questionnaires: any;
+  minDeadline: Date;
   
   constructor(public bsModalRef: BsModalRef) { }
 
-  showQuestionnaire(value) {
+  ngOnInit() {
+    if(!this.assessmentData){
+      this.assessmentData = {};
+    }
+
+    this.minDeadline = new Date();
   }
 
-  ngOnInit() {
+  saveAssessment() {
+    console.log("Save clicked");
+    console.log(this.assessmentData);
+    this.bsModalRef.hide();
+  }
+
+  // modal display
+
+  showQuestionnaire(questionnaireId) {
+    console.log("Show questionnaire " + questionnaireId);
   }
 
 }

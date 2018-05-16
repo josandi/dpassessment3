@@ -26,6 +26,11 @@ export class AssessmentsComponent implements OnInit {
     this.getQuestionnairesList();   
   }
 
+  deleteAssessment(assessment) {
+    console.log("Delete clicked");
+    console.log(assessment);
+  }
+
   // get from api
 
   getAllAsessments() {
@@ -54,10 +59,10 @@ export class AssessmentsComponent implements OnInit {
     );
   }
 
-  showEdit(assessment) {
+  showAddEdit(assessment) {
     const initialState = {
-      assessmentData: assessment ,
-      questionnairesData: this.questionnaires
+      assessmentData: assessment,
+      questionnaires: this.questionnaires
     };
 
     this.bsModalRef = this.modalService.show(

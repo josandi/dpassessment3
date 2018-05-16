@@ -1,52 +1,65 @@
 <div class="dpa-modal container-fluid">
-  <form name="formAssessment" id="formAssessment" class="dpa-modal-form" role="form">
-      <div class="row">
-          <div class="col-md-12">
-              <label for="assessmentname" class="dpa-label">Assessment Name</label>
-              <input type="text" name="assessmentname" [(ngModel)]="assessmentData.assessment_name" 
-                  class="form-control" required>
-          </div>
-          <div class="col-md-12">
-              <label for="description" class="dpa-label">Description</label>
-              <textarea type="text" name="description" [(ngModel)]="assessmentData.description" 
-                  class="form-control" required></textarea>
-          </div>
-          <div class="col-md-8">
-              <label for="deadline" class="dpa-label">Deadline</label>
-              <p class="input-group">
-                  <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-              </p>
-          </div>
-      </div>
+    <form #assessmentForm="ngForm" (ngSubmit)="saveAssessment()" 
+        class="dpa-modal-form" role="form">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="assessmentname" class="dpa-label">Assessment Name</label>
+                <input type="text" name="assessmentname" [(ngModel)]="assessmentData.assessment_name" 
+                    class="form-control" required>
+            </div>
+            <div class="col-md-12">
+                <label for="description" class="dpa-label">Description</label>
+                <textarea type="text" name="description" [(ngModel)]="assessmentData.description" 
+                    class="form-control" required></textarea>
+            </div>
+            <div class="col-md-8">
+                <label for="deadline" class="dpa-label">Deadline</label>
+                <p class="input-group">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="picker" name="deadline" placeholder="Choose a date"
+                            [min]="minDeadline" [(ngModel)]="assessmentData.deadline" required />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </p>
+            </div>
+        </div>
 
-      <div class="modal-divider"></div>
+        <div class="modal-divider"></div>
 
-      <div class="row table-responsive pre-scrollable">
-          <div>
-              Select from list of questionnaires below:
-          </div>
-          
-          <table class="dpa-table table table-striped">
-              <thead class="dpa-table-header">
-                  <th></th>
-                  <th>Description</th>
-                  <th># of Questions</th>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let questionnaire of questionnairesData.data" 
-                    (click)="showQuestionnaire(questionnaire)">
-                      <td>
-                        <input type="radio" [(ngModel)]="assessmentData.questionnaire_id" name="assesmentID" required />
-                      </td>
-                      <td>{{ questionnaire.description }}</td>
-                      <td>{{ questionnaire.questions_count }}</td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
-  </form>
+        <div class="row table-responsive pre-scrollable">
+            <div>
+                Select from list of questionnaires below:
+            </div>
+
+            <table class="dpa-table table table-striped">
+                <thead class="dpa-table-header">
+                    <th></th>
+                    <th>Description</th>
+                    <th># of Questions</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let questionnaire of questionnaires" 
+                        (click)="showQuestionnaire(questionnaire.questionnaire_id)">
+                        <td (click)="$event.stopPropagation()">
+                            <input type="radio" name="questionnaireID" 
+                                [(ngModel)]="assessmentData.questionnaire_id" [value]="questionnaire.questionnaire_id"
+                                required />
+                        </td>
+                        <td>{{ questionnaire.description }}</td>
+                        <td>{{ questionnaire.questions_count }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row modal-footer">          
+            <button type="button" class="btn btn-default col-md-4" (click)="bsModalRef.hide()">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-warning col-md-4" [disabled]="!assessmentForm.valid">
+                Save 
+            </button>  
+        </div>
+    </form>
 </div>
