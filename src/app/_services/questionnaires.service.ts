@@ -41,6 +41,14 @@ export class QuestionnairesService {
     );
   }
 
+  getGroupedOptions() {
+    return this.http.get('/assets/test-data/option-groups.json', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json().data;
+      })
+    );
+  }
+
   getOptionsList() {
     return this.http.get('/assets/test-data/options-list.json', this.authService.requestOptions())
       .pipe(map((response: Response) => {

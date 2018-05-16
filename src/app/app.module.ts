@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { QuestionCategoryFilterPipe } from './_pipes/question-category-filter.pipe';
 import { QuestionnaireAddEditComponent } from './questionnaires/questionnaire-add-edit/questionnaire-add-edit.component';
 import { OptionGroupFilterPipe } from './_pipes/option-group-filter.pipe';
+import { GroupedOptionFilterPipe } from './_pipes/grouped-option-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { OptionGroupFilterPipe } from './_pipes/option-group-filter.pipe';
     routingComponents,
     LoginComponent,
     QuestionCategoryFilterPipe,
-    OptionGroupFilterPipe
+    OptionGroupFilterPipe,
+    GroupedOptionFilterPipe
   ],
   imports: [
     BrowserModule,

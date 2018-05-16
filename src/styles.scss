@@ -7,6 +7,14 @@ body {
     background: #F1F3FA;
 }
 
+textarea {
+    resize: none !important;
+}
+
+fieldset {
+    width: 100%;
+}
+
 /* modal */
 
 .modal, .modal-backdrop {
@@ -92,14 +100,33 @@ form .btn {
 
 /* questionnaire */
 
-.qst-questions ol {
-    padding-left: 15px;
+.qst-questions {
+    ol {
+        padding-left: 15px;
+    }
+
+    li {
+        margin-bottom: 20px;
+    }
 }
 
 .qst-options label {
     display: block;
     margin-left: 20px;
     margin-bottom: 0;
+}
+
+.qst-question i{
+    color: #337ab7;
+
+    &:hover {
+        color: black;
+    }
+}
+
+.qst-category .dpa-label {
+    text-align: center;
+    text-transform: uppercase;
 }
 
 /* F O R M S */

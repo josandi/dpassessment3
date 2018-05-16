@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionnairesService } from '../../_services/questionnaires.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-questionnaire-add-edit',
@@ -14,18 +15,30 @@ export class QuestionnaireAddEditComponent implements OnInit {
   questionOptGroups: any;
   categories: any = [];
   optionsList: any;
+  groupedOptions: any;
   questionFldsValid: boolean = true;
 
-  constructor( private _questionnaireService: QuestionnairesService ) { }
+  constructor(public bsModalRef: BsModalRef,
+              private _questionnaireService: QuestionnairesService ) { }
 
   ngOnInit() {
     this.questionnaire.questions = [];
     this.getQuestionCategories();
     this.getQuestionOptGroups();
+    this.getGroupedOptions();
     this.getOptionsList();
   }
 
-  // main functions 
+  // main functions
+
+  addQuestionnaire() {
+    if(this.questionnaire.questions.length < 1) {
+      console.log("At least one question should be added!")
+    }else{
+      console.log(this.questionnaire);
+      this.bsModalRef.hide();
+    }
+  }
 
   addQuestion() {
     let question = this.question.description;
@@ -44,6 +57,18 @@ export class QuestionnaireAddEditComponent implements OnInit {
         'questionCategoryId': category.questionCategoryId,
         'optionGroupId': optgroup.optionGroupId
       });
+
+      this.question.description = null;
+    }
+  }
+
+  removeQuestion(question) {
+    var qst_idx = this.questionnaire.questions.indexOf(question);
+    this.questionnaire.questions.splice(qst_idx, 1);
+
+    if(!this.findCatInQuestionsArr(question.questionCategoryId)) {
+      var cat_idx = this.categories.indexOf(this.findCategoryInArr(question.questionCategoryId));
+      this.categories.splice(cat_idx, 1);
     }
   }
 
@@ -65,18 +90,29 @@ export class QuestionnaireAddEditComponent implements OnInit {
         () => this.question.selectedOptGroup = this.questionOptGroups[0] );
   }
 
+  getGroupedOptions() {
+    this._questionnaireService.getGroupedOptions()
+      .subscribe(data =>
+        this.groupedOptions= data, 
+        error => this.errorMsg = error,
+        () => console.log(this.groupedOptions) );
+  }
+
   getOptionsList() {
     this._questionnaireService.getOptionsList()
       .subscribe(data =>
         this.optionsList= data, 
-        error => this.errorMsg = error,
-        () => console.log(this.optionsList) );
+        error => this.errorMsg = error);
   }
 
   // utilities
 
   findCategoryInArr(catId) {
     return this.categories.find(x => x.questionCategoryId == catId);
+  }
+
+  findCatInQuestionsArr(catId) {
+    return this.questionnaire.questions.find(x => x.questionCategoryId == catId);
   }
 
 }
