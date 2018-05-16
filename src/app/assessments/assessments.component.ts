@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { AssessmentsService } from '../_services/assessments.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AssessmentsAddEditComponent } from '../assessments-add-edit/assessments-add-edit.component';
+import { AssessmentShowComponent } from './assessment-show/assessment-show.component';
+import { AssessmentsAddEditComponent } from './assessments-add-edit/assessments-add-edit.component';
 
 @Component({
   selector: 'app-assessments',
@@ -20,6 +21,13 @@ export class AssessmentsComponent implements OnInit {
   constructor( private _assessmentsService: AssessmentsService,
                 private modalService: BsModalService ) { }
 
+  ngOnInit() {
+    this.getAllAsessments();
+    this.getQuestionnairesList();   
+  }
+
+  // get from api
+
   getAllAsessments() {
     this._assessmentsService.getAllAssessments()
       		.subscribe(data =>
@@ -34,39 +42,27 @@ export class AssessmentsComponent implements OnInit {
             error => this.errorMsg = error);
   }
 
-  showEdit(assessment) {
-    this.singleAssessment = assessment;
-    const initialState = {
-        assessmentData: this.singleAssessment ,
-        questionnairesData: this.questionnaires,
-        title: 'Modal with component',
-        closeBtnName: 'Cancel'
-      };
-      this.bsModalRef = this.modalService.show(AssessmentsAddEditComponent, {initialState});
-      this.bsModalRef.content.closeBtnName = 'Close';
+  // modal display
 
-    /*$ngConfirm({
-        title: '',
-        scope: $scope,
-        contentUrl: 'admin/assessments/assessment-add.html',
-        type: 'orange',
-        closeIcon: true,
-        escapeKey: true,
-        backgroundDismiss: true,
-        buttons: {
-            btn: {
-                text: 'Save',
-                btnClass: 'btn-warning',
-                action: function(scope, button){
-                    console.log(vm.assessment);
-                }
-            }
-        }
-    });*/
+  showAssessment(assessment) {
+    const initialState = {
+      assessment: assessment
+    }    
+    this.bsModalRef = this.modalService.show(
+      AssessmentShowComponent, 
+      Object.assign({initialState}, { class: 'modal-md' })
+    );
   }
 
-  ngOnInit() {
-    this.getAllAsessments();
-    this.getQuestionnairesList();   
+  showEdit(assessment) {
+    const initialState = {
+      assessmentData: assessment ,
+      questionnairesData: this.questionnaires
+    };
+
+    this.bsModalRef = this.modalService.show(
+      AssessmentsAddEditComponent, 
+      Object.assign({initialState}, { class: 'modal-md' })
+    );
   }
 }

@@ -17,7 +17,7 @@
                   <th></th>
               </thead>
               <tbody>
-                  <tr *ngFor="let assessment of assessments.data">
+                  <tr *ngFor="let assessment of assessments" (click)="showAssessment(assessment)">
                       <td>{{ assessment.assessment_name }}</td>
                       <td>{{ assessment.description }}</td>
                       <td>{{ assessment.date_created | date}}</td>
@@ -26,26 +26,16 @@
                           {{ assessment.status }}
                       </td>
                       <td class="btn-tools" (click)="$event.stopPropagation()">
-                          <button (click)="showEdit(assessment)" class="btn btn-success btn-xs row-btn">
+                          <button (click)="showEdit(assessment)" class="btn btn-success btn-sm row-btn">
                               <i class="fa fa-pencil"></i>
                           </button>
-                          <button class="btn btn-danger btn-xs row-btn">
+                          <button class="btn btn-danger btn-sm row-btn">
                               <i class="fa fa-times"></i>
                           </button>
                       </td>
                   </tr>
               </tbody>
           </table>
-
-          <!-- <div class="page-pagination">
-              <ul uib-pagination total-items="vm.assessments.length" 
-                  ng-model="vm.pagination.currentPage" max-size="vm.pagination.maxSize"
-                  boundary-links="true" force-ellipses="true"
-                  previous-text="&lsaquo;" next-text="&rsaquo;" 
-                  first-text="&laquo;" last-text="&raquo;"
-                  class="pagination-md">
-              </ul>
-          </div> -->
       </div>
   </div>
 </section>

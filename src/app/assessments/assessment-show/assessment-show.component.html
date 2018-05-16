@@ -1,0 +1,63 @@
+<div class="dpa-modal assessment-modal container-fluid">
+  <div class="modal-title">{{ assessment.assessment_name }}</div>
+
+  <div class="modal-detail">
+    <table class="modal-table">
+      <tbody>
+        <tr>
+          <td>Description:</td>
+          <td>{{ assessment.description }}</td>
+        </tr>
+        <tr>
+          <td># of Questions:</td>
+          <td>{{ assessment.questions_count }}</td>
+        </tr>
+        <tr>
+          <td>Date Created:</td>
+          <td>{{ assessment.date_created }}</td>
+        </tr>
+        <tr>
+          <td>Deadline:</td>
+          <td>{{ assessment.deadline }}</td>
+        </tr>
+        <tr>
+          <td>Status:</td>
+          <td><span class="dot status-{{assessment.status | lowercase}}"></span>
+              {{ assessment.status }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-divider"></div>
+
+  <div class="row table-responsive pre-scrollable">
+    <div class="dpa-table-title">EMPLOYEE ASSESSMENT STATUS</div>
+
+    <table class="dpa-table table table-striped">
+      <thead class="dpa-table-header">
+        <th>Name</th>
+        <th>Status</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let employee of EmpAssessmentStatus" 
+          (click)="showEmployeeAssessment(employee)">
+          <td>{{ employee.fullname }}</td>
+          <td>
+            <span class="dot status-{{employee.status | lowercase}}"></span>
+            {{ employee.status }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row modal-footer">
+    <button type="button" class="btn btn-default col-md-4" 
+      (click)="bsModalRef.hide()">
+      Close
+    </button>
+  </div>
+</div>

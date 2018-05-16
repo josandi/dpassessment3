@@ -1,79 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { query } from '@angular/animations';
-import { AssessmentData } from '../_models/assessment';
-import { QuestionnaireListData } from '../_models/questionnaire';
+import { Http, Response } from '@angular/http';
+import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssessmentsService {
-  private _url: string = "/assets/test-data";
+  private baseUrl: string = "/assets/test-data/";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: Http,
+              private authService: AuthService) { }
+
+  // api get
 
   getAllAssessments() {
-    return this.http.get<Array<AssessmentData>>(this._url + '/user-assessment-list.json'/*, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-    }*/);
+    return this.http.get(this.baseUrl + 'user-assessment-list.json', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json().data;  
+      })
+    );
   }
 
-
-  // utilities
-
-  getEmpAssessmentStatus(assessmentId) {
-    return this.http.get<Array<AssessmentData>>(this._url + '/employee-assessment-stat.json'/*, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-    }*/);
+  getQuestionnairesList() {
+    return this.http.get(this.baseUrl + 'questionnaire-list.json', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json().data;  
+      })
+    );
   }
 
-  getEmpAssessmentQuestionnaire(empId, assessmentId) {
-    return this.http.get<Array<AssessmentData>>(this._url + '/assessment-questionnaire.json'/*, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-    }*/);
+  EmpAssessmentStatus() {
+    return this.http.get(this.baseUrl + 'employee-assessment-stat.json', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json().data;  
+      })
+    );
   }
 
-  getQuestionnairesList()  {
-    return this.http.get<Array<QuestionnaireListData>>(this._url + '/questionnaire-list.json'/*, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-    }*/);
-  }
-
-  getQuestionnaire(questionnaireId) {
-    return this.http.get<Array<AssessmentData>>(this._url + 'assessment-questionnaire.json'/*, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-    }*/);
-  }
-
-  getAllQuestionCategories() {
-    return this.http.get<Array<AssessmentData>>(this._url + 'categories-list.json'/*, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-    }*/);
-  }
-
-  getOptionGroups() {
-    return this.http.get<Array<AssessmentData>>(this._url + 'option-groups-list.json'/*, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)
-    }*/);
-  }
-
-  getQuestionnaireCategories(questions) {
-      var categories = [];
-
-      var unique = {};
-      for( var i in questions ){
-          var qst = questions[i];
-
-          if( typeof(unique[qst.category_id]) == "undefined" ){
-              categories
-                  .push({
-                      'category_id': qst.category_id,
-                      'category_name': qst.category_name
-                  });
-          }
-          unique[qst.category_id] = 0;
-      }
-      
-      return categories;
-  }
 }
