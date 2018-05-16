@@ -20,9 +20,6 @@ export class AssessmentsAddEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.questionnairesData);
   }
-
-  
 
 }
