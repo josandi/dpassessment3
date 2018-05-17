@@ -22,6 +22,12 @@ export class QuestionnaireAddEditComponent implements OnInit {
               private _questionnaireService: QuestionnairesService ) { }
 
   ngOnInit() {
+    if (Object.keys(this.questionnaire).length === 0) {           // for add
+      this.questionnaire.questions = [];
+    } else {                                                      // for edit
+      this.getQuestions(this.questionnaire.questionaireId);
+    }
+
     this.questionnaire.questions = [];
     this.getQuestionCategories();
     this.getQuestionOptGroups();
@@ -48,11 +54,11 @@ export class QuestionnaireAddEditComponent implements OnInit {
     this.questionFldsValid = (!question || !category || !optgroup) ? false : true;
 
     if(this.questionFldsValid) {
-      if (!this.findCategoryInArr(category.questionCategoryId))
+      if (!this._questionnaireService.findCategoryInArr(this.categories, category.questionCategoryId))
         this.categories.push(category);
       
       this.questionnaire.questions.push({
-        'question_id': this.questionnaire.questions.length + 1,
+        'questionId': this.questionnaire.questions.length + 1,
         'question': question,
         'questionCategoryId': category.questionCategoryId,
         'optionGroupId': optgroup.optionGroupId
@@ -63,16 +69,30 @@ export class QuestionnaireAddEditComponent implements OnInit {
   }
 
   removeQuestion(question) {
-    var qst_idx = this.questionnaire.questions.indexOf(question);
+    let categoryId = question.questionCategoryId;
+    let qst_idx = this.questionnaire.questions.indexOf(question);
+    
     this.questionnaire.questions.splice(qst_idx, 1);
 
-    if(!this.findCatInQuestionsArr(question.questionCategoryId)) {
-      var cat_idx = this.categories.indexOf(this.findCategoryInArr(question.questionCategoryId));
+    if(!this.findCatInQuestionsArr(categoryId)) {
+      let category = this._questionnaireService.findCategoryInArr(this.categories, categoryId);
+      let cat_idx = this.categories.indexOf(category);
       this.categories.splice(cat_idx, 1);
     }
   }
 
   // get from api
+
+  getQuestions(questionnaireId) {
+    this._questionnaireService.getQuestions(questionnaireId)
+      .subscribe(data =>
+        this.questionnaire.questions = data, 
+        error => this.errorMsg = error,
+        () => {
+          this.getCategoriesFromQuestionsArr(this.questionnaire.questions);
+        } 
+      );
+  }
 
   getQuestionCategories() {
     this._questionnaireService.getQuestionCategories()
@@ -94,8 +114,7 @@ export class QuestionnaireAddEditComponent implements OnInit {
     this._questionnaireService.getGroupedOptions()
       .subscribe(data =>
         this.groupedOptions= data, 
-        error => this.errorMsg = error,
-        () => console.log(this.groupedOptions) );
+        error => this.errorMsg = error);
   }
 
   getOptionsList() {
@@ -107,12 +126,12 @@ export class QuestionnaireAddEditComponent implements OnInit {
 
   // utilities
 
-  findCategoryInArr(catId) {
-    return this.categories.find(x => x.questionCategoryId == catId);
-  }
-
   findCatInQuestionsArr(catId) {
     return this.questionnaire.questions.find(x => x.questionCategoryId == catId);
+  }
+
+  getCategoriesFromQuestionsArr(questions) {
+    this.categories = this._questionnaireService.getCategoriesFromQuestionsArr(questions);
   }
 
 }

@@ -13,7 +13,7 @@ export class QuestionnairesService {
   constructor(private http: Http,
               private authService: AuthService) { }
 
-  // main functions
+  // api get
 
   getAllQuestionnaires() {
     return this.http.get(this.baseUrl + 'Questionaire', this.authService.requestOptions())
@@ -23,7 +23,21 @@ export class QuestionnairesService {
     );
   }
 
-  // utilities
+  getQuestionnaire(questionnaireId) {
+    return this.http.get('/assets/test-data/questionnaire.json', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json().data;
+      })
+    );
+  }
+
+  getQuestions(questionnaireId) {
+    return this.http.get('/assets/test-data/questions.json', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json().data;
+      })
+    );
+  }
 
   getQuestionCategories() {
     return this.http.get(this.baseUrl + 'QuestionCategories', this.authService.requestOptions())
@@ -55,6 +69,27 @@ export class QuestionnairesService {
         return response.json().data;
       })
     );
+  }
+
+  // utilities
+
+  findCategoryInArr(categories, categoryId) {
+    return categories.find(x => x.questionCategoryId == categoryId);
+  }
+
+  getCategoriesFromQuestionsArr(questions) {
+    let categories: any = [];
+
+    questions.forEach(question => {
+      if(!this.findCategoryInArr(categories, question.questionCategoryId)) {
+        categories.push({
+          'questionCategoryId': question.questionCategoryId,
+          'questionCategoryDesc': question.questionCategoryDesc
+        });
+      }
+    });
+
+    return categories;
   }
 
 }

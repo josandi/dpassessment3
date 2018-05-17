@@ -1,5 +1,46 @@
 <div class="dpa-modal assessment-modal qst-div container-fluid">
-  <div class="modal-title"></div>
+  <div class="modal-title">{{ questionnaire.questionaireDescription }}</div>
 
+  <div class="modal-divider"></div>
 
+  <form #questionnaireShowForm="ngForm" class="dpa-modal-form" role="form">
+    <div class="qst-instructions">
+      <div class="dpa-label">Instructions:</div>
+      <span>{{ questionnaire.questionaireInstructions }}</span>
+    </div>
+    <div class="row qst-questions">
+      <div *ngFor="let category of categories" class="qst-category">
+        <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
+        <ol>
+          <li *ngFor="let question of questionnaire.questions 
+            | questionCategoryFilter:category.questionCategoryId">
+            <div class="qst-question col-md-12">
+              {{ question.question }}
+            </div>
+            <div class="qst-answer" 
+              *ngFor="let optionGroup of groupedOptions | groupedOptionFilter: question.optionGroupId">
+              <div class="col-md-12 qst-options" *ngIf="optionGroup.options">
+                <label *ngFor="let option of optionGroup.options">
+                  <input type="radio" name="qstopt-{{question.questionId}}"
+                    [(ngModel)]="question.answer" [value]="option.option_text"/>
+                    {{option.option_text}}
+                </label>
+              </div>
+              <div class="col-md-12 qst-field" *ngIf="!optionGroup.options">
+                  <textarea ng-model="question.answer" class="form-control" 
+                    rows="3" id="answer">
+                  </textarea>
+                </div>
+            </div>                  
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="row modal-footer">          
+        <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
+            Close
+        </button>
+    </div>
+  </form>
 </div>

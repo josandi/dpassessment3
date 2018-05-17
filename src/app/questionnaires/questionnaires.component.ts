@@ -3,6 +3,7 @@ import { QuestionnairesService } from '../_services/questionnaires.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { QuestionnaireAddEditComponent } from './questionnaire-add-edit/questionnaire-add-edit.component';
+import { QuestionnaireShowComponent } from './questionnaire-show/questionnaire-show.component';
 
 @Component({
   selector: 'app-questionnaires',
@@ -29,16 +30,6 @@ export class QuestionnairesComponent implements OnInit {
         error => this.errorMsg = error);
   }
 
-  showQuestionnaire(questionnaire) {
-    console.log("Show Questionnaire");
-    console.log(questionnaire);
-  }
-
-  editQuestionnaire(questionnaire) {
-    console.log("Edit Questionnaire");
-    console.log(questionnaire);
-  }
-
   deleteQuestionnaire(questionnaire) {
     console.log("Delete Questionnaire");
     console.log(questionnaire);
@@ -46,10 +37,24 @@ export class QuestionnairesComponent implements OnInit {
 
 	// modal display
 
-	addQuestionnaire() {
-    this.bsModalRef = this.modalService.show(QuestionnaireAddEditComponent, 
-      {class: 'modal-lg'});
-    this.bsModalRef.content.closeBtnName = 'Close';
+	addEditQuestionnaire(questionnaire) {
+    const initialState = {
+      questionnaire: (questionnaire) ? questionnaire : {}
+    }    
+    this.bsModalRef = this.modalService.show(
+      QuestionnaireAddEditComponent, 
+      Object.assign({initialState}, { class: 'modal-lg' })
+    );
 	}
+
+  showQuestionnaire(questionnaire) {
+    const initialState = {
+      questionnaire: questionnaire
+    }    
+    this.bsModalRef = this.modalService.show(
+      QuestionnaireShowComponent, 
+      Object.assign({initialState}, { class: 'modal-lg' })
+    );
+  }
 
 }
