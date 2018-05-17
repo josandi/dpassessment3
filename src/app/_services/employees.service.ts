@@ -27,7 +27,7 @@ export class EmployeesService {
     getEmployeeAssessments(empId) {
         return this.http.get('/assets/test-data/user-assessment-list.json')
             .pipe(map((response: Response) => {
-                return response.json();
+                return response.json().data;
             })
         );
     }

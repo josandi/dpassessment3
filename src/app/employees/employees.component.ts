@@ -41,7 +41,10 @@ export class EmployeesComponent implements OnInit {
 	    const initialState = {
 		  employeeData: this.employee
 	    };
-	    this.bsModalRef = this.modalService.show(EmployeeShowComponent, {initialState});
+	    this.bsModalRef = this.modalService.show(
+			EmployeeShowComponent,
+			Object.assign({initialState}, { class: 'modal-md' })
+		);
 	    this.bsModalRef.content.closeBtnName = 'Close';
 	}
 	
