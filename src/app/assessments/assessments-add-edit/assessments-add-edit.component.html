@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let questionnaire of questionnaires" 
-                        (click)="showQuestionnaire(questionnaire.questionnaire_id)">
+                        (click)="showQuestionnaire(questionnaire)">
                         <td (click)="$event.stopPropagation()">
                             <input type="radio" name="questionnaireID" 
                                 [(ngModel)]="assessmentData.questionnaire_id" [value]="questionnaire.questionnaire_id"

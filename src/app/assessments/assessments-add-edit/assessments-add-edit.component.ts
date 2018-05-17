@@ -34,6 +34,8 @@ export class AssessmentsAddEditComponent implements OnInit {
   // modal display
 
   showQuestionnaire(questionnaire) {
+    this.assessmentData.questionnaire_id = questionnaire.questionnaire_id;
+
     const initialState = {
       questionnaire: questionnaire
     }    
