@@ -11,6 +11,8 @@ import { QuestionnaireShowComponent } from './questionnaire-show/questionnaire-s
   styleUrls: ['./questionnaires.component.scss']
 })
 export class QuestionnairesComponent implements OnInit {
+  questionnaireShowModal: BsModalRef;
+  questionnaireAddEditModal: BsModalRef;
   errorMsg;
   questionnaires: any;
   questionnaire: any = {};
@@ -41,7 +43,7 @@ export class QuestionnairesComponent implements OnInit {
     const initialState = {
       questionnaire: (questionnaire) ? questionnaire : {}
     }    
-    this.bsModalRef = this.modalService.show(
+    this.questionnaireAddEditModal = this.modalService.show(
       QuestionnaireAddEditComponent, 
       Object.assign({initialState}, { class: 'modal-lg' })
     );
@@ -51,7 +53,7 @@ export class QuestionnairesComponent implements OnInit {
     const initialState = {
       questionnaire: questionnaire
     }    
-    this.bsModalRef = this.modalService.show(
+    this.questionnaireShowModal = this.modalService.show(
       QuestionnaireShowComponent, 
       Object.assign({initialState}, { class: 'modal-lg' })
     );

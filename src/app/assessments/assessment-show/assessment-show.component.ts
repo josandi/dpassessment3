@@ -9,6 +9,7 @@ import { AssessmentEmployeeComponent } from '../assessment-employee/assessment-e
   styleUrls: ['./assessment-show.component.scss']
 })
 export class AssessmentShowComponent implements OnInit {
+  assessmentShowModal: BsModalRef;
   errorMsg;
   assessment: any;
   EmpAssessmentStatus: any;
@@ -35,7 +36,7 @@ export class AssessmentShowComponent implements OnInit {
       employee: employee,
       assessment: this.assessment
     }    
-    this.bsModalRef = this.modalService.show(
+    this.assessmentShowModal = this.modalService.show(
       AssessmentEmployeeComponent, 
       Object.assign({initialState}, { class: 'modal-lg' })
     );

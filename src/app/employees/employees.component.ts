@@ -12,7 +12,7 @@ import { EmployeeShowComponent } from './employee-show/employee-show.component';
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
-
+	employeeShowModal: BsModalRef;
 	errorMsg;
 	employees;
 	employee = {};
@@ -41,11 +41,10 @@ export class EmployeesComponent implements OnInit {
 	    const initialState = {
 		  employeeData: this.employee
 	    };
-	    this.bsModalRef = this.modalService.show(
+	    this.employeeShowModal = this.modalService.show(
 			EmployeeShowComponent,
 			Object.assign({initialState}, { class: 'modal-md' })
 		);
-	    this.bsModalRef.content.closeBtnName = 'Close';
 	}
 	
 }

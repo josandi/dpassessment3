@@ -9,6 +9,7 @@ import { QuestionnaireShowComponent } from '../../questionnaires/questionnaire-s
   styleUrls: ['./assessments-add-edit.component.scss']
 })
 export class AssessmentsAddEditComponent implements OnInit {
+  assessmentAddEditModal: BsModalRef;
   assessmentData: any;
   questionnaires: any;
   minDeadline: Date;
@@ -36,7 +37,7 @@ export class AssessmentsAddEditComponent implements OnInit {
     const initialState = {
       questionnaire: questionnaire
     }    
-    this.bsModalRef = this.modalService.show(
+    this.assessmentAddEditModal = this.modalService.show(
       QuestionnaireShowComponent, 
       Object.assign({initialState}, { class: 'modal-lg' })
     );

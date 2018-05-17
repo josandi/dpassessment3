@@ -10,8 +10,8 @@ import { AssessmentEmployeeComponent } from '../../assessments/assessment-employ
   styleUrls: ['./employee-show.component.scss']
 })
 export class EmployeeShowComponent implements OnInit {
+  employeeShowModal: BsModalRef;
 	errorMsg;
-  closeBtnName: string;
   employeeData: any;
   empAssessments: any;
 
@@ -35,7 +35,7 @@ export class EmployeeShowComponent implements OnInit {
       employee: this.employeeData,
 		  assessment: assessment
 	  };
-	  this.bsModalRef = this.modalService.show(
+	  this.employeeShowModal = this.modalService.show(
 			AssessmentEmployeeComponent,
 			Object.assign({initialState}, { class: 'modal-lg' })
 		);

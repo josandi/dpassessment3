@@ -12,6 +12,8 @@ import { AssessmentsAddEditComponent } from './assessments-add-edit/assessments-
 })
 export class AssessmentsComponent implements OnInit {
   private _url: string = "/assets/test-data";
+  assessmentShowModal: BsModalRef;
+  assessmentAddEditModal: BsModalRef;
   assessments;
   singleAssessment;
   questionnaires;
@@ -53,7 +55,7 @@ export class AssessmentsComponent implements OnInit {
     const initialState = {
       assessment: assessment
     }    
-    this.bsModalRef = this.modalService.show(
+    this.assessmentShowModal = this.modalService.show(
       AssessmentShowComponent, 
       Object.assign({initialState}, { class: 'modal-md' })
     );
@@ -65,7 +67,7 @@ export class AssessmentsComponent implements OnInit {
       questionnaires: this.questionnaires
     };
 
-    this.bsModalRef = this.modalService.show(
+    this.assessmentAddEditModal = this.modalService.show(
       AssessmentsAddEditComponent, 
       Object.assign({initialState}, { class: 'modal-md' })
     );
