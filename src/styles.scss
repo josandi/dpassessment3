@@ -100,9 +100,13 @@ form .btn {
 
 /* questionnaire */
 
+.qst-instructions {
+    margin-bottom: 30px;
+}
+
 .qst-questions {
     ol {
-        padding-left: 15px;
+        padding-left: 30px;
     }
 
     li {

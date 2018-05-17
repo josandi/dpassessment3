@@ -12,6 +12,7 @@ import { QuestionnairesComponent } from './questionnaires/questionnaires.compone
 import { QuestionnaireShowComponent } from './questionnaires/questionnaire-show/questionnaire-show.component';
 import { QuestionnaireAddEditComponent } from './questionnaires/questionnaire-add-edit/questionnaire-add-edit.component';
 import { AssessmentShowComponent } from './assessments/assessment-show/assessment-show.component';
+import { AssessmentEmployeeComponent } from './assessments/assessment-employee/assessment-employee.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
                     EmployeesAddEditComponent,
                     AssessmentShowComponent,
                     AssessmentsAddEditComponent,
+                    AssessmentEmployeeComponent,
                     QuestionnaireShowComponent,
                     QuestionnaireAddEditComponent]
 })
@@ -43,6 +45,7 @@ export const routingComponents = [DashboardComponent,
                                   EmployeesAddEditComponent,
                                   AssessmentShowComponent,
                                   AssessmentsAddEditComponent,
+                                  AssessmentEmployeeComponent,
                                   QuestionnairesComponent,
                                   QuestionnaireShowComponent,
                                   QuestionnaireAddEditComponent];

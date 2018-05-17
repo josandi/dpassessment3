@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { QuestionnaireShowComponent } from '../../questionnaires/questionnaire-show/questionnaire-show.component';
 
 @Component({
   selector: 'app-assessments-add-edit',
@@ -12,7 +13,8 @@ export class AssessmentsAddEditComponent implements OnInit {
   questionnaires: any;
   minDeadline: Date;
   
-  constructor(public bsModalRef: BsModalRef) { }
+  constructor(public bsModalRef: BsModalRef,
+              private modalService: BsModalService) { }
 
   ngOnInit() {
     if(!this.assessmentData){
@@ -30,8 +32,14 @@ export class AssessmentsAddEditComponent implements OnInit {
 
   // modal display
 
-  showQuestionnaire(questionnaireId) {
-    console.log("Show questionnaire " + questionnaireId);
+  showQuestionnaire(questionnaire) {
+    const initialState = {
+      questionnaire: questionnaire
+    }    
+    this.bsModalRef = this.modalService.show(
+      QuestionnaireShowComponent, 
+      Object.assign({initialState}, { class: 'modal-lg' })
+    );
   }
 
 }

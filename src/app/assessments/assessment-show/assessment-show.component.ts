@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AssessmentsService } from '../../_services/assessments.service';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AssessmentEmployeeComponent } from '../assessment-employee/assessment-employee.component';
 
 @Component({
   selector: 'app-assessment-show',
@@ -12,7 +13,8 @@ export class AssessmentShowComponent implements OnInit {
   assessment: any;
   EmpAssessmentStatus: any;
 
-  constructor(public bsModalRef: BsModalRef,
+  constructor(private bsModalRef: BsModalRef,
+              private modalService: BsModalService,
               private _assessmentService: AssessmentsService ) { }
 
   ngOnInit() {
@@ -29,7 +31,20 @@ export class AssessmentShowComponent implements OnInit {
   // modal display
 
   showEmployeeAssessment(employee) {
-    console.log(employee.fullname + " - " + employee.status);
+    const initialState = {
+      employee: employee,
+      assessment: this.assessment
+    }    
+    this.bsModalRef = this.modalService.show(
+      AssessmentEmployeeComponent, 
+      Object.assign({initialState}, { class: 'modal-lg' })
+    );
+  }
+
+  // utilities
+
+  closeModal() {
+    this.bsModalRef.hide();
   }
 
 }
