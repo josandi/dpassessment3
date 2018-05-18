@@ -27,10 +27,10 @@
                 </label>
               </div>
               <div class="col-md-12 qst-field" *ngIf="!optionGroup.options">
-                  <textarea ng-model="question.answer" class="form-control" 
-                    rows="3" id="answer">
-                  </textarea>
-                </div>
+                <textarea ng-model="question.answer" class="form-control" 
+                  rows="3" id="answer">
+                </textarea>
+              </div>
             </div>                  
           </li>
         </ol>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="row modal-footer">          
-        <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
+        <button type="button" class="btn btn-default col-md-4" (click)="bsModalRef.hide()">
             Close
         </button>
     </div>

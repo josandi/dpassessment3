@@ -13,7 +13,7 @@ export class QuestionnaireShowComponent implements OnInit {
   categories: any = [];
   groupedOptions: any;
 
-  constructor(private bsModalRef: BsModalRef,
+  constructor(public bsModalRef: BsModalRef,
               private _questionnaireService: QuestionnairesService) { }
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class QuestionnaireShowComponent implements OnInit {
         error => this.errorMsg = error,
         () => {
           this.getCategoriesFromQuestionsArr(this.questionnaire.questions);
-        } 
+        }
       );
   }
 
@@ -43,10 +43,6 @@ export class QuestionnaireShowComponent implements OnInit {
 
   getCategoriesFromQuestionsArr(questions) {
     this.categories = this._questionnaireService.getCategoriesFromQuestionsArr(questions);
-  }
-
-  closeModal() {
-    this.bsModalRef.hide();
   }
 
 }
