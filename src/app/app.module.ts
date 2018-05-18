@@ -13,6 +13,8 @@ import { QuestionCategoryFilterPipe } from './_pipes/question-category-filter.pi
 import { QuestionnaireAddEditComponent } from './questionnaires/questionnaire-add-edit/questionnaire-add-edit.component';
 import { OptionGroupFilterPipe } from './_pipes/option-group-filter.pipe';
 import { GroupedOptionFilterPipe } from './_pipes/grouped-option-filter.pipe';
+import { AuthGuard } from './_guards/auth.guard';
+import { AlertifyService } from './_services/alertify.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,10 @@ import { GroupedOptionFilterPipe } from './_pipes/grouped-option-filter.pipe';
     MaterialModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AlertifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   @Output() loginUser = new EventEmitter();
 
   constructor(private authService: AuthService,
-              private router: Router ) { }
+              private router: Router,
+              private alertify: AlertifyService ) { }
 
   ngOnInit() {
   }
@@ -21,13 +23,13 @@ export class LoginComponent implements OnInit {
   login() {
     this.model.rememberMe = true;
     this.authService.login(this.model).subscribe(data => {
-        console.log("Logged in successfully!");
+      this.alertify.success("Logged in successfully!");
 
-        this.loginUser.emit(true);
-        this.router.navigate(['/dashboard']);
-      }, error => {
-        this.errorMsg = 'User cannot be found.';
-      });
+      this.loginUser.emit(true);
+      this.router.navigate(['/dashboard']);
+    }, error => {
+      this.errorMsg = 'User cannot be found.';
+    });
   }
 
 }
