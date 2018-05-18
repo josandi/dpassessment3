@@ -27,7 +27,6 @@ export class QuestionnaireShowComponent implements OnInit {
         this.questionnaire = data, 
         error => this.errorMsg = error,
         () => {
-          console.log(this.questionnaire);
           this.getCategoriesFromQuestionsArr(this.questionnaire.questionWithOptions);
         }
       );

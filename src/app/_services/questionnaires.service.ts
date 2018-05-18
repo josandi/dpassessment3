@@ -13,7 +13,7 @@ export class QuestionnairesService {
   constructor(private http: Http,
               private authService: AuthService) { }
 
-  // api get
+  // API GET
 
   getAllQuestionnaires() {
     return this.http.get(this.baseUrl + 'Questionaire', this.authService.requestOptions())
@@ -57,9 +57,9 @@ export class QuestionnairesService {
   }
 
   getGroupedOptions() {
-    return this.http.get('/assets/test-data/option-groups.json', this.authService.requestOptions())
+    return this.http.get(this.baseUrl + 'OptionGroups/OptionGroupWithOptions_GetAll', this.authService.requestOptions())
       .pipe(map((response: Response) => {
-        return response.json().data;
+        return response.json();
       })
     );
   }
@@ -72,7 +72,61 @@ export class QuestionnairesService {
     );
   }
 
-  // utilities
+  // API POST
+
+  saveQuestionnaire(questionnaire) {
+    return this.http.post(this.baseUrl + 'Questionaire',
+      questionnaire,
+      this.authService.requestOptions()
+    ).pipe(map((response: Response) => {
+        const returnedQuestionnaire = response.json();
+        if(returnedQuestionnaire) {
+          return returnedQuestionnaire.questionaireId;
+        }
+      })
+    );
+  }
+
+  saveQuestions(questionsArr) {
+    return this.http.post(this.baseUrl + 'Questions/InsertQuestions',
+      questionsArr,
+      this.authService.requestOptions()
+    ).pipe(map((response: Response) => {
+        console.log(response);
+        return (response.ok) ? true : false;
+      })
+    );
+  }
+
+  // API PUT
+
+  updateQuestionnaire(questionnaire) {
+    return this.http.put(this.baseUrl + 'Questionaire',
+      questionnaire,
+      this.authService.requestOptions()
+    ).pipe(map((response: Response) => {
+        console.log(response);
+        return (response.ok) ? true : false;
+      })
+    );
+  }
+
+  // API DELETE
+
+  deleteQuestion(questionId) {
+    let params = new URLSearchParams();
+    params.set('id', questionId);
+
+    return this.http.delete(this.baseUrl + 'Questions/RemoveQuestion/?id=' + questionId,
+      this.authService.requestOptions()
+    ).pipe(map((response: Response) => {
+        console.log(response);
+        return (response.ok) ? true : false;
+      })
+    );
+  }
+
+  // UTILITIES
 
   findCategoryInArr(categories, categoryId) {
     return categories.find(x => x.questionCategoryId == categoryId);

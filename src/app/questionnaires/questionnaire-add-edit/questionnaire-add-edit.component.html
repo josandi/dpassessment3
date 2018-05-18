@@ -1,5 +1,5 @@
 <div class="dpa-modal container-fluid">
-  <form #questionnaireAddForm="ngForm" (ngSubmit)="addQuestionnaire()"
+  <form #questionnaireAddForm="ngForm" (ngSubmit)="submitQuestionnaire()"
     class="dpa-modal-form" role="form">
     <div class="row">
         <div class="col-md-12">
@@ -55,7 +55,7 @@
         <div *ngFor="let category of categories" class="qst-category">
             <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
             <ol>
-              <li *ngFor="let question of questionnaire.questions 
+              <li *ngFor="let question of questionnaire.questionWithOptions 
                 | questionCategoryFilter:category.questionCategoryId">
                 <div class="qst-question col-md-12">
                   <span class="pull-right">
@@ -63,23 +63,22 @@
                       <i class="fa fa-times"></i>
                     </a>
                   </span>
-                  {{ question.question }}
+                  {{ question.questionDescription }}
                 </div>
-                <div class="qst-answer" 
-                  *ngFor="let optionGroup of groupedOptions | groupedOptionFilter: question.optionGroupId">
-                  <div class="col-md-12 qst-options" *ngIf="optionGroup.options">
-                    <label *ngFor="let option of optionGroup.options">
+                <div class="qst-answer" >
+                  <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.options)">
+                    <label *ngFor="let option of question.options">
                       <input type="radio" name="qstopt-{{question.questionId}}"
-                        [(ngModel)]="question.answer" [value]="option.option_text"/>
-                        {{option.option_text}}
+                        [(ngModel)]="question.answer" [value]="option.optionDescription"/>
+                        {{option.optionDescription}}
                     </label>
                   </div>
-                  <div class="col-md-12 qst-field" *ngIf="!optionGroup.options">
-                      <textarea ng-model="question.answer" class="form-control" 
-                        rows="3" id="answer">
-                      </textarea>
-                    </div>
-                </div>                  
+                  <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.options)">
+                    <textarea ng-model="question.answer" class="form-control" 
+                      rows="3" id="answer">
+                    </textarea>
+                  </div>
+                </div>
               </li>
             </ol>
         </div>
@@ -91,7 +90,7 @@
             Cancel
         </button>
         <button type="submit" class="btn btn-warning col-md-4" [disabled]="!questionnaireAddForm.valid">
-            Save 
+            {{btnSubmitName}} 
         </button>  
     </div>
   </form>

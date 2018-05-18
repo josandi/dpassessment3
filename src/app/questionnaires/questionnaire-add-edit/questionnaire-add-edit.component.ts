@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionnairesService } from '../../_services/questionnaires.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { AlertifyService } from '../../_services/alertify.service';
 
 @Component({
   selector: 'app-questionnaire-add-edit',
@@ -9,6 +10,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class QuestionnaireAddEditComponent implements OnInit {
   errorMsg;
+  isEdit: boolean = false;
+  btnSubmitName: string = "Save";
   questionnaire: any = {};
   question: any = {};
   questionCategories: any;
@@ -18,35 +21,42 @@ export class QuestionnaireAddEditComponent implements OnInit {
   groupedOptions: any;
   questionFldsValid: boolean = true;
 
+  questionnairePostResponse: any = {};
+
   constructor(public bsModalRef: BsModalRef,
+              private alertify: AlertifyService,
               private _questionnaireService: QuestionnairesService ) { }
 
   ngOnInit() {
-    if (Object.keys(this.questionnaire).length === 0) {           // for add
-      this.questionnaire.questions = [];
-    } else {                                                      // for edit
-      this.getQuestions(this.questionnaire.questionaireId);
+    if (Object.keys(this.questionnaire).length > 0) {             // for edit
+      this.isEdit = true;
+      this.btnSubmitName = 'Update';
+      this.getQuestionnaire(this.questionnaire.questionaireId);
     }
 
-    this.questionnaire.questions = [];
+    this.questionnaire.questionWithOptions = [];
     this.getQuestionCategories();
     this.getQuestionOptGroups();
     this.getGroupedOptions();
     this.getOptionsList();
   }
 
-  // main functions
+  // MAIN FUNCTIONS
 
-  addQuestionnaire() {
-    if(this.questionnaire.questions.length < 1) {
-      console.log("At least one question should be added!")
-    }else{
-      console.log(this.questionnaire);
-      this.bsModalRef.hide();
+  submitQuestionnaire() {
+    if (this.isEdit) {
+      this.updateQuestionnaire();
+    } else {
+      if(this.questionnaire.questionWithOptions.length < 1) {
+        this.alertify.error("At least one question should be added!")
+      }else{
+        this.saveQuestionnaire();
+      }
     }
   }
 
   addQuestion() {
+    let questionToAdd: any = {};
     let question = this.question.description;
     let category = this.question.selectedCategory;
     let optgroup = this.question.selectedOptGroup;
@@ -56,13 +66,20 @@ export class QuestionnaireAddEditComponent implements OnInit {
     if(this.questionFldsValid) {
       if (!this._questionnaireService.findCategoryInArr(this.categories, category.questionCategoryId))
         this.categories.push(category);
-      
-      this.questionnaire.questions.push({
-        'questionId': this.questionnaire.questions.length + 1,
-        'question': question,
+
+      questionToAdd = {
+        'questionId': this.questionnaire.questionWithOptions.length + 1,
+        'questionDescription': question,
         'questionCategoryId': category.questionCategoryId,
-        'optionGroupId': optgroup.optionGroupId
-      });
+        'optionGroupId': optgroup.optionGroupId,
+        'options': this.getOptionGroupFromArray(optgroup.optionGroupId)
+      }
+      
+      this.questionnaire.questionWithOptions.push(questionToAdd);
+      if (this.isEdit) {                // save directly to database if edit
+        questionToAdd.questionaireId = this.questionnaire.questionaireId;
+        this.saveQuestion(questionToAdd);
+      }
 
       this.question.description = null;
     }
@@ -70,27 +87,133 @@ export class QuestionnaireAddEditComponent implements OnInit {
 
   removeQuestion(question) {
     let categoryId = question.questionCategoryId;
-    let qst_idx = this.questionnaire.questions.indexOf(question);
+    let qst_idx = this.questionnaire.questionWithOptions.indexOf(question);
     
-    this.questionnaire.questions.splice(qst_idx, 1);
+    this.questionnaire.questionWithOptions.splice(qst_idx, 1);    // remove question from array
 
-    if(!this.findCatInQuestionsArr(categoryId)) {
+    if(!this.findCatInQuestionsArr(categoryId)) {                 // remove from category array if no more questions from that category
       let category = this._questionnaireService.findCategoryInArr(this.categories, categoryId);
       let cat_idx = this.categories.indexOf(category);
       this.categories.splice(cat_idx, 1);
     }
+
+    if (this.isEdit) {                  // remove directly from database if edit
+      this.deleteQuestion(question.questionId);
+    }
   }
 
-  // get from api
+  // API METHODS
 
-  getQuestions(questionnaireId) {
-    this._questionnaireService.getQuestions(questionnaireId)
-      .subscribe(data =>
-        this.questionnaire.questions = data, 
+  /* Purpose: Save new questionnaire */
+  saveQuestionnaire() {
+    let questionnaireId: number;
+
+    this._questionnaireService.saveQuestionnaire(this.getQuestionnaireOnlyAttributes())   // post questionaire and get returned questionnaire id
+      .subscribe(
+        data => questionnaireId = data,
         error => this.errorMsg = error,
         () => {
-          this.getCategoriesFromQuestionsArr(this.questionnaire.questions);
-        } 
+          if(questionnaireId){
+            this.questionnaire.questionWithOptions.forEach(question => {                // add returned questionnaire id to each question
+              question.questionaireId = questionnaireId;
+            });
+
+            this.saveQuestions(this.questionnaire.questionWithOptions);                 // post array to questions table
+          } else {
+            this.alertify.error('Saving questionnaire - failed!');
+          }
+        }
+      );
+
+    this.bsModalRef.hide();
+  }
+
+  updateQuestionnaire() {
+    let response: any;
+    
+    this._questionnaireService.updateQuestionnaire(this.getQuestionnaireOnlyAttributes())
+      .subscribe(
+        data => response = data,
+        error => this.errorMsg = error,
+        () => { 
+          if (response) {
+            this.alertify.success('Questionnaire - successfully updated!');
+          } else {
+            this.alertify.error('Updating questionnaire - failed!');
+          }
+        }
+      );
+
+    this.bsModalRef.hide();
+  }
+
+  /* Purpose: used for saving one question object only; used in update */
+  saveQuestion(questionObj) {
+    let response: any;
+    let questionArr: any = [];
+
+    questionArr.push(questionObj);      // manually push one question object to array
+
+    this._questionnaireService.saveQuestions(questionArr)
+      .subscribe(
+        data => response = data,
+        error => this.errorMsg = error,
+        () => {
+          if (response) {
+            this.alertify.success('Question successfully added to database');
+          } else {
+            this.alertify.error('Saving question - failed!');
+          }
+        }
+      );
+  }
+
+  /* Purpose: Saving array of question objects; used in save */
+  saveQuestions(questionsArr) {
+    let response: any;
+
+    this._questionnaireService.saveQuestions(this.questionnaire.questionWithOptions)
+      .subscribe(
+        data => response = data,
+        error => this.errorMsg = error,
+        () => { 
+          if (response) {
+            this.alertify.success('Questionnaire saved successfully!');
+          } else {
+            this.alertify.error('Saving questionnaire - failed!');
+          }
+        }
+      );
+  }
+
+  /* Delete one question from database */
+  deleteQuestion(questionId) {
+    let response: any;
+
+    this._questionnaireService.deleteQuestion(questionId)
+      .subscribe(
+        data => response = data,
+        error => this.errorMsg = error,
+        () => { 
+          if (response) {
+            this.alertify.success('Questionnaire saved successfully!');
+          } else {
+            this.alertify.error('Saving questionnaire - failed!');
+          }
+        }
+      );
+  }  
+
+  // API GET
+
+  getQuestionnaire(questionnaireId) {
+    this._questionnaireService.getQuestionnaire(questionnaireId)
+      .subscribe(data =>
+        this.questionnaire = data, 
+        error => this.errorMsg = error,
+        () => {
+          this.getCategoriesFromQuestionsArr(this.questionnaire.questionWithOptions);
+        }
       );
   }
 
@@ -124,14 +247,33 @@ export class QuestionnaireAddEditComponent implements OnInit {
         error => this.errorMsg = error);
   }
 
-  // utilities
+  // UTILITIES
 
   findCatInQuestionsArr(catId) {
-    return this.questionnaire.questions.find(x => x.questionCategoryId == catId);
+    return this.questionnaire.questionWithOptions.find(x => x.questionCategoryId == catId);
   }
 
   getCategoriesFromQuestionsArr(questions) {
     this.categories = this._questionnaireService.getCategoriesFromQuestionsArr(questions);
+  }
+
+  getOptionGroupFromArray(optgroupId) {
+    return this.groupedOptions.find(x => x.optionGroupId == optgroupId).options;
+  }
+
+  arrayHasData(arr) {
+    return (arr.length > 0) ? true : false;
+  }
+
+  /* Purpose: get questionnaire details only; used for saving/updating questionnaire table */
+  getQuestionnaireOnlyAttributes() {
+    let questionnaireData: any = {};
+
+    questionnaireData.questionaireId = this.questionnaire.questionaireId;
+    questionnaireData.questionaireDescription = this.questionnaire.questionaireDescription;
+    questionnaireData.questionaireInstructions = this.questionnaire.questionaireInstructions;
+
+    return questionnaireData;
   }
 
 }

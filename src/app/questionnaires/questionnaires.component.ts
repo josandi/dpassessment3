@@ -32,11 +32,6 @@ export class QuestionnairesComponent implements OnInit {
         error => this.errorMsg = error);
   }
 
-  deleteQuestionnaire(questionnaire) {
-    console.log("Delete Questionnaire");
-    console.log(questionnaire);
-  }
-
 	// modal display
 
 	addEditQuestionnaire(questionnaire) {

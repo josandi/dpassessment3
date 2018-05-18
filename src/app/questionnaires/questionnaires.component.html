@@ -21,15 +21,11 @@
                         <span *ngIf="questionnaire.questionaireInstructions.length > 50">...</span>
                     </td>
                     <td>{{ questionnaire.createdBy }}</td>
-                    <td>{{ questionnaire.modifiedDateTime | date: "MM-dd-yyyy" }}</td>
+                    <td>{{ questionnaire.createdDateTime | date: "MM-dd-yyyy" }}</td>
                     <td class="btn-tools" (click)="$event.stopPropagation()">
                         <button class="btn btn-success btn-sm row-btn" 
                             (click)="addEditQuestionnaire(questionnaire)">
                             <i class="fa fa-pencil"></i>
-                        </button>
-                        <button class="btn btn-danger btn-sm row-btn" 
-                            (click)="deleteQuestionnaire(questionnaire)">
-                            <i class="fa fa-times"></i>
                         </button>
                     </td>
                 </tr>
