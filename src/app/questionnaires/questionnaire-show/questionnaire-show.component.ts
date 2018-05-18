@@ -17,7 +17,7 @@ export class QuestionnaireShowComponent implements OnInit {
               private _questionnaireService: QuestionnairesService) { }
 
   ngOnInit() {
-    this.getQuestionnaire(this.questionnaire.questionnaireId);
+    this.getQuestionnaire(this.questionnaire.questionaireId);
     this.getGroupedOptions();
   }
 
@@ -27,7 +27,8 @@ export class QuestionnaireShowComponent implements OnInit {
         this.questionnaire = data, 
         error => this.errorMsg = error,
         () => {
-          this.getCategoriesFromQuestionsArr(this.questionnaire.questions);
+          console.log(this.questionnaire);
+          this.getCategoriesFromQuestionsArr(this.questionnaire.questionWithOptions);
         }
       );
   }
@@ -43,6 +44,10 @@ export class QuestionnaireShowComponent implements OnInit {
 
   getCategoriesFromQuestionsArr(questions) {
     this.categories = this._questionnaireService.getCategoriesFromQuestionsArr(questions);
+  }
+
+  arrayHasData(arr) {
+    return (arr.length > 0) ? true : false;
   }
 
 }

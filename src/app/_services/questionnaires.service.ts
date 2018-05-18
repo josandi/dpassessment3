@@ -24,10 +24,11 @@ export class QuestionnairesService {
   }
 
   getQuestionnaire(questionnaireId) {
-    return this.http.get('/assets/test-data/questionnaire.json', this.authService.requestOptions())
-      .pipe(map((response: Response) => {
-        return response.json().data;
-      })
+    return this.http.get(this.baseUrl + 'Questionaire/QuestionairesWithQuestions/' + questionnaireId, 
+      this.authService.requestOptions())
+        .pipe(map((response: Response) => {
+          return response.json().data;
+        })
     );
   }
 

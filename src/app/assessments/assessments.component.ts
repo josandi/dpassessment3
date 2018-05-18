@@ -24,8 +24,7 @@ export class AssessmentsComponent implements OnInit {
                 private modalService: BsModalService ) { }
 
   ngOnInit() {
-    this.getAllAsessments();
-    this.getQuestionnairesList();   
+    this.getAllAsessments();  
   }
 
   deleteAssessment(assessment) {
@@ -40,13 +39,6 @@ export class AssessmentsComponent implements OnInit {
       		.subscribe(data =>
       			this.assessments = data, 
             	error => this.errorMsg = error);
-  }
-
-  getQuestionnairesList() {
-    this._assessmentsService.getQuestionnairesList()
-            .subscribe(data =>
-            this.questionnaires = data,
-            error => this.errorMsg = error);
   }
 
   // modal display

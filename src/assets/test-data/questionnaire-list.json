@@ -1,18 +1,18 @@
 {
     "data": [
         {
-            "questionnaire_id": 1,
-            "description": "Questionnaire A",
+            "questionaireId": 1,
+            "questionaireDescription": "Questionnaire A",
             "questions_count": 15
         },
         {
-            "questionnaire_id": 2,
-            "description": "Questionnaire B",
+            "questionaireId": 2,
+            "questionaireDescription": "Questionnaire B",
             "questions_count": 30
         },
         {
-            "questionnaire_id": 3,
-            "description": "Questionnaire C",
+            "questionaireId": 3,
+            "questionaireDescription": "Questionnaire C",
             "questions_count": 20
         }
     ]
