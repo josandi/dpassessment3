@@ -104,7 +104,6 @@ export class QuestionnairesService {
       questionnaire,
       this.authService.requestOptions()
     ).pipe(map((response: Response) => {
-        console.log(response);
         return (response.ok) ? true : false;
       })
     );

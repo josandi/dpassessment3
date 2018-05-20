@@ -94,8 +94,6 @@ export class QuestionnaireAddEditComponent implements OnInit {
           this.removeQuestionFromArray(question);
         }
       )
-
-      
     } else {
       this.removeQuestionFromArray(question);
     }
@@ -140,6 +138,7 @@ export class QuestionnaireAddEditComponent implements OnInit {
     this.bsModalRef.hide();
   }
 
+  /* Purpose: Update questionnaire */
   updateQuestionnaire() {
     let response: any;
     
@@ -153,10 +152,10 @@ export class QuestionnaireAddEditComponent implements OnInit {
           } else {
             this.alertify.error('Updating questionnaire - failed!');
           }
+          this.bsModalRef.hide();
         }
       );
 
-    this.bsModalRef.hide();
   }
 
   /* Purpose: used for saving one question object only; used in update */

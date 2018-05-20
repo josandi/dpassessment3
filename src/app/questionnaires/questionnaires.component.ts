@@ -4,8 +4,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { QuestionnaireAddEditComponent } from './questionnaire-add-edit/questionnaire-add-edit.component';
 import { QuestionnaireShowComponent } from './questionnaire-show/questionnaire-show.component';
-import { Observable, Subscription } from 'rxjs';
-import { combineLatest } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-questionnaires',
@@ -59,6 +58,7 @@ export class QuestionnairesComponent implements OnInit {
     );
   }
 
+  /* Purpose: Refresh list after add and update */
   subscribeModal() {
     const _combine = combineLatest(Observable,
       this.modalService.onHide, 
@@ -67,16 +67,13 @@ export class QuestionnairesComponent implements OnInit {
 
     this.subscriptions.push(
       this.modalService.onHide.subscribe((reason: string) => {
-        this._questionnaireService.getAllQuestionnaires()
-          .subscribe(data =>
-            this.questionnaires = data, 
-            error => this.errorMsg = error);
+        this.getAllQuestionnaires();                            // get updated questionnaires from db
       })
     );
 
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
-        this.unsubscribeModal();
+        this.unsubscribeModal();                                // unsubscribe after modal is hidden
       })
     )
 
