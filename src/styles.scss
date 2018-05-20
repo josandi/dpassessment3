@@ -15,6 +15,12 @@ fieldset {
     width: 100%;
 }
 
+/* bootstrap */
+
+form .btn {
+    font-weight: bold;
+}
+
 /* modal */
 
 .modal, .modal-backdrop {
@@ -29,16 +35,34 @@ fieldset {
     }
 }
 
+/* alertify */
+
+.alertify {
+
+    .ajs-header {
+        border-bottom: none;
+    }
+
+    .ajs-footer {
+        border-top: none;
+    }
+
+    .ajs-button {
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .ajs-ok {
+        background-color: #ffbb41;
+        color: white;
+    }
+}
+
 /* material date picker */
 
 .dpa-modal-form .mat-form-field-wrapper {
     margin-bottom: 0;
-}
-
-/* bootstrap */
-
-form .btn {
-    font-weight: bold;
 }
 
 /* C O N T E N T */

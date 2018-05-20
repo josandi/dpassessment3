@@ -86,6 +86,22 @@ export class QuestionnaireAddEditComponent implements OnInit {
   }
 
   removeQuestion(question) {
+    if (this.isEdit) {
+      this.alertify.confirm(
+        'This action will remove the question from the database. Proceed?',
+        () => {
+          this.deleteQuestion(question.questionId);                   // remove directly from database if edit
+          this.removeQuestionFromArray(question);
+        }
+      )
+
+      
+    } else {
+      this.removeQuestionFromArray(question);
+    }
+  }
+
+  removeQuestionFromArray(question) {
     let categoryId = question.questionCategoryId;
     let qst_idx = this.questionnaire.questionWithOptions.indexOf(question);
     
@@ -95,10 +111,6 @@ export class QuestionnaireAddEditComponent implements OnInit {
       let category = this._questionnaireService.findCategoryInArr(this.categories, categoryId);
       let cat_idx = this.categories.indexOf(category);
       this.categories.splice(cat_idx, 1);
-    }
-
-    if (this.isEdit) {                  // remove directly from database if edit
-      this.deleteQuestion(question.questionId);
     }
   }
 
@@ -191,17 +203,17 @@ export class QuestionnaireAddEditComponent implements OnInit {
     let response: any;
 
     this._questionnaireService.deleteQuestion(questionId)
-      .subscribe(
-        data => response = data,
-        error => this.errorMsg = error,
-        () => { 
-          if (response) {
-            this.alertify.success('Questionnaire saved successfully!');
-          } else {
-            this.alertify.error('Saving questionnaire - failed!');
-          }
+    .subscribe(
+      data => response = data,
+      error => this.errorMsg = error,
+      () => { 
+        if (response) {
+          this.alertify.success('Question was deleted successfully!');
+        } else {
+          this.alertify.error('Failed to delete question!');
         }
-      );
+      }
+    );
   }  
 
   // API GET
