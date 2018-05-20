@@ -6,7 +6,7 @@
         <tbody>
           <tr>
             <td>Name:</td>
-            <td>{{ employee.fullname }}</td>
+            <td>{{ employee.fullName }}</td>
           </tr>
           <tr>
             <td>Position:</td>
@@ -33,27 +33,26 @@
         <div *ngFor="let category of categories" class="qst-category">
           <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
           <ol>
-            <li *ngFor="let question of questionnaire.questions 
-              | questionCategoryFilter:category.questionCategoryId">
-              <div class="qst-question col-md-12">
-                {{ question.question }}
+            <li *ngFor="let question of questionnaire.questionWithOptions 
+            | questionCategoryFilter:category.questionCategoryId">
+            <div class="qst-question col-md-12">
+              {{ question.questionDescription }}
+            </div>
+            <div class="qst-answer" >
+              <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.options)">
+                <label *ngFor="let option of question.options">
+                  <input type="radio" name="qstopt-{{question.questionId}}"
+                    [(ngModel)]="question.answer" [value]="option.optionDescription"/>
+                    {{option.optionDescription}}
+                </label>
               </div>
-              <div class="qst-answer" 
-                *ngFor="let optionGroup of groupedOptions | groupedOptionFilter: question.optionGroupId">
-                <div class="col-md-12 qst-options" *ngIf="optionGroup.options">
-                  <label *ngFor="let option of optionGroup.options">
-                    <input type="radio" name="qstopt-{{question.questionId}}"
-                      [(ngModel)]="question.answer" [value]="option.option_text"/>
-                      {{option.option_text}}
-                  </label>
-                </div>
-                <div class="col-md-12 qst-field" *ngIf="!optionGroup.options">
-                    <textarea ng-model="question.answer" class="form-control" 
-                      rows="3" id="answer">
-                    </textarea>
-                  </div>
-              </div>                  
-            </li>
+              <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.options)">
+                <textarea ng-model="question.answer" class="form-control" 
+                  rows="3" id="answer">
+                </textarea>
+              </div>
+            </div>      
+          </li>
           </ol>
         </div>
       </div>

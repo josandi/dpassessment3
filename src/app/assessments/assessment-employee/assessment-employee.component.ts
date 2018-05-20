@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { QuestionnairesService } from '../../_services/questionnaires.service';
+import { AssessmentsService } from '../../_services/assessments.service';
 
 @Component({
   selector: 'app-assessment-employee',
@@ -17,29 +18,26 @@ export class AssessmentEmployeeComponent implements OnInit {
   groupedOptions: any;
 
   constructor(private bsModalRef: BsModalRef,
+              private _assessmentService: AssessmentsService,
               private _questionnaireService: QuestionnairesService) { }
 
   ngOnInit() {
-    this.getQuestionnaire(this.assessment.questionnaire_id);
-    this.getGroupedOptions();
+    this.getEmpAssessmentQuestionnaire();
   }
 
-  getQuestionnaire(questionnaireId) {
-    this._questionnaireService.getQuestionnaire(questionnaireId)
+  getEmpAssessmentQuestionnaire() {
+    this._assessmentService.getEmpAssessmentQuestionnaire(
+      this.employee.aspNetUserID, 
+      this.assessment.assessmentId, 
+      4                             // TEMPORARY: static questionnaire Id while endpoint is not done yet
+    )
       .subscribe(data =>
         this.questionnaire = data, 
         error => this.errorMsg = error,
         () => {
-          this.getCategoriesFromQuestionsArr(this.questionnaire.questions);
+          this.getCategoriesFromQuestionsArr(this.questionnaire.questionWithOptions);
         } 
       );
-  }
-
-  getGroupedOptions() {
-    this._questionnaireService.getGroupedOptions()
-      .subscribe(data =>
-        this.groupedOptions= data, 
-        error => this.errorMsg = error);
   }
 
   // utilities
@@ -50,6 +48,10 @@ export class AssessmentEmployeeComponent implements OnInit {
 
   closeModal() {
     this.bsModalRef.hide();
+  }
+
+  arrayHasData(arr) {
+    return (arr.length > 0) ? true : false;
   }
 
 }

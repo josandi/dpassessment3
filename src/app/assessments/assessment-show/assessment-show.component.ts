@@ -22,14 +22,22 @@ export class AssessmentShowComponent implements OnInit {
     this.getEmpAssessmentStatus();
   }
 
+  // API GET
+
   getEmpAssessmentStatus() {
-    this._assessmentService.EmpAssessmentStatus()
+    this._assessmentService.getEmpAssessmentStatus()
       .subscribe(data =>
         this.EmpAssessmentStatus = data, 
-        error => this.errorMsg = error);
+        error => this.errorMsg = error,
+        () => {                                       // TEMPORARY: remove once endpoint is done
+          this.EmpAssessmentStatus.forEach(emp => {
+            emp.status = 'Unanswered';
+          });
+        }
+      );
   }
 
-  // modal display
+  // MODAL DISPLAY
 
   showEmployeeAssessment(employee) {
     const initialState = {
@@ -42,7 +50,7 @@ export class AssessmentShowComponent implements OnInit {
     );
   }
 
-  // utilities
+  // UTILITIES
 
   closeModal() {
     this.bsModalRef.hide();

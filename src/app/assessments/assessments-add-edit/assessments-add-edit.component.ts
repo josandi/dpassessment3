@@ -3,6 +3,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { QuestionnaireShowComponent } from '../../questionnaires/questionnaire-show/questionnaire-show.component';
 import { AssessmentsService } from '../../_services/assessments.service';
+import { AlertifyService } from '../../_services/alertify.service';
 
 @Component({
   selector: 'app-assessments-add-edit',
@@ -11,31 +12,84 @@ import { AssessmentsService } from '../../_services/assessments.service';
 })
 export class AssessmentsAddEditComponent implements OnInit {
   errorMsg: any;
+  isEdit: boolean = false;
+  btnSubmitName: string = "Save";
   assessmentAddEditModal: BsModalRef;
-  assessmentData: any;
+  assessmentData: any = {};
   questionnaires: any;
   minDeadline: Date;
   
   constructor(public bsModalRef: BsModalRef,
               private modalService: BsModalService,
+              private alertify: AlertifyService,
               private _assessmentsService: AssessmentsService) { }
 
   ngOnInit() {
-    if(!this.assessmentData){
+    if(this.assessmentData){
+      this.isEdit = true;
+      this.btnSubmitName = 'Update';
+    } else {
       this.assessmentData = {};
-      this.getQuestionnairesList(); 
     }
 
+    this.getQuestionnairesList(); 
     this.minDeadline = new Date();
   }
 
-  saveAssessment() {
-    console.log("Save clicked");
+  // MAIN FUNCTIONS
+
+  submitAssessment() {
     console.log(this.assessmentData);
-    this.bsModalRef.hide();
+
+    if (this.isEdit) {
+      this.updateAssessment();
+    } else {
+      this.saveAssessment();
+    }
   }
 
-  // api get
+  // API METHODS
+
+  /* Purpose: Save new assessment */
+  saveAssessment() {
+    let response: any;
+
+    this._assessmentsService.saveAssessment(this.assessmentData)
+      .subscribe(
+        data => response = data,
+        error => this.errorMsg = error,
+        () => { 
+          if (response) {
+            this.alertify.success('Assessment saved successfully!');
+          } else {
+            this.alertify.error('Saving assessment - failed!');
+          }
+
+          this.bsModalRef.hide();
+        }
+      );
+  }
+
+  /* Purpose: Update assessment */
+  updateAssessment() {
+    let response: any;
+
+    this._assessmentsService.updateAssessment(this.assessmentData)
+      .subscribe(
+        data => response = data,
+        error => this.errorMsg = error,
+        () => { 
+          if (response) {
+            this.alertify.success('Assessment - successfully updated!');
+          } else {
+            this.alertify.error('Updating assessment - failed!');
+          }
+          this.bsModalRef.hide();
+        }
+      );
+  }
+
+  // API GET
 
   getQuestionnairesList() {
     this._assessmentsService.getQuestionnairesList()
@@ -47,7 +101,7 @@ export class AssessmentsAddEditComponent implements OnInit {
   // modal display
 
   showQuestionnaire(questionnaire) {
-    this.assessmentData.questionnaire_id = questionnaire.questionnaire_id;
+    this.assessmentData.questionaireId = questionnaire.questionaireId;
 
     const initialState = {
       questionnaire: questionnaire

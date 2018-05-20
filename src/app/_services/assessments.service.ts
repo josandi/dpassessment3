@@ -7,35 +7,77 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AssessmentsService {
-  private baseUrl: string = "/assets/test-data/";
+  private baseUrl: string = "http://13.75.89.123:881/api/";
 
   constructor(private http: Http,
               private authService: AuthService) { }
 
-  // api get
+  // API GET
 
   getAllAssessments() {
-    return this.http.get(this.baseUrl + 'user-assessment-list.json', this.authService.requestOptions())
+    return this.http.get(this.baseUrl + 'Assessment/GetAllAssessments', this.authService.requestOptions())
       .pipe(map((response: Response) => {
-        return response.json().data;  
+        return response.json();  
       })
     );
   }
 
   getQuestionnairesList() {
-    return this.http.get(this.baseUrl + 'questionnaire-list.json', this.authService.requestOptions())
+    return this.http.get(this.baseUrl + 'Questionaire', this.authService.requestOptions())
       .pipe(map((response: Response) => {
-        return response.json().data;  
+        return response.json();  
       })
     );
   }
 
-  EmpAssessmentStatus() {
-    return this.http.get(this.baseUrl + 'employee-assessment-stat.json', this.authService.requestOptions())
+  getEmpAssessmentStatus() {
+    return this.http.get(this.baseUrl + 'Employees', this.authService.requestOptions())
       .pipe(map((response: Response) => {
-        return response.json().data;  
+        return response.json();  
       })
     );
+  }
+
+  getEmpAssessmentQuestionnaire(employeeId, assessmentID, questionnaireId) {
+    // TEMPORARY (do once endpoint is done):
+    //    - remove questionnaireId param
+    //    - update endpoint path (for now, get questionnaire w/o answers)
+    return this.http.get(this.baseUrl + 'Questionaire/QuestionairesWithQuestions/' + questionnaireId, 
+      this.authService.requestOptions())
+        .pipe(map((response: Response) => {
+          return response.json().data;
+        })
+    );
+  }
+
+  // API POST
+
+  saveAssessment(assessment) {
+    return this.http.post(this.baseUrl + 'Assessment/CreateAssessment',
+      assessment,
+      this.authService.requestOptions()
+    ).pipe(map((response: Response) => {
+        return (response.ok) ? true : false;
+      })
+    );
+  }
+
+  // API PUT
+
+  updateAssessment(assessment) {
+    return this.http.put(this.baseUrl + 'Assessment/UpdateAssessment',
+      assessment ,
+      this.authService.requestOptions()
+    ).pipe(map((response: Response) => {
+        return (response.ok) ? true : false;
+      })
+    );
+  }
+
+  // API DELETE
+
+  deleteAssessment(assessment) {
+    
   }
 
 }

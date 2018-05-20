@@ -1,15 +1,15 @@
 <div class="dpa-modal container-fluid">
-    <form #assessmentForm="ngForm" (ngSubmit)="saveAssessment()" 
+    <form #assessmentForm="ngForm" (ngSubmit)="submitAssessment()" 
         class="dpa-modal-form" role="form">
         <div class="row">
             <div class="col-md-12">
                 <label for="assessmentname" class="dpa-label">Assessment Name</label>
-                <input type="text" name="assessmentname" [(ngModel)]="assessmentData.assessment_name" 
+                <input type="text" name="assessmentname" [(ngModel)]="assessmentData.assessmentName" 
                     class="form-control" required>
             </div>
             <div class="col-md-12">
                 <label for="description" class="dpa-label">Description</label>
-                <textarea type="text" name="description" [(ngModel)]="assessmentData.description" 
+                <textarea type="text" name="description" [(ngModel)]="assessmentData.assessmentDescription" 
                     class="form-control" required></textarea>
             </div>
             <div class="col-md-8">
@@ -17,7 +17,7 @@
                 <p class="input-group">
                     <mat-form-field>
                         <input matInput [matDatepicker]="picker" name="deadline" placeholder="Choose a date"
-                            [min]="minDeadline" [(ngModel)]="assessmentData.deadline" required />
+                            [min]="minDeadline" [(ngModel)]="assessmentData.submissionDeadline" required />
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
@@ -36,18 +36,19 @@
                 <thead class="dpa-table-header">
                     <th></th>
                     <th>Description</th>
-                    <th># of Questions</th>
+                    <th>Date Created</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let questionnaire of questionnaires" 
                         (click)="showQuestionnaire(questionnaire)">
                         <td (click)="$event.stopPropagation()">
                             <input type="radio" name="questionnaireID" 
-                                [(ngModel)]="assessmentData.questionnaire_id" [value]="questionnaire.questionnaire_id"
+                                [(ngModel)]="assessmentData.questionaireId" 
+                                [value]="questionnaire.questionaireId"
                                 required />
                         </td>
                         <td>{{ questionnaire.questionaireDescription }}</td>
-                        <td>{{ questionnaire.questions_count }}</td>
+                        <td>{{ questionnaire.createdDateTime | date: 'MM-dd-yyyy' }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -58,7 +59,7 @@
                 Cancel
             </button>
             <button type="submit" class="btn btn-warning col-md-4" [disabled]="!assessmentForm.valid">
-                Save 
+                {{ btnSubmitName }} 
             </button>  
         </div>
     </form>
