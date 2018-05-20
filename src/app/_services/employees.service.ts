@@ -14,7 +14,7 @@ export class EmployeesService {
     constructor(private http: Http,
                 private authService: AuthService) { }
 
-    // main functions
+    // API GET
 
     getAllEmployees() {
         return this.http.get(this.baseUrl + 'Employees', this.authService.requestOptions())
@@ -24,11 +24,12 @@ export class EmployeesService {
         );
     }
 
-    getEmployeeAssessments(empId) {
-        return this.http.get('/assets/test-data/user-assessment-list.json')
-            .pipe(map((response: Response) => {
-                return response.json().data;
-            })
-        );
-    }
+    /* Purpose: get all assessment status of specific employee */
+    getAssessmentsStatusPerEmp(empId) {             // TEMPORARY: change endpoint once done
+      return this.http.get(this.baseUrl + 'Assessment/GetAllAssessments', this.authService.requestOptions())
+        .pipe(map((response: Response) => {
+          return response.json();  
+        })
+      );
+    } 
 }

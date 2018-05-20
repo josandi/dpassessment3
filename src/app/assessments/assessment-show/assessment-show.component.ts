@@ -25,7 +25,7 @@ export class AssessmentShowComponent implements OnInit {
   // API GET
 
   getEmpAssessmentStatus() {
-    this._assessmentService.getEmpAssessmentStatus()
+    this._assessmentService.getEmpAssessmentStatus(this.assessment.assessmentId)
       .subscribe(data =>
         this.EmpAssessmentStatus = data, 
         error => this.errorMsg = error,

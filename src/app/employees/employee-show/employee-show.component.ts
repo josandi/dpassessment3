@@ -24,10 +24,16 @@ export class EmployeeShowComponent implements OnInit {
   }
 
 	getEmployeeAssessments(empId) {
-	    this._employeeService.getEmployeeAssessments(empId)
-	    	.subscribe(data =>
-	    		this.empAssessments = data, 
-				error => this.errorMsg = error)
+    this._employeeService.getAssessmentsStatusPerEmp(empId)
+      .subscribe(data =>
+        this.empAssessments = data, 
+        error => this.errorMsg = error,
+        () => {                                       // TEMPORARY: remove once endpoint is done
+          this.empAssessments.forEach(assessment => {
+            assessment.status = 'Unanswered';
+          });
+        }
+      );
   }
 
   showEmployeeAssessment(assessment) {

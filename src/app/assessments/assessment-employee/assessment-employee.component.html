@@ -1,5 +1,5 @@
 <div class="dpa-modal assessment-modal qst-div container-fluid">
-    <div class="modal-title">{{ assessment.assessment_name }}</div>
+    <div class="modal-title">{{ assessment.assessmentName }}</div>
     
     <div class="modal-detail">
       <table class="modal-table">
@@ -14,8 +14,8 @@
           </tr>
           <tr>
             <td>Status:</td>
-            <td><span class="dot status-{{employee.status | lowercase}}"></span>
-                {{ employee.status }}
+            <td><span class="dot status-{{currAssessmentStatus | lowercase}}"></span>
+                {{ currAssessmentStatus }}
             </td>
           </tr>
         </tbody>

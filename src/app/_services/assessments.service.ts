@@ -30,7 +30,8 @@ export class AssessmentsService {
     );
   }
 
-  getEmpAssessmentStatus() {
+  /* Purpose: get all status of employees for the specific assessment */
+  getEmpAssessmentStatus(assessmentId) {          // TEMPORARY: change endpoint once done
     return this.http.get(this.baseUrl + 'Employees', this.authService.requestOptions())
       .pipe(map((response: Response) => {
         return response.json();  
@@ -77,7 +78,7 @@ export class AssessmentsService {
   // API DELETE
 
   deleteAssessment(assessment) {
-    
+
   }
 
 }

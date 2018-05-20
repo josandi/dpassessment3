@@ -16,6 +16,7 @@ export class AssessmentEmployeeComponent implements OnInit {
   questionnaire: any = {};
   categories: any = [];
   groupedOptions: any;
+  currAssessmentStatus: string;
 
   constructor(private bsModalRef: BsModalRef,
               private _assessmentService: AssessmentsService,
@@ -23,6 +24,8 @@ export class AssessmentEmployeeComponent implements OnInit {
 
   ngOnInit() {
     this.getEmpAssessmentQuestionnaire();
+    this.currAssessmentStatus = (this.employee.status) ?        // check where the value is from; since this component is called from different components
+      this.employee.status : this.assessment.status;
   }
 
   getEmpAssessmentQuestionnaire() {
