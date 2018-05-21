@@ -8,28 +8,25 @@
                     <a href="#"><img [src]="'assets/img/dp-logo.png'"></a>
                 </div>
                 <div class="nav-user">
-                    <div class="info">
-                        <span class="position">Admin</span>
-                    </div>
-                </div>
-                <div class="nav-user">
                     <img class="profile" [src]="'assets/img/temp/user-icon.png'">
                     <div class="info">
-                        <p class="name">Firstname Lastname</p>
-                        <span class="position">Position</span>
+                        <p class="name">{{ user.fullname }}</p>
+                        <span class="position">{{ user.role }}</span>
                     </div>
                 </div>
                 <ul id="menu-content" class="menu-content collapse out">
                     <li routerLink="/dashboard" routerLinkActive="active">
                         <a><i class="fa fa-home fa-lg"></i>Dashboard</a>
                     </li>
-                    <li routerLink="/employees" routerLinkActive="active">
+                    <li routerLink="/employees" routerLinkActive="active"
+                        *ngIf="user.isAdmin">
                         <a><i class="fa fa-user fa-lg"></i>Employees</a>
                     </li>
                     <li routerLink="/assessments" routerLinkActive="active">
                         <a><i class="fa fa-edit fa-lg"></i>Assessment</a>
                     </li>
-                    <li routerLink="/questionnaires" routerLinkActive="active">
+                    <li routerLink="/questionnaires" routerLinkActive="active"
+                        *ngIf="user.isAdmin">
                         <a><i class="fa fa-list-ol fa-lg"></i>Questionnaire</a>
                     </li>
                 </ul>
@@ -46,9 +43,6 @@
                     </div>
                     <div></div>
                     <ul class="pull-right">
-                        <li><a class="btn-out">
-                            <span class="fa fa-cog"></span>Account Settings
-                        </a></li>
                         <li><a class="btn-out" (click)="logout()">
                             <span class="fa fa-sign-out"></span>Sign Out
                         </a></li>
@@ -63,5 +57,5 @@
 </div>
 
 <div *ngIf="!canAccessApp" class="user-auth-page">
-    <app-login (loginUser)="loginUserMode($event)"></app-login>>
+    <app-login (loginUser)="loginUserMode($event)"></app-login>
 </div>

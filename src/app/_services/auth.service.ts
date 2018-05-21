@@ -19,32 +19,46 @@ export class AuthService {
     const options = new RequestOptions({headers: headers});
 
     return this.http.post(this.baseUrl + 'login', model, options)
-                    .pipe(map((response: Response) => {
-                      const user = response.json();
-                      if(user) {
-                        console.log(user.jwt);
-                        localStorage.setItem('token', user.jwt);
-                        this.userToken = user.jwt;
-                      }
-                    }));
+      .pipe(map((response: Response) => {
+        const user = response.json();
+        if(user) {
+          console.log(user.jwt);
+          this.userToken = user.jwt;
+          this.saveToLocalStorage(user)
+        }
+      }));
   }
 
+  // STATUS QUERY
+
   loggedIn() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('dpa-token');
     return !!token;
   }
 
-  // utilities
+  isAdmin() {
+    const role = localStorage.getItem('dpa-role');
+    return (role === 'Admin')  ? true : false;
+  }
+
+  // UTILITIES
 
   requestOptions() {
     const headers = new Headers({
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('dpa-token')
     });
     return new RequestOptions({headers: headers});
   }
 
   authorizedHeader() {
-    return new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    return new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('dpa-token'));
+  }
+
+  saveToLocalStorage(user) {
+    localStorage.setItem('dpa-userid', user.user.aspNetUserID);
+    localStorage.setItem('dpa-fullname', user.user.fullName);
+    localStorage.setItem('dpa-role', user.user.roleName);
+    localStorage.setItem('dpa-token', user.jwt);
   }
 }
