@@ -13,16 +13,23 @@ import { QuestionnaireShowComponent } from './questionnaires/questionnaire-show/
 import { QuestionnaireAddEditComponent } from './questionnaires/questionnaire-add-edit/questionnaire-add-edit.component';
 import { AssessmentShowComponent } from './assessments/assessment-show/assessment-show.component';
 import { AssessmentEmployeeComponent } from './assessments/assessment-employee/assessment-employee.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 const routes: Routes = [
-	{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-	{ path: 'dashboard', component: DashboardComponent },
-	{ path: 'assessments', component: AssessmentsComponent },
-	{ path: 'employees', component: EmployeesComponent },
-	{ path: 'questionnaires', component: QuestionnairesComponent },
-	{ path: 'user-settings', component: UserSettingsComponent },
 	{ path: 'login', component: LoginComponent },
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'employees', component: EmployeesComponent },
+      { path: 'assessments', component: AssessmentsComponent },
+      { path: 'questionnaires', component: QuestionnairesComponent }
+    ]
+  },
+  { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({
