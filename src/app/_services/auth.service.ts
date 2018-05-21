@@ -24,7 +24,7 @@ export class AuthService {
         if(user) {
           console.log(user.jwt);
           this.userToken = user.jwt;
-          this.saveToLocalStorage(user)
+          this.saveToLocalStorage(user);
         }
       }));
   }

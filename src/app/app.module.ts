@@ -15,6 +15,7 @@ import { OptionGroupFilterPipe } from './_pipes/option-group-filter.pipe';
 import { GroupedOptionFilterPipe } from './_pipes/grouped-option-filter.pipe';
 import { AuthGuard } from './_guards/auth.guard';
 import { AlertifyService } from './_services/alertify.service';
+import { LoginGuard } from './_guards/login.guard';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AlertifyService } from './_services/alertify.service';
   ],
   providers: [
     AuthGuard,
+    LoginGuard,
     AlertifyService
   ],
   bootstrap: [AppComponent]

@@ -23,14 +23,13 @@ export class AuthGuard implements CanActivate {
       if(this.authService.isAdmin()) {              // if admin: all pages are accessible
         return true;
       } else {
-        if(!this.forAdminOnlyPage(state.url))       // if user only: check page accessibility first
-        {
+        if(!this.forAdminOnlyPage(state.url)) {     // if user only: check page accessibility first
           return true;
         } else {
           this.router.navigate(['/dashboard']);
           return false;
         }
-      }
+      }  
     }
 
     this.alertify.error('You need to login to access this page');

@@ -23,13 +23,14 @@ export class LoginComponent implements OnInit {
   login() {
     this.model.rememberMe = true;
     this.authService.login(this.model).subscribe(data => {
-      this.alertify.success("Logged in successfully!");
+        this.alertify.success("Logged in successfully!");
 
-      this.loginUser.emit(true);
-      this.router.navigate(['/dashboard']);
-    }, error => {
-      this.errorMsg = 'User cannot be found.';
-    });
+        this.loginUser.emit(true);
+        this.router.navigate(['/dashboard']);
+      }, error => {
+        this.errorMsg = 'User cannot be found.';
+      }
+    );
   }
 
 }

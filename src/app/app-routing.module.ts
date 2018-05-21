@@ -14,10 +14,11 @@ import { QuestionnaireAddEditComponent } from './questionnaires/questionnaire-ad
 import { AssessmentShowComponent } from './assessments/assessment-show/assessment-show.component';
 import { AssessmentEmployeeComponent } from './assessments/assessment-employee/assessment-employee.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { LoginGuard } from './_guards/login.guard';
 
 
 const routes: Routes = [
-	{ path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   {
     path: '',
     runGuardsAndResolvers: 'always',
