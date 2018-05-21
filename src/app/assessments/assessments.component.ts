@@ -39,12 +39,6 @@ export class AssessmentsComponent implements OnInit {
             error => this.errorMsg = error);
   }
 
-  // API CALLS
-
-  deleteAssessment(assessment) {
-    
-  }
-
   // MODAL DISPLAY
 
   showAssessment(assessment) {

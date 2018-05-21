@@ -75,10 +75,4 @@ export class AssessmentsService {
     );
   }
 
-  // API DELETE
-
-  deleteAssessment(assessment) {
-
-  }
-
 }
