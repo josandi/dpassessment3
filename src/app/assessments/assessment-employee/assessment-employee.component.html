@@ -24,7 +24,8 @@
   
     <div class="modal-divider"></div>
   
-    <form #questionnaireShowForm="ngForm" class="dpa-modal-form" role="form">
+    <form #questionnaireShowForm="ngForm" class="dpa-modal-form" role="form" 
+      (ngSubmit)="submitQuestionnaire()">
       <div class="qst-instructions">
         <div class="dpa-label">Instructions:</div>
         <span>{{ questionnaire.questionaireInstructions }}</span>
@@ -61,6 +62,10 @@
           <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
               Close
           </button>
+          <button type="submit" class="btn btn-warning col-md-4" 
+            [disabled]="!questionnaireShowForm.valid" *ngIf="enableFields">
+              Submit
+          </button>  
       </div>
     </form>
   </div>

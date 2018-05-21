@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { QuestionnairesService } from '../../_services/questionnaires.service';
 import { AssessmentsService } from '../../_services/assessments.service';
+import { AuthService } from '../../_services/auth.service';
 
 @Component({
   selector: 'app-assessment-employee',
@@ -17,16 +18,34 @@ export class AssessmentEmployeeComponent implements OnInit {
   categories: any = [];
   groupedOptions: any;
   currAssessmentStatus: string;
+  enableFields: boolean = false;
 
   constructor(private bsModalRef: BsModalRef,
+              private authService: AuthService,
               private _assessmentService: AssessmentsService,
               private _questionnaireService: QuestionnairesService) { }
 
   ngOnInit() {
     this.getEmpAssessmentQuestionnaire();
-    this.currAssessmentStatus = (this.employee.status) ?        // check where the value is from; since this component is called from different components
-      this.employee.status : this.assessment.status;
+    this.initializeValues();
   }
+
+  initializeValues() {
+    this.currAssessmentStatus = (this.employee.status) ?        // check where the value is from; since this component is called from different components
+    this.employee.status : this.assessment.status;
+
+    this.enableFields = (this.assessment.status== 'Unanswered' && !this.authService.isAdmin()) ?
+      true : false;                                             // questionnaire can only be answered when the user role is not admin and status is still unanswered
+  }
+
+  submitQuestionnaire() {
+    if (this.enableFields) {
+      console.log(this.questionnaire);
+      this.closeModal();
+    }
+  }
+
+  // API GET
 
   getEmpAssessmentQuestionnaire() {
     this._assessmentService.getEmpAssessmentQuestionnaire(
@@ -43,7 +62,7 @@ export class AssessmentEmployeeComponent implements OnInit {
       );
   }
 
-  // utilities
+  // UTILITIES
 
   getCategoriesFromQuestionsArr(questions) {
     this.categories = this._questionnaireService.getCategoriesFromQuestionsArr(questions);

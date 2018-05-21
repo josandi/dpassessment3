@@ -1,34 +1,41 @@
 <section id="page-assessment">
-  <div class="content-title">Assessment
-      <button class="btn dpabtn-yellow" (click)="showAddEdit('')">
-          <i class="fa fa-plus"></i>
-      </button>
-  </div>
-  
-  <div class="group-assessment">
-      <div class="table-responsive style-1 ep-table-request">
-          <table class="dpa-table table table-striped">
-              <thead class="dpa-table-header">
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Date Created</th>
-                  <th>Deadline</th>
-                  <th></th>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let assessment of assessments" (click)="showAssessment(assessment)">
-                      <td>{{ assessment.assessmentName }}</td>
-                      <td>{{ assessment.assessmentDescription }}</td>
-                      <td>{{ assessment.createdDateTime | date: 'MM-dd-yyyy' }}</td>
-                      <td>{{ assessment.submissionDeadline | date: 'MM-dd-yyyy' }}</td>
-                      <td class="btn-tools" (click)="$event.stopPropagation()">
-                          <button (click)="showAddEdit(assessment)" class="btn btn-success btn-sm row-btn">
-                              <i class="fa fa-pencil"></i>
-                          </button>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
-  </div>
+    <div class="content-title">Assessments
+        <button class="btn dpabtn-yellow" (click)="showAddEdit('')" *ngIf="isAdmin">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    
+    <div class="group-assessment">
+        <div class="table-responsive style-1 ep-table-request">
+            <table class="dpa-table table table-striped">
+                <thead class="dpa-table-header">
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date Created</th>
+                    <th>Deadline</th>
+                    <th *ngIf="!isAdmin">Status</th>
+                    <th *ngIf="isAdmin"></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let assessment of assessments" (click)="showAssessment(assessment)">
+                        <td>{{ assessment.assessmentName }}</td>
+                        <td>{{ assessment.assessmentDescription }}</td>
+                        <td>{{ assessment.createdDateTime | date: 'MM-dd-yyyy' }}</td>
+                        <td>{{ assessment.submissionDeadline | date: 'MM-dd-yyyy' }}</td>
+                        <td *ngIf="!isAdmin">
+                            <span class="dot status-{{assessment.status | lowercase}}"></span>
+                            {{ assessment.status }}
+                        </td>
+                        <td class="btn-tools" (click)="$event.stopPropagation()"
+                            *ngIf="isAdmin">
+                            <button (click)="showAddEdit(assessment)" 
+                                class="btn btn-success btn-sm row-btn">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>

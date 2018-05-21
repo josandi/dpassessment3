@@ -22,6 +22,14 @@ export class AssessmentsService {
     );
   }
 
+  getUserAssessments(employeeId) {
+    return this.http.get('assets/test-data/user-assessment-list.json', this.authService.requestOptions())
+      .pipe(map((response: Response) => {
+        return response.json().data;  
+      })
+    );
+  }
+
   getQuestionnairesList() {
     return this.http.get(this.baseUrl + 'Questionaire', this.authService.requestOptions())
       .pipe(map((response: Response) => {

@@ -1,59 +1,60 @@
 {
     "data": [
         {
-            "assessment_id": 1,
-            "assessment_name": "Assessment A",
-            "description": "First personal assessment for 2018. ",
-            "questionnaire_id": 1,
-            "questions_count": 50,
-            "date_created": "04-15-2018",
-            "deadline": "04-30-2018",
-            "date_submitted": "04-16-2018",
-            "status": "Completed"
-        },
-        {
-            "assessment_id": 2,
-            "assessment_name": "Assessment B",
-            "description": "Second personal assessment for 2018",
-            "questionnaire_id": 2,
-            "questions_count": 50,
-            "date_created": "11-01-2018",
-            "deadline": "11-15-2018",
-            "date_submitted": null,
-            "status": "Unanswered"
-        },
-        {
-            "assessment_id": 3,
-            "assessment_name": "Other Assessment A",
-            "description": "Some other assessment",
-            "questionnaire_id": 3,
-            "questions_count": 15,
-            "date_created": "06-01-2018",
-            "deadline": "06-15-2018",
-            "date_submitted": "06-10-2018",
-            "status": "Completed"
-        },
-        {
-            "assessment_id": 4,
-            "assessment_name": "Other Assessment B",
-            "description": "Another assessment for different purpose",
-            "questionnaire_id": 1,
-            "questions_count": 15,
-            "date_created": "08-01-2019",
-            "deadline": "08-15-2019",
-            "date_submitted": null,
-            "status": "Unanswered"
-        },
-        {
-            "assessment_id": 5,
-            "assessment_name": "Other Assessment C",
-            "description": "Different assessment from others",
-            "questionnaire_id": 2,
-            "questions_count": 15,
-            "date_created": "02-15-2018",
-            "deadline": "02-30-2018",
-            "date_submitted": null,
-            "status": "Unanswered"
-        }
+        "assessmentId": 1,
+        "assessmentName": "string",
+        "assessmentDescription": "string",
+        "submissionDeadline": "2018-05-18T05:50:05.237",
+        "createdDateTime": "2018-05-18T13:48:53.917",
+        "status": "Completed"
+    },
+    {
+        "assessmentId": 2,
+        "assessmentName": "Assessment 1",
+        "assessmentDescription": "Description",
+        "submissionDeadline": "2018-06-14T16:00:00",
+        "createdDateTime": "2018-05-20T04:28:27.767",
+        "status": "Unanswered"
+    },
+    {
+        "assessmentId": 3,
+        "assessmentName": "Assessment 2",
+        "assessmentDescription": "Description for Assessment 2",
+        "submissionDeadline": "2018-05-21T16:00:00",
+        "createdDateTime": "2018-05-20T04:41:10.14",
+        "status": "Unanswered"
+    },
+    {
+        "assessmentId": 4,
+        "assessmentName": "Assessment 3",
+        "assessmentDescription": "Description for the 3rd assessment",
+        "submissionDeadline": "2018-09-30T16:00:00",
+        "createdDateTime": "2018-05-20T04:42:19.57",
+        "status": "Unanswered"
+    },
+    {
+        "assessmentId": 5,
+        "assessmentName": "Assessment 4",
+        "assessmentDescription": "Description",
+        "submissionDeadline": "2018-05-30T16:00:00",
+        "createdDateTime": "2018-05-20T05:00:50.223",
+        "status": "Unanswered"
+    },
+    {
+        "assessmentId": 6,
+        "assessmentName": "Assessment 5",
+        "assessmentDescription": "Assessment 5 Description",
+        "submissionDeadline": "2018-06-29T16:00:00",
+        "createdDateTime": "2018-05-20T06:15:55.943",
+        "status": "Unanswered"
+    },
+    {
+        "assessmentId": 7,
+        "assessmentName": "Assessment 6",
+        "assessmentDescription": "Assessment 6 Description",
+        "submissionDeadline": "2018-05-30T16:00:00",
+        "createdDateTime": "2018-05-20T06:16:59.383",
+        "status": "Unanswered"
+    }
     ]
 }
