@@ -72,7 +72,7 @@ export class QuestionnaireAddEditComponent implements OnInit {
         'questionDescription': question,
         'questionCategoryId': category.questionCategoryId,
         'optionGroupId': optgroup.optionGroupId,
-        'options': this.getOptionGroupFromArray(optgroup.optionGroupId)
+        'questionOptions': this.getOptionGroupFromArray(optgroup.optionGroupId)
       }
       
       this.questionnaire.questionWithOptions.push(questionToAdd);

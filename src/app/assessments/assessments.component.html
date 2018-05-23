@@ -19,7 +19,10 @@
                 <tbody>
                     <tr *ngFor="let assessment of assessments" (click)="showAssessment(assessment)">
                         <td>{{ assessment.assessmentName }}</td>
-                        <td>{{ assessment.assessmentDescription }}</td>
+                        <td>
+                            {{ assessment.assessmentDescription | slice:0:50  }}
+                            <span *ngIf="assessment.assessmentDescription.length > 50">...</span>
+                        </td>
                         <td *ngIf="isAdmin">{{ assessment.createdDateTime | date: 'MM-dd-yyyy' }}</td>
                         <td>{{ assessment.submissionDeadline | date: 'MM-dd-yyyy' }}</td>
                         <td *ngIf="!isAdmin">

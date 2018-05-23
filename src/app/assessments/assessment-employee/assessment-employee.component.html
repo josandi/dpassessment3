@@ -39,7 +39,7 @@
               <div class="qst-answer" >
                 <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.questionOptions)">
                   <label *ngFor="let option of question.questionOptions">
-                    <input type="radio" name="qstopt-{{question.questionId}}"
+                    <input type="radio" name="ansopt-{{question.questionId}}"
                       [value]="option.optionsId"
                       [checked]="option.optionsId == question.employeeAnswer"
                       (change)="setSelectedOptionToModel(question.questionId, option)"
@@ -48,7 +48,7 @@
                   </label>
                 </div>
                 <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.questionOptions)">
-                  <textarea [(ngModel)]="question.employeeAnswer" class="form-control" 
+                  <textarea name="anstxt-{{question.questionId}}" [(ngModel)]="question.employeeAnswer" class="form-control" 
                     rows="3" id="answer" required>
                   </textarea>
                 </div>
