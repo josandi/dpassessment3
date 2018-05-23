@@ -12,21 +12,15 @@ export class AppComponent implements OnInit{
   user: any = {};
   canAccessApp: boolean = this.authService.loggedIn();
 
-  constructor(private authService: AuthService,
-              private router: Router ) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.setUserDetails();
   }
 
   logout() {
-    this.authService.userToken = null;
-    localStorage.removeItem('dpa-fullname');
-    localStorage.removeItem('dpa-role');
-    localStorage.removeItem('dpa-token');
-
+    this.authService.logout();
     this.canAccessApp = false;
-    this.router.navigate(['/login']);
   }
 
   /* Purpose: Called after login to show sidebar */
