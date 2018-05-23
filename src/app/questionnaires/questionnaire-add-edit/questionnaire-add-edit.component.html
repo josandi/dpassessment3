@@ -51,7 +51,7 @@
     <div class="modal-divider"></div>
 
     <div class="row pre-scrollable qst-questions">
-      <fieldset  ng-disabled="true">
+      <fieldset [disabled]="true">
         <div *ngFor="let category of categories" class="qst-category">
             <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
             <ol>
@@ -66,14 +66,14 @@
                   {{ question.questionDescription }}
                 </div>
                 <div class="qst-answer" >
-                  <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.options)">
-                    <label *ngFor="let option of question.options">
+                  <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.questionOptions)">
+                    <label *ngFor="let option of question.questionOptions">
                       <input type="radio" name="qstopt-{{question.questionId}}"
                         [(ngModel)]="question.answer" [value]="option.optionDescription"/>
                         {{option.optionDescription}}
                     </label>
                   </div>
-                  <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.options)">
+                  <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.questionOptions)">
                     <textarea ng-model="question.answer" class="form-control" 
                       rows="3" id="answer">
                     </textarea>

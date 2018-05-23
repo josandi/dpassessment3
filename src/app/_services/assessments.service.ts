@@ -33,9 +33,11 @@ export class AssessmentsService {
   }
 
   getUserAssessments(employeeId) {
-    return this.http.get('assets/test-data/user-assessment-list.json', this.authService.requestOptions())
-      .pipe(map((response: Response) => {
-        return response.json().data;  
+    return this.http.get(
+      this.baseUrl + 'Employees/GetEmployeeAssessmentDetail/' + employeeId, 
+      this.authService.requestOptions()
+    ).pipe(map((response: Response) => {
+        return response.json().employeeAssessmentList;  
       })
     );
   }

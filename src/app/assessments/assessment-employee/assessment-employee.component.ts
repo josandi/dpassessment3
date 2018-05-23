@@ -165,4 +165,12 @@ export class AssessmentEmployeeComponent implements OnInit {
     return emp;
   }
 
+  // doneAnswering() {
+  //   this.questionnaire.questionWithOptions.forEach(question => { 
+  //     if(!question.employeeAnswer)
+  //       return false;
+  //   });
+  //   return true;
+  // }
+
 }

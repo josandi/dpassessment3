@@ -40,10 +40,10 @@
                 <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.questionOptions)">
                   <label *ngFor="let option of question.questionOptions">
                     <input type="radio" name="qstopt-{{question.questionId}}"
-                      [value]="option.optionsId" 
+                      [value]="option.optionsId"
                       [checked]="option.optionsId == question.employeeAnswer"
                       (change)="setSelectedOptionToModel(question.questionId, option)"
-                      [(ngModel)]="question.employeeAnswer" required />
+                      required />
                       {{option.optionDescription}}
                   </label>
                 </div>

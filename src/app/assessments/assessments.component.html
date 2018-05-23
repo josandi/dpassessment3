@@ -11,7 +11,7 @@
                 <thead class="dpa-table-header">
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Date Created</th>
+                    <th *ngIf="isAdmin">Date Created</th>
                     <th>Deadline</th>
                     <th *ngIf="!isAdmin">Status</th>
                     <th *ngIf="isAdmin"></th>
@@ -20,11 +20,11 @@
                     <tr *ngFor="let assessment of assessments" (click)="showAssessment(assessment)">
                         <td>{{ assessment.assessmentName }}</td>
                         <td>{{ assessment.assessmentDescription }}</td>
-                        <td>{{ assessment.createdDateTime | date: 'MM-dd-yyyy' }}</td>
+                        <td *ngIf="isAdmin">{{ assessment.createdDateTime | date: 'MM-dd-yyyy' }}</td>
                         <td>{{ assessment.submissionDeadline | date: 'MM-dd-yyyy' }}</td>
                         <td *ngIf="!isAdmin">
-                            <span class="dot status-{{assessment.status | lowercase}}"></span>
-                            {{ assessment.status }}
+                            <span class="dot status-{{(assessment.status) ? assessment.status : assessment.empAssessmentStatus | lowercase}}"></span>
+                            {{ (assessment.status) ? assessment.status : assessment.empAssessmentStatus }}
                         </td>
                         <td class="btn-tools" (click)="$event.stopPropagation()"
                             *ngIf="isAdmin">
