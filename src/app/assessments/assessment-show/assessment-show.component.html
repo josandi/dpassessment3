@@ -32,12 +32,12 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let employee of EmpAssessmentStatus" 
+        <tr *ngFor="let employee of empAssessmentStatus" 
           (click)="showEmployeeAssessment(employee)">
           <td>{{ employee.fullName }}</td>
           <td>
-            <span class="dot status-{{employee.status | lowercase}}"></span>
-            {{ employee.status }}
+            <span class="dot status-{{employee.empAssessmentStatus | lowercase}}"></span>
+            {{ employee.empAssessmentStatus }}
           </td>
         </tr>
       </tbody>

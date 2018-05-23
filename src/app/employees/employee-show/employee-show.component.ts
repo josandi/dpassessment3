@@ -20,19 +20,14 @@ export class EmployeeShowComponent implements OnInit {
               private _employeeService: EmployeesService ) { }
 
   ngOnInit() {
-    this.getEmployeeAssessments(this.employeeData.aspNetUserID);
+    this.getEmployeeAssessments(this.employeeData.aspNetUserId);
   }
 
 	getEmployeeAssessments(empId) {
     this._employeeService.getAssessmentsStatusPerEmp(empId)
       .subscribe(data =>
-        this.empAssessments = data, 
-        error => this.errorMsg = error,
-        () => {                                       // TEMPORARY: remove once endpoint is done
-          this.empAssessments.forEach(assessment => {
-            assessment.status = 'Unanswered';
-          });
-        }
+        this.empAssessments = data.employeeAssessmentList, 
+        error => this.errorMsg = error
       );
   }
 

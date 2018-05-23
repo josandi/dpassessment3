@@ -27,8 +27,8 @@
                         (click)="showEmployeeAssessment(assessment)">
                         <td>{{ assessment.assessmentName }}</td>
                         <td>
-                            <span class="dot status-{{assessment.status | lowercase}}"></span>
-                            {{ assessment.status }}
+                            <span class="dot status-{{assessment.empAssessmentStatus | lowercase}}"></span>
+                            {{ assessment.empAssessmentStatus }}
                         </td>
                     </tr>
                 </tbody>

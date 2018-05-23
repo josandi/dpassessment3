@@ -99,7 +99,7 @@ export class AssessmentsComponent implements OnInit {
 
   showEmployeeAssessment(assessment) {
     let employee: any = {};                                     // manually set employees data (from local storage)
-    employee.fullName = this.userId;
+    employee.aspNetUserId = this.userId;
     employee.fullName = localStorage.getItem("dpa-fullname");
     employee.position = localStorage.getItem("dpa-position");
 

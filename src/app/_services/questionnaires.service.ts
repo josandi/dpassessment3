@@ -32,6 +32,15 @@ export class QuestionnairesService {
     );
   }
 
+  getQuestionnaireDetail(questionnaireId) {
+    return this.http.get(this.baseUrl + 'Questionaire/' + questionnaireId, 
+      this.authService.requestOptions())
+        .pipe(map((response: Response) => {
+          return response.json();
+        })
+    );
+  }
+
   getQuestions(questionnaireId) {
     return this.http.get('/assets/test-data/questions.json', this.authService.requestOptions())
       .pipe(map((response: Response) => {
@@ -118,7 +127,6 @@ export class QuestionnairesService {
     return this.http.delete(this.baseUrl + 'Questions/RemoveQuestion/?id=' + questionId,
       this.authService.requestOptions()
     ).pipe(map((response: Response) => {
-        console.log(response);
         return (response.ok) ? true : false;
       })
     );

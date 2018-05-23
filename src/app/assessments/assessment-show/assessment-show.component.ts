@@ -12,7 +12,7 @@ export class AssessmentShowComponent implements OnInit {
   assessmentShowModal: BsModalRef;
   errorMsg;
   assessment: any;
-  EmpAssessmentStatus: any;
+  empAssessmentStatus: any;
 
   constructor(private bsModalRef: BsModalRef,
               private modalService: BsModalService,
@@ -27,13 +27,8 @@ export class AssessmentShowComponent implements OnInit {
   getEmpAssessmentStatus() {
     this._assessmentService.getEmpAssessmentStatus(this.assessment.assessmentId)
       .subscribe(data =>
-        this.EmpAssessmentStatus = data, 
-        error => this.errorMsg = error,
-        () => {                                       // TEMPORARY: remove once endpoint is done
-          this.EmpAssessmentStatus.forEach(emp => {
-            emp.status = 'Unanswered';
-          });
-        }
+        this.empAssessmentStatus = data.listOfEmp, 
+        error => this.errorMsg = error
       );
   }
 

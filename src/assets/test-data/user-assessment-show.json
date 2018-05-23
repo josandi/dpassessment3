@@ -1,0 +1,110 @@
+{
+    "data": {
+        "assessmentId": 1,
+        "assessmentName": "Sample Employee Assessment",
+        "employee": {
+            "aspNetUserID": 290,
+            "fullName": "Marie Antoinette Go",
+            "position": "Back-End Web Developer"
+        },
+        "questionaire": {
+            "questionaireId": 4,
+            "questionaireDescription": "Questionnaire 4",
+            "questionaireInstructions": "Instructions for Questionnaire 4",
+            "questionWithOptions": [
+                {
+                    "questionId": 8,
+                    "questionDescription": "New Question 1",
+                    "questionCategoryId": 1,
+                    "questionCategoryDesc": "Category 1",
+                    "options": [
+                        {
+                            "optionsId": 1,
+                            "optionDescription": "Never"
+                        },
+                        {
+                            "optionsId": 2,
+                            "optionDescription": "Rarely"
+                        },
+                        {
+                            "optionsId": 3,
+                            "optionDescription": "Sometimes"
+                        }
+                    ],
+                    "answer": 1
+                },
+                {
+                    "questionId": 9,
+                    "questionDescription": "New Question 2",
+                    "questionCategoryId": 1,
+                    "questionCategoryDesc": "Category 1",
+                    "options": [
+                        {
+                            "optionsId": 1,
+                            "optionDescription": "Never"
+                        },
+                        {
+                            "optionsId": 2,
+                            "optionDescription": "Rarely"
+                        },
+                        {
+                            "optionsId": 3,
+                            "optionDescription": "Sometimes"
+                        }
+                    ],
+                    "answer": 2
+                },
+                {
+                    "questionId": 11,
+                    "questionDescription": "New Question 4",
+                    "questionCategoryId": 2,
+                    "questionCategoryDesc": "Category 2",
+                    "options": [
+                        {
+                            "optionsId": 1,
+                            "optionDescription": "Never"
+                        },
+                        {
+                            "optionsId": 2,
+                            "optionDescription": "Rarely"
+                        },
+                        {
+                            "optionsId": 3,
+                            "optionDescription": "Sometimes"
+                        }
+                    ],
+                    "answer": 3
+                },
+                {
+                    "questionId": 13,
+                    "questionDescription": "New Question 6",
+                    "questionCategoryId": 2,
+                    "questionCategoryDesc": "Category 2",
+                    "options": [
+                        {
+                            "optionsId": 1,
+                            "optionDescription": "Never"
+                        },
+                        {
+                            "optionsId": 2,
+                            "optionDescription": "Rarely"
+                        },
+                        {
+                            "optionsId": 3,
+                            "optionDescription": "Sometimes"
+                        }
+                    ],
+                    "answer": 2
+                },
+                {
+                    "questionId": 15,
+                    "questionDescription": "Open ended question",
+                    "questionCategoryId": 3,
+                    "questionCategoryDesc": "Category 3",
+                    "options": [],
+                    "answer": "This is an answer to the open-ended question."
+                }
+            ]
+        }
+    }
+}

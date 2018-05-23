@@ -1,31 +1,28 @@
 <div class="dpa-modal assessment-modal qst-div container-fluid">
-    <div class="modal-title">{{ assessment.assessmentName }}</div>
-    
-    <div class="modal-detail">
-      <table class="modal-table">
-        <tbody>
-          <tr>
-            <td>Name:</td>
-            <td>{{ employee.fullName }}</td>
-          </tr>
-          <tr>
-            <td>Position:</td>
-            <td>{{ employee.position }}</td>
-          </tr>
-          <tr>
-            <td>Status:</td>
-            <td><span class="dot status-{{currAssessmentStatus | lowercase}}"></span>
-                {{ currAssessmentStatus }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="modal-title">{{ assessment.assessmentName }}</div>
   
-    <div class="modal-divider"></div>
-  
-    <form #questionnaireShowForm="ngForm" class="dpa-modal-form" role="form" 
-      (ngSubmit)="submitQuestionnaire()">
+  <div class="modal-detail">
+    <table class="modal-table">
+      <tbody>
+        <tr>
+          <td>Name:</td>
+          <td>{{ employee.fullName }}</td>
+        </tr>
+        <tr>
+          <td>Status:</td>
+          <td><span class="dot status-{{currAssessmentStatus | lowercase}}"></span>
+              {{ currAssessmentStatus }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-divider"></div>
+
+  <form #questionnaireShowForm="ngForm" class="dpa-modal-form" role="form" 
+    (ngSubmit)="submitQuestionnaire()">
+    <fieldset [disabled]="!enableFields">
       <div class="qst-instructions">
         <div class="dpa-label">Instructions:</div>
         <span>{{ questionnaire.questionaireInstructions }}</span>
@@ -35,37 +32,41 @@
           <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
           <ol>
             <li *ngFor="let question of questionnaire.questionWithOptions 
-            | questionCategoryFilter:category.questionCategoryId">
-            <div class="qst-question col-md-12">
-              {{ question.questionDescription }}
-            </div>
-            <div class="qst-answer" >
-              <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.options)">
-                <label *ngFor="let option of question.options">
-                  <input type="radio" name="qstopt-{{question.questionId}}"
-                    [(ngModel)]="question.answer" [value]="option.optionDescription"/>
-                    {{option.optionDescription}}
-                </label>
+              | questionCategoryFilter:category.questionCategoryId">
+              <div class="qst-question col-md-12">
+                {{ question.questionDescription }}
               </div>
-              <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.options)">
-                <textarea ng-model="question.answer" class="form-control" 
-                  rows="3" id="answer">
-                </textarea>
-              </div>
-            </div>      
-          </li>
+              <div class="qst-answer" >
+                <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.questionOptions)">
+                  <label *ngFor="let option of question.questionOptions">
+                    <input type="radio" name="qstopt-{{question.questionId}}"
+                      [value]="option.optionsId" 
+                      [checked]="option.optionsId == question.employeeAnswer"
+                      (change)="setSelectedOptionToModel(question.questionId, option)"
+                      [(ngModel)]="question.employeeAnswer" required />
+                      {{option.optionDescription}}
+                  </label>
+                </div>
+                <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.questionOptions)">
+                  <textarea [(ngModel)]="question.employeeAnswer" class="form-control" 
+                    rows="3" id="answer" required>
+                  </textarea>
+                </div>
+              </div>      
+            </li>
           </ol>
         </div>
       </div>
-  
-      <div class="row modal-footer">          
-          <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
-              Close
-          </button>
-          <button type="submit" class="btn btn-warning col-md-4" 
-            [disabled]="!questionnaireShowForm.valid" *ngIf="enableFields">
-              Submit
-          </button>  
-      </div>
-    </form>
-  </div>
+    </fieldset>
+
+    <div class="row modal-footer">          
+      <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
+          Close
+      </button>
+      <button type="submit" class="btn btn-warning col-md-4" 
+        [disabled]="!questionnaireShowForm.valid" *ngIf="enableFields">
+          Submit
+      </button>  
+    </div>
+  </form>
+</div>

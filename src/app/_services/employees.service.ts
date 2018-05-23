@@ -25,10 +25,12 @@ export class EmployeesService {
     }
 
     /* Purpose: get all assessment status of specific employee */
-    getAssessmentsStatusPerEmp(empId) {             // TEMPORARY: change endpoint once done
-      return this.http.get(this.baseUrl + 'Assessment/GetAllAssessments', this.authService.requestOptions())
-        .pipe(map((response: Response) => {
-          return response.json();  
+    getAssessmentsStatusPerEmp(empId) {
+      return this.http.get(
+            this.baseUrl + 'Employees/GetEmployeeAssessmentDetail/' + empId,
+            this.authService.requestOptions()
+        ).pipe(map((response: Response) => {
+            return response.json();  
         })
       );
     } 

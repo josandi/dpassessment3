@@ -22,6 +22,16 @@ export class AssessmentsService {
     );
   }
 
+  getAssessmentDetail(assessmentId) {
+    return this.http.get(
+        this.baseUrl + 'Assessment/' + assessmentId, 
+        this.authService.requestOptions()
+      ).pipe(map((response: Response) => {
+          return response.json();  
+        })
+      );
+  }
+
   getUserAssessments(employeeId) {
     return this.http.get('assets/test-data/user-assessment-list.json', this.authService.requestOptions())
       .pipe(map((response: Response) => {
@@ -39,23 +49,23 @@ export class AssessmentsService {
   }
 
   /* Purpose: get all status of employees for the specific assessment */
-  getEmpAssessmentStatus(assessmentId) {          // TEMPORARY: change endpoint once done
-    return this.http.get(this.baseUrl + 'Employees', this.authService.requestOptions())
-      .pipe(map((response: Response) => {
+  getEmpAssessmentStatus(assessmentId) {
+    return this.http.get(
+        this.baseUrl + 'Assessment/EmployeeAssessmentList_Get/' + assessmentId, 
+        this.authService.requestOptions()
+      ).pipe(map((response: Response) => {
         return response.json();  
       })
     );
   }
 
-  getEmpAssessmentQuestionnaire(employeeId, assessmentID, questionnaireId) {
-    // TEMPORARY (do once endpoint is done):
-    //    - remove questionnaireId param
-    //    - update endpoint path (for now, get questionnaire w/o answers)
-    return this.http.get(this.baseUrl + 'Questionaire/QuestionairesWithQuestions/' + questionnaireId, 
-      this.authService.requestOptions())
-        .pipe(map((response: Response) => {
-          return response.json().data;
-        })
+  getEmpAssessmentQuestionnaire(assessmentId, employeeId) {
+    return this.http.get(
+        this.baseUrl + 'EmployeeAssessment/GetQuestionWithAns/' + assessmentId + '/' + employeeId, 
+        this.authService.requestOptions()
+      ).pipe(map((response: Response) => {
+        return response.json();
+      })
     );
   }
 
@@ -66,6 +76,17 @@ export class AssessmentsService {
       assessment,
       this.authService.requestOptions()
     ).pipe(map((response: Response) => {
+        return (response.ok) ? true : false;
+      })
+    );
+  }
+
+  saveEmployeeAssessment(empAssessment) {
+    return this.http.post(this.baseUrl + 'EmployeeAssessment/InsertEmployeeAssessment',
+      empAssessment,
+      this.authService.requestOptions()
+    ).pipe(map((response: Response) => {
+        console.log(response);
         return (response.ok) ? true : false;
       })
     );
