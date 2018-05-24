@@ -21,6 +21,8 @@ export class AssessmentEmployeeComponent implements OnInit {
   currAssessmentStatus: string;
   enableFields: boolean = false;
 
+  tryModel = 1;
+
   constructor(private bsModalRef: BsModalRef,
               private alertify: AlertifyService,
               private authService: AuthService,
@@ -46,26 +48,12 @@ export class AssessmentEmployeeComponent implements OnInit {
    }
 
   submitQuestionnaire() {
-    let empAssessment: any = {};
-    let response: any;
-
     if (this.enableFields) {
-      empAssessment = this.getEmpAssessmentToSubmit();
-
-      this._assessmentService.saveEmployeeAssessment(empAssessment)
-        .subscribe(
-          data => response = data,
-          error => this.errorMsg = error,
-          () => { 
-            if (response) {
-              this.alertify.success('Assessment submitted successfully!');
-            } else {
-              this.alertify.error('Assessment submission - failed!');
-            }
-
-            this.closeModal();
-          }
-        );
+      if (this.hasAnsweredAllQuestions()) {
+        this.saveEmployeeAssessment();
+      } else {
+        this.alertify.error('All questions must be answered.')
+      }      
     }
   }
 
@@ -129,6 +117,28 @@ export class AssessmentEmployeeComponent implements OnInit {
       );
   }
 
+  // API POST 
+
+  saveEmployeeAssessment() {
+    let empAssessment: any = {};
+    let response: any;
+
+    empAssessment = this.getEmpAssessmentToSubmit();
+    this._assessmentService.saveEmployeeAssessment(empAssessment)
+      .subscribe(
+        data => response = data,
+        error => this.errorMsg = error,
+        () => { 
+          if (response) {
+            this.alertify.success('Assessment submitted successfully!');
+          } else {
+            this.alertify.error('Assessment submission - failed!');
+          }
+          this.closeModal();
+        }
+      );
+  }
+
   // UTILITIES
 
   getCategoriesFromQuestionsArr(questions) {
@@ -165,12 +175,12 @@ export class AssessmentEmployeeComponent implements OnInit {
     return emp;
   }
 
-  // doneAnswering() {
-  //   this.questionnaire.questionWithOptions.forEach(question => { 
-  //     if(!question.employeeAnswer)
-  //       return false;
-  //   });
-  //   return true;
-  // }
+  hasAnsweredAllQuestions() {
+    for (let question of this.questionnaire.questionWithOptions) {
+      if(!question.employeeAnswer)
+        return false;
+    }
+    return true;
+  }
 
 }

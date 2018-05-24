@@ -48,8 +48,9 @@
                   </label>
                 </div>
                 <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.questionOptions)">
-                  <textarea name="anstxt-{{question.questionId}}" [(ngModel)]="question.employeeAnswer" class="form-control" 
-                    rows="3" id="answer" required>
+                  <textarea class="form-control"
+                    name="anstxt-{{question.questionId}}" 
+                    [(ngModel)]="question.employeeAnswer" required>
                   </textarea>
                 </div>
               </div>      
@@ -63,8 +64,7 @@
       <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
           Close
       </button>
-      <button type="submit" class="btn btn-warning col-md-4" 
-        [disabled]="!questionnaireShowForm.valid" *ngIf="enableFields">
+      <button type="submit" class="btn btn-warning col-md-4" *ngIf="enableFields">
           Submit
       </button>  
     </div>
