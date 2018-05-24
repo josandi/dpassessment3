@@ -211,6 +211,11 @@ thead.dpa-table-header>tr>th {
     cursor: pointer;
 }
 
+.dpa-table td.col-status{
+    width: 30%;
+    white-space: nowrap;
+}
+
 .dpa-table td.btn-tools{
     width: 1%;
     white-space: nowrap;
@@ -231,7 +236,7 @@ thead.dpa-table-header>tr>th {
     background-color: gray;
 }
 
-.status-completed {
+.status-done {
     background-color: rgb(60, 187, 89);
 }
 

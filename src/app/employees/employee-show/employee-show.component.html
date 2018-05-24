@@ -26,7 +26,7 @@
                     <tr *ngFor="let assessment of empAssessments"
                         (click)="showEmployeeAssessment(assessment)">
                         <td>{{ assessment.assessmentName }}</td>
-                        <td>
+                        <td class="col-status">
                             <span class="dot status-{{assessment.empAssessmentStatus | lowercase}}"></span>
                             {{ assessment.empAssessmentStatus }}
                         </td>
