@@ -6,11 +6,11 @@ import { AssessmentsService } from '../../_services/assessments.service';
 import { AlertifyService } from '../../_services/alertify.service';
 
 @Component({
-  selector: 'app-assessments-add-edit',
-  templateUrl: './assessments-add-edit.component.html',
-  styleUrls: ['./assessments-add-edit.component.scss']
+  selector: 'app-assessment-add-edit',
+  templateUrl: './assessment-add-edit.component.html',
+  styleUrls: ['./assessment-add-edit.component.scss']
 })
-export class AssessmentsAddEditComponent implements OnInit {
+export class AssessmentAddEditComponent implements OnInit {
   errorMsg: any;
   isEdit: boolean = false;
   btnSubmitName: string = "Save";

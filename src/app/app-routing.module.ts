@@ -6,8 +6,7 @@ import { AssessmentsComponent } from './assessments/assessments.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { EmployeeShowComponent } from './employees/employee-show/employee-show.component';
-import { EmployeesAddEditComponent } from './employees-add-edit/employees-add-edit.component';
-import { AssessmentsAddEditComponent } from './assessments/assessments-add-edit/assessments-add-edit.component';
+import { AssessmentAddEditComponent } from './assessments/assessment-add-edit/assessment-add-edit.component';
 import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
 import { QuestionnaireShowComponent } from './questionnaires/questionnaire-show/questionnaire-show.component';
 import { QuestionnaireAddEditComponent } from './questionnaires/questionnaire-add-edit/questionnaire-add-edit.component';
@@ -37,9 +36,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   entryComponents : [EmployeeShowComponent,
-                    EmployeesAddEditComponent,
                     AssessmentShowComponent,
-                    AssessmentsAddEditComponent,
+                    AssessmentAddEditComponent,
                     AssessmentEmployeeComponent,
                     QuestionnaireShowComponent,
                     QuestionnaireAddEditComponent]
@@ -50,9 +48,8 @@ export const routingComponents = [DashboardComponent,
                                   EmployeesComponent,
                                   UserSettingsComponent,
                                   EmployeeShowComponent,
-                                  EmployeesAddEditComponent,
                                   AssessmentShowComponent,
-                                  AssessmentsAddEditComponent,
+                                  AssessmentAddEditComponent,
                                   AssessmentEmployeeComponent,
                                   QuestionnairesComponent,
                                   QuestionnaireShowComponent,

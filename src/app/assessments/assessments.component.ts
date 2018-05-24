@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { AssessmentsService } from '../_services/assessments.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AssessmentShowComponent } from './assessment-show/assessment-show.component';
-import { AssessmentsAddEditComponent } from './assessments-add-edit/assessments-add-edit.component';
+import { AssessmentAddEditComponent } from './assessment-add-edit/assessment-add-edit.component';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { AuthService } from '../_services/auth.service';
 import { AssessmentEmployeeComponent } from './assessment-employee/assessment-employee.component';
@@ -92,7 +92,7 @@ export class AssessmentsComponent implements OnInit {
 
     this.subscribeModal();
     this.assessmentAddEditModal = this.modalService.show(
-      AssessmentsAddEditComponent, 
+      AssessmentAddEditComponent, 
       Object.assign({initialState}, { class: 'modal-md' })
     );
   }
