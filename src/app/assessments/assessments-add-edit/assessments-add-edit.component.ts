@@ -19,7 +19,7 @@ export class AssessmentsAddEditComponent implements OnInit {
   questionnaires: any;
   minDeadline: Date;
   
-  constructor(public bsModalRef: BsModalRef,
+  constructor(private bsModalRef: BsModalRef,
               private modalService: BsModalService,
               private alertify: AlertifyService,
               private _assessmentsService: AssessmentsService) { }
@@ -65,7 +65,7 @@ export class AssessmentsAddEditComponent implements OnInit {
             this.alertify.error('Saving assessment - failed!');
           }
 
-          this.bsModalRef.hide();
+          this.closeModal();
         }
       );
   }
@@ -84,7 +84,7 @@ export class AssessmentsAddEditComponent implements OnInit {
           } else {
             this.alertify.error('Updating assessment - failed!');
           }
-          this.bsModalRef.hide();
+          this.closeModal();
         }
       );
   }
@@ -98,7 +98,7 @@ export class AssessmentsAddEditComponent implements OnInit {
             error => this.errorMsg = error);
   }
 
-  // modal display
+  // MODAL DISPLAY
 
   showQuestionnaire(questionnaire) {
     this.assessmentData.questionaireId = questionnaire.questionaireId;
@@ -110,6 +110,10 @@ export class AssessmentsAddEditComponent implements OnInit {
       QuestionnaireShowComponent, 
       Object.assign({initialState}, { class: 'modal-lg' })
     );
+  }
+
+  closeModal() {
+    this.bsModalRef.hide();
   }
 
 }

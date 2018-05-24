@@ -63,7 +63,7 @@ export class AssessmentEmployeeComponent implements OnInit {
               this.alertify.error('Assessment submission - failed!');
             }
 
-            this.bsModalRef.hide();
+            this.closeModal();
           }
         );
     }

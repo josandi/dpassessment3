@@ -132,10 +132,10 @@ export class QuestionnaireAddEditComponent implements OnInit {
           } else {
             this.alertify.error('Saving questionnaire - failed!');
           }
+  
+          this.closeModal();
         }
       );
-
-    this.bsModalRef.hide();
   }
 
   /* Purpose: Update questionnaire */
@@ -152,7 +152,7 @@ export class QuestionnaireAddEditComponent implements OnInit {
           } else {
             this.alertify.error('Updating questionnaire - failed!');
           }
-          this.bsModalRef.hide();
+          this.closeModal();
         }
       );
 
@@ -274,6 +274,10 @@ export class QuestionnaireAddEditComponent implements OnInit {
 
   arrayHasData(arr) {
     return (arr.length > 0) ? true : false;
+  }
+
+  closeModal() {
+    this.bsModalRef.hide();
   }
 
   /* Purpose: get questionnaire details only; used for saving/updating questionnaire table */

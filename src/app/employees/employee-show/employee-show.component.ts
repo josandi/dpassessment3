@@ -15,7 +15,7 @@ export class EmployeeShowComponent implements OnInit {
   employeeData: any;
   empAssessments: any;
 
-  constructor(public bsModalRef: BsModalRef,
+  constructor(private bsModalRef: BsModalRef,
               private modalService: BsModalService,
               private _employeeService: EmployeesService ) { }
 
@@ -41,6 +41,12 @@ export class EmployeeShowComponent implements OnInit {
 			Object.assign({initialState}, { class: 'modal-lg' })
 		);
   }
-  
+
+  // UTILITIES
+
+  closeModal() {
+    this.bsModalRef.hide();
+  }
+
 }
 
