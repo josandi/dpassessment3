@@ -17,7 +17,6 @@ export class QuestionnaireAddEditComponent implements OnInit {
   questionCategories: any;
   questionOptGroups: any;
   categories: any = [];
-  optionsList: any;
   groupedOptions: any;
   questionFldsValid: boolean = true;
 
@@ -38,7 +37,6 @@ export class QuestionnaireAddEditComponent implements OnInit {
     this.getQuestionCategories();
     this.getQuestionOptGroups();
     this.getGroupedOptions();
-    this.getOptionsList();
   }
 
   // MAIN FUNCTIONS
@@ -248,13 +246,6 @@ export class QuestionnaireAddEditComponent implements OnInit {
     this._questionnaireService.getGroupedOptions()
       .subscribe(data =>
         this.groupedOptions= data, 
-        error => this.errorMsg = error);
-  }
-
-  getOptionsList() {
-    this._questionnaireService.getOptionsList()
-      .subscribe(data =>
-        this.optionsList= data, 
         error => this.errorMsg = error);
   }
 

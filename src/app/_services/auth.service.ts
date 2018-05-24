@@ -5,13 +5,14 @@ import { HttpHeaders } from '@angular/common/http';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';
+import { API } from '../_config/constants.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  baseUrl = 'http://13.75.89.123:881/api/';
+  private baseUrl: string = API.END_POINT;
   userToken;
   isLoggedIn: boolean = false;
   jwtHelper: JwtHelper = new JwtHelper();
@@ -21,7 +22,8 @@ export class AuthService {
               private router: Router) { }
 
   login(model: any) {
-    return this.http.post(this.baseUrl + 'Account/login', 
+    return this.http.post(
+        this.baseUrl + API.ACCOUNT.LOGIN, 
         model, 
         this.getNoAuthRequestOptions()
       ).pipe(map((response: Response) => {
@@ -108,7 +110,8 @@ export class AuthService {
       user.roleName = localStorage.getItem('dpa-role');
       console.log(user);
 
-      return this.http.post(this.baseUrl + 'Account/RefreshToken', 
+      return this.http.post(
+          this.baseUrl + API.ACCOUNT.REFRESH_TOKEN, 
           user, 
           this.requestOptionWithExpiredToken()
         ).pipe(map((response: Response) => {

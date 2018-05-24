@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { EmployeesService } from '../_services/employees.service';
-import { EmployeesAddEditComponent } from '../employees-add-edit/employees-add-edit.component';
 import { EmployeeShowComponent } from './employee-show/employee-show.component';
 
 
