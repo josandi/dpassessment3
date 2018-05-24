@@ -21,14 +21,14 @@
                 <div class="qst-answer" >
                   <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.questionOptions)">
                     <label *ngFor="let option of question.questionOptions">
-                      <input type="radio" name="qstopt-{{question.questionId}}"
-                        [(ngModel)]="question.answer" [value]="option.optionDescription"/>
+                      <input type="radio" name="ansopt-{{question.questionId}}"
+                        [value]="option.optionDescription"/>
                         {{option.optionDescription}}
                     </label>
                   </div>
                   <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.questionOptions)">
-                    <textarea ng-model="question.answer" class="form-control" 
-                      rows="3" id="answer">
+                    <textarea class="form-control" 
+                      name="anstxt-{{question.questionId}}">
                     </textarea>
                   </div>
                 </div>      
