@@ -44,7 +44,14 @@ export class QuestionnairesComponent implements OnInit {
     this.subscribeModal();
     this.questionnaireAddEditModal = this.modalService.show(
       QuestionnaireAddEditComponent, 
-      Object.assign({initialState}, { class: 'modal-lg' })
+      Object.assign(
+        {initialState}, 
+        {
+          class: 'modal-lg',
+          keyboard: false,
+          ignoreBackdropClick: true
+        }
+      )
     );
 	}
 

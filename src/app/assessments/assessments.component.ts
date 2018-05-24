@@ -25,6 +25,10 @@ export class AssessmentsComponent implements OnInit {
   isAdmin: boolean = true;
   bsModalRef: BsModalRef;
   subscriptions: Subscription[] =[];
+  modalConfig = {
+    keyboard: false,
+    ignoreBackdropClick: false
+  };
 
   constructor(private _assessmentsService: AssessmentsService,
               private authService: AuthService,
@@ -93,7 +97,14 @@ export class AssessmentsComponent implements OnInit {
     this.subscribeModal();
     this.assessmentAddEditModal = this.modalService.show(
       AssessmentAddEditComponent, 
-      Object.assign({initialState}, { class: 'modal-md' })
+      Object.assign(
+        {initialState}, 
+        {
+          class: 'modal-md',
+          keyboard: false,
+          ignoreBackdropClick: true
+        }
+      )
     );
   }
 
@@ -109,7 +120,14 @@ export class AssessmentsComponent implements OnInit {
     }    
     this.assessmentShowModal = this.modalService.show(
       AssessmentEmployeeComponent, 
-      Object.assign({initialState}, { class: 'modal-lg' })
+      Object.assign(
+        {initialState}, 
+        {
+          class: 'modal-lg',
+          keyboard: false,
+          ignoreBackdropClick: true
+        }
+      )
     );
   }
 
