@@ -117,7 +117,9 @@ export class AssessmentsComponent implements OnInit {
     const initialState = {
       employee: employee,
       assessment: assessment
-    }    
+    }
+    
+    this.subscribeModal();
     this.assessmentShowModal = this.modalService.show(
       AssessmentEmployeeComponent, 
       Object.assign(
