@@ -33,4 +33,9 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  clearFields() {
+    this.model.email = "";
+    this.model.password = "";
+  }
+
 }

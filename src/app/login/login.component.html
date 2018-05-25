@@ -14,7 +14,7 @@
         <div class="mainbox col-md-6">
             <div class="panel panel-info container-3d" >
                 <div class="panel-header">
-                    <label class="dpa-label">Login to Employee Portal</label>
+                    <label class="dpa-label">Login to Employee Assessment</label>
                 </div>
 
                 <div class="panel-body">
@@ -37,7 +37,9 @@
                         </div>
                         <div class="row form-group btn-section">
                             <div class="col-md-6 pull-left">
-                                <button class="btn btn-ep">Cancel</button>
+                                <button class="btn btn-ep" (click)="clearFields()">
+                                    Cancel
+                                </button>
                             </div>
                             <div class="col-md-6 pull-right">
                                 <button type="submit" [disabled]="!loginForm.valid"

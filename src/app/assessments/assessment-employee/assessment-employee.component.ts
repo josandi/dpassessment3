@@ -40,7 +40,7 @@ export class AssessmentEmployeeComponent implements OnInit {
     }
 
     this.currAssessmentStatus = (this.employee.empAssessmentStatus) ?        // check where the value is from; since this component is called from different components
-    this.employee.empAssessmentStatus : this.assessment.empAssessmentStatus;
+      this.employee.empAssessmentStatus : this.assessment.empAssessmentStatus;
 
     this.enableFields = (this.currAssessmentStatus==='Unanswered' && !this.authService.isAdmin()) ?
       true : false;                       // questionnaire can only be answerable when the user role is not admin and status is still unanswered
@@ -159,11 +159,11 @@ export class AssessmentEmployeeComponent implements OnInit {
     let idx = 0;
 
     emp.employeeAssessment = {};
-    emp.employeeAssessment.assessmentId = this.assessment.assessmentId;  // IDs
+    emp.employeeAssessment.assessmentId = this.assessment.assessmentId; // IDs
     emp.employeeAssessment.aspNetUserId = this.employee.aspNetUserId;
-    emp.employeeAssessmentAnswers = [];                // initialize array
+    emp.employeeAssessmentAnswers = [];                                 // initialize array
 
-    this.questionnaire.questionWithOptions.forEach(question => {          // loop questions
+    this.questionnaire.questionWithOptions.forEach(question => {        // loop questions
       answers[idx] = {};
       answers[idx].employeeAssessmentId = 0;
       answers[idx].questionId = question.questionId;
