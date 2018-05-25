@@ -16,6 +16,7 @@ import { GroupedOptionFilterPipe } from './_pipes/grouped-option-filter.pipe';
 import { AuthGuard } from './_guards/auth.guard';
 import { AlertifyService } from './_services/alertify.service';
 import { LoginGuard } from './_guards/login.guard';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LoginGuard } from './_guards/login.guard';
     ModalModule.forRoot(),
     FormsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AuthModule
   ],
   providers: [
     AuthGuard,

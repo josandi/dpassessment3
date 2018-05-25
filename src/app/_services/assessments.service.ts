@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 import { API } from '../_config/constants.config';
+import { AuthHttp } from 'angular2-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +10,13 @@ import { API } from '../_config/constants.config';
 export class AssessmentsService {
   private baseUrl: string = API.END_POINT;
 
-  constructor(private http: Http,
-              private authService: AuthService) { }
+  constructor(private authHttp: AuthHttp) { }
 
   // API GET
 
   getAllAssessments() {
-    return this.http.get(
-        this.baseUrl + API.ASSESSMENT.GET_ALL, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.ASSESSMENT.GET_ALL
       ).pipe(map((response: Response) => {
         return response.json();  
       })
@@ -26,9 +24,8 @@ export class AssessmentsService {
   }
 
   getAssessmentDetail(assessmentId) {
-    return this.http.get(
-        this.baseUrl + API.ASSESSMENT.GET_ONE + assessmentId, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.ASSESSMENT.GET_ONE + assessmentId
       ).pipe(map((response: Response) => {
           return response.json();  
         })
@@ -36,9 +33,8 @@ export class AssessmentsService {
   }
 
   getUserAssessments(employeeId) {
-    return this.http.get(
-      this.baseUrl + API.EMPLOYEE.GET_EMPLOYEE_ASSESSMENTS + employeeId, 
-      this.authService.requestOptions()
+    return this.authHttp.get(
+      this.baseUrl + API.EMPLOYEE.GET_EMPLOYEE_ASSESSMENTS + employeeId
     ).pipe(map((response: Response) => {
         return response.json().employeeAssessmentList;  
       })
@@ -46,9 +42,8 @@ export class AssessmentsService {
   }
 
   getQuestionnairesList() {
-    return this.http.get(
-        this.baseUrl + API.QUESTIONNAIRE.GET_ALL, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.QUESTIONNAIRE.GET_ALL
       ).pipe(map((response: Response) => {
         return response.json();  
       })
@@ -57,9 +52,8 @@ export class AssessmentsService {
 
   /* Purpose: get all status of employees for the specific assessment */
   getEmpAssessmentStatus(assessmentId) {
-    return this.http.get(
-        this.baseUrl + API.ASSESSMENT.GET_LIST_FOR_EMPLOYEE + assessmentId, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.ASSESSMENT.GET_LIST_FOR_EMPLOYEE + assessmentId
       ).pipe(map((response: Response) => {
         return response.json();  
       })
@@ -67,9 +61,8 @@ export class AssessmentsService {
   }
 
   getEmpAssessmentQuestionnaire(assessmentId, employeeId) {
-    return this.http.get(
-        this.baseUrl + API.EMP_ASSESSMENT.GET_QUESTIONS_WITH_ANSWERS + assessmentId + '/' + employeeId, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.EMP_ASSESSMENT.GET_QUESTIONS_WITH_ANSWERS + assessmentId + '/' + employeeId
       ).pipe(map((response: Response) => {
         return response.json();
       })
@@ -79,10 +72,9 @@ export class AssessmentsService {
   // API POST
 
   saveAssessment(assessment) {
-    return this.http.post(
+    return this.authHttp.post(
         this.baseUrl + API.ASSESSMENT.CREATE,
-        assessment,
-        this.authService.requestOptions()
+        assessment
       ).pipe(map((response: Response) => {
         return (response.ok) ? true : false;
       })
@@ -90,10 +82,9 @@ export class AssessmentsService {
   }
 
   saveEmployeeAssessment(empAssessment) {
-    return this.http.post(
+    return this.authHttp.post(
         this.baseUrl + 'EmployeeAssessment/InsertEmployeeAssessment',
-        empAssessment,
-        this.authService.requestOptions()
+        empAssessment
       ).pipe(map((response: Response) => {
         console.log(response);
         return (response.ok) ? true : false;
@@ -104,10 +95,9 @@ export class AssessmentsService {
   // API PUT
 
   updateAssessment(assessment) {
-    return this.http.put(
+    return this.authHttp.put(
         this.baseUrl + API.ASSESSMENT.UPDATE,
-        assessment ,
-        this.authService.requestOptions()
+        assessment
       ).pipe(map((response: Response) => {
         return (response.ok) ? true : false;
       })

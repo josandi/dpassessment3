@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { map } from 'rxjs/operators';
-import { AuthService } from './auth.service';
 import { API } from '../_config/constants.config';
+import { AuthHttp } from 'angular2-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +11,13 @@ export class QuestionnairesService {
 
   private baseUrl: string = API.END_POINT;
 
-  constructor(private http: Http,
-              private authService: AuthService) { }
+  constructor(private authHttp: AuthHttp) { }
 
   // API GET
 
   getAllQuestionnaires() {
-    return this.http.get(
-        this.baseUrl + API.QUESTIONNAIRE.GET_ALL, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.QUESTIONNAIRE.GET_ALL
       ).pipe(map((response: Response) => {
           return response.json();
         })
@@ -27,9 +25,8 @@ export class QuestionnairesService {
   }
 
   getQuestionnaire(questionnaireId) {
-    return this.http.get(
-        this.baseUrl + API.QUESTIONNAIRE.GET_QUESTIONS + questionnaireId, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.QUESTIONNAIRE.GET_QUESTIONS + questionnaireId
       ).pipe(map((response: Response) => {
         return response.json().data;
       })
@@ -37,9 +34,8 @@ export class QuestionnairesService {
   }
 
   getQuestionnaireDetail(questionnaireId) {
-    return this.http.get(
-        this.baseUrl + API.QUESTIONNAIRE.GET_ONE + questionnaireId, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.QUESTIONNAIRE.GET_ONE + questionnaireId
       ).pipe(map((response: Response) => {
         return response.json();
       })
@@ -47,9 +43,8 @@ export class QuestionnairesService {
   }
 
   getQuestionCategories() {
-    return this.http.get(
-        this.baseUrl + API.QUESTION_CATEGORY.GET_ALL, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.QUESTION_CATEGORY.GET_ALL
       ).pipe(map((response: Response) => {
           return response.json();
         })
@@ -57,9 +52,8 @@ export class QuestionnairesService {
   }
 
   getQuestionOptGroups() {
-    return this.http.get(
-        this.baseUrl + API.OPTION_GROUP.GET_ALL, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.OPTION_GROUP.GET_ALL
       ).pipe(map((response: Response) => {
         return response.json();
       })
@@ -67,9 +61,8 @@ export class QuestionnairesService {
   }
 
   getGroupedOptions() {
-    return this.http.get(
-        this.baseUrl + API.OPTION_GROUP.GET_ALL_WITH_OPTIONS, 
-        this.authService.requestOptions()
+    return this.authHttp.get(
+        this.baseUrl + API.OPTION_GROUP.GET_ALL_WITH_OPTIONS
       ).pipe(map((response: Response) => {
         return response.json();
       })
@@ -79,10 +72,9 @@ export class QuestionnairesService {
   // API POST
 
   saveQuestionnaire(questionnaire) {
-    return this.http.post(
+    return this.authHttp.post(
         this.baseUrl + API.QUESTIONNAIRE.CREATE,
-        questionnaire,
-        this.authService.requestOptions()
+        questionnaire
       ).pipe(map((response: Response) => {
           const returnedQuestionnaire = response.json();
           if(returnedQuestionnaire) {
@@ -93,10 +85,9 @@ export class QuestionnairesService {
   }
 
   saveQuestions(questionsArr) {
-    return this.http.post(
+    return this.authHttp.post(
         this.baseUrl + API.QUESTION.INSERT_ARR,
-        questionsArr,
-        this.authService.requestOptions()
+        questionsArr
       ).pipe(map((response: Response) => {
           return (response.ok) ? true : false;
         })
@@ -106,10 +97,9 @@ export class QuestionnairesService {
   // API PUT
 
   updateQuestionnaire(questionnaire) {
-    return this.http.put(
+    return this.authHttp.put(
       this.baseUrl + API.QUESTIONNAIRE.UPDATE,
-      questionnaire,
-      this.authService.requestOptions()
+      questionnaire
     ).pipe(map((response: Response) => {
         return (response.ok) ? true : false;
       })
@@ -119,9 +109,8 @@ export class QuestionnairesService {
   // API DELETE
 
   deleteQuestion(questionId) {
-    return this.http.delete(
-        this.baseUrl + API.QUESTION.REMOVE + '/?id=' + questionId,
-        this.authService.requestOptions()
+    return this.authHttp.delete(
+        this.baseUrl + API.QUESTION.REMOVE + '/?id=' + questionId
       ).pipe(map((response: Response) => {
         return (response.ok) ? true : false;
       })
