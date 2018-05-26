@@ -22,8 +22,9 @@ export class AssessmentShowComponent implements OnInit {
     this.getEmpAssessmentStatus();
   }
 
-  // API GET
+  // MAIN FUNCTIONS
 
+  /* Purpose: get all employees with the status for the current assessment */
   getEmpAssessmentStatus() {
     this._assessmentService.getEmpAssessmentStatus(this.assessment.assessmentId)
       .subscribe(data =>
@@ -34,6 +35,7 @@ export class AssessmentShowComponent implements OnInit {
 
   // MODAL DISPLAY
 
+  /* Purpose: display employee assessment for the selected employee */
   showEmployeeAssessment(employee) {
     const initialState = {
       employee: employee,
@@ -47,6 +49,7 @@ export class AssessmentShowComponent implements OnInit {
 
   // UTILITIES
 
+  /* Purpose: hide current modal */
   closeModal() {
     this.bsModalRef.hide();
   }

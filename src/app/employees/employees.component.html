@@ -1,22 +1,22 @@
 <section class="page-employees">
-    <div class="content-title">Employees</div>
-    
-    <div class="table-responsive style-1">
-        <table class="dpa-table table table-striped">
-            <thead class="dpa-table-header">
-                <th>Name</th>
-                <th>Email</th>
-                <th>Contact Number</th>
-                <th>Position</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let employee of employees" (click)="showEmployee(employee)">
-                    <td>{{ employee.fullName }}</td>
-                    <td>{{ employee.email }}</td>
-                    <td>{{ employee.contactNumber }}</td>
-                    <td>{{ employee.position }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="content-title">Employees</div>
+
+  <div class="table-responsive style-1">
+    <table class="dpa-table table table-striped">
+      <thead class="dpa-table-header">
+        <th>Name</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Position</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees" (click)="showEmployee(employee)">
+          <td>{{ employee.fullName }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.contactNumber }}</td>
+          <td>{{ employee.position }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>

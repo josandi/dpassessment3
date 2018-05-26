@@ -28,6 +28,9 @@ export class QuestionnairesComponent implements OnInit {
     this.getAllQuestionnaires();
   }
 
+	// MAIN FUNCTIONS
+
+  /* Purpose: get all questionnaires */
   getAllQuestionnaires() {
     this._questionnaireService.getAllQuestionnaires()
       .subscribe(data =>
@@ -37,6 +40,7 @@ export class QuestionnairesComponent implements OnInit {
 
 	// MODAL DISPLAY
 
+  /* Purpose: show modal for adding or editing a questionnaire */
 	addEditQuestionnaire(questionnaire) {
     const initialState = {
       questionnaire: (questionnaire) ? questionnaire : {}
@@ -55,6 +59,7 @@ export class QuestionnairesComponent implements OnInit {
     );
 	}
 
+  /* Purpose: show modal for the selected questionnaire */
   showQuestionnaire(questionnaire) {
     const initialState = {
       questionnaire: questionnaire
@@ -64,6 +69,8 @@ export class QuestionnairesComponent implements OnInit {
       Object.assign({initialState}, { class: 'modal-lg' })
     );
   }
+
+  // MODAL UTILS
 
   /* Purpose: Refresh list after add and update */
   subscribeModal() {

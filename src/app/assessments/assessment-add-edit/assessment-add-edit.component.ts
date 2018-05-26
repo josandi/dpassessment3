@@ -25,7 +25,7 @@ export class AssessmentAddEditComponent implements OnInit {
               private _assessmentsService: AssessmentsService) { }
 
   ngOnInit() {
-    if(this.assessmentData){
+    if(this.assessmentData){          // check type of operation
       this.isEdit = true;
       this.btnSubmitName = 'Update';
     } else {
@@ -33,14 +33,21 @@ export class AssessmentAddEditComponent implements OnInit {
     }
 
     this.getQuestionnairesList(); 
-    this.minDeadline = new Date();
+    this.minDeadline = new Date();    // to restrict deadline dtp selection
   }
 
   // MAIN FUNCTIONS
 
-  submitAssessment() {
-    console.log(this.assessmentData);
+  /* Purpose: get questionnaires to display a selection when creating an assessment */
+  getQuestionnairesList() {
+    this._assessmentsService.getQuestionnairesList()
+      .subscribe(data =>
+      this.questionnaires = data,
+      error => this.errorMsg = error);
+  }
 
+  /* Purpose: called when form is submitted */
+  submitAssessment() {
     if (this.isEdit) {
       this.updateAssessment();
     } else {
@@ -48,58 +55,43 @@ export class AssessmentAddEditComponent implements OnInit {
     }
   }
 
-  // API METHODS
-
-  /* Purpose: Save new assessment */
+  /* Purpose: save new assessment */
   saveAssessment() {
     let response: any;
 
     this._assessmentsService.saveAssessment(this.assessmentData)
       .subscribe(
         data => response = data,
-        error => this.errorMsg = error,
+        error => this.alertify.error('Saving assessment - failed!'),
         () => { 
           if (response) {
             this.alertify.success('Assessment saved successfully!');
-          } else {
-            this.alertify.error('Saving assessment - failed!');
           }
-
           this.closeModal();
         }
       );
   }
 
-  /* Purpose: Update assessment */
+  /* Purpose: update assessment */
   updateAssessment() {
     let response: any;
 
     this._assessmentsService.updateAssessment(this.assessmentData)
       .subscribe(
         data => response = data,
-        error => this.errorMsg = error,
+        error => this.alertify.error('Updating assessment - failed!'),
         () => { 
           if (response) {
             this.alertify.success('Assessment - successfully updated!');
-          } else {
-            this.alertify.error('Updating assessment - failed!');
           }
           this.closeModal();
         }
       );
   }
 
-  // API GET
-
-  getQuestionnairesList() {
-    this._assessmentsService.getQuestionnairesList()
-            .subscribe(data =>
-            this.questionnaires = data,
-            error => this.errorMsg = error);
-  }
-
   // MODAL DISPLAY
 
+  /* Purpose: shows questionnaire */
   showQuestionnaire(questionnaire) {
     this.assessmentData.questionaireId = questionnaire.questionaireId;
 
@@ -112,6 +104,7 @@ export class AssessmentAddEditComponent implements OnInit {
     );
   }
 
+  /* Purpose: hides current modal */
   closeModal() {
     this.bsModalRef.hide();
   }

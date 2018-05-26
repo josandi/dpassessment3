@@ -27,6 +27,7 @@
         <div class="dpa-label">Instructions:</div>
         <span>{{ questionnaire.questionaireInstructions }}</span>
       </div>
+      
       <div class="row qst-questions">
         <div *ngFor="let category of categories" class="qst-category">
           <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
@@ -36,6 +37,7 @@
               <div class="qst-question col-md-12">
                 {{ question.questionDescription }}
               </div>
+
               <div class="qst-answer" >
                 <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.questionOptions)">
                   <label *ngFor="let option of question.questionOptions">
@@ -47,6 +49,7 @@
                       {{option.optionDescription}}
                   </label>
                 </div>
+
                 <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.questionOptions)">
                   <textarea class="form-control"
                     name="anstxt-{{question.questionId}}" 
@@ -62,10 +65,10 @@
 
     <div class="row modal-footer">          
       <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
-          Close
+        Close
       </button>
       <button type="submit" class="btn btn-warning col-md-4" *ngIf="enableFields">
-          Submit
+        Submit
       </button>  
     </div>
   </form>

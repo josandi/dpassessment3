@@ -1,44 +1,47 @@
 <section id="page-assessment">
-    <div class="content-title">Assessments
-        <button class="btn dpabtn-yellow" (click)="showAddEdit('')" *ngIf="isAdmin">
-            <i class="fa fa-plus"></i>
-        </button>
+  <div class="content-title">Assessments
+    <button class="btn dpabtn-yellow" (click)="showAddEdit('')" *ngIf="isAdmin">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <div class="group-assessment">
+    <div class="table-responsive style-1 ep-table-request">
+      <table class="dpa-table table table-striped">
+        <thead class="dpa-table-header">
+          <th>Name</th>
+          <th>Description</th>
+          <th *ngIf="isAdmin">Date Created</th>
+          <th>Deadline</th>
+          <th *ngIf="!isAdmin">Status</th>
+          <th *ngIf="isAdmin"></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let assessment of assessments" (click)="showAssessment(assessment)">
+            <td>{{ assessment.assessmentName }}</td>
+            <td>
+              {{ assessment.assessmentDescription | slice:0:50 }}
+              <span *ngIf="assessment.assessmentDescription.length > 50">...</span>
+            </td>
+            <td *ngIf="isAdmin">
+              {{ assessment.createdDateTime | date: 'MM-dd-yyyy' }}
+            </td>
+            <td>
+              {{ assessment.submissionDeadline | date: 'MM-dd-yyyy' }}
+            </td>
+            <td *ngIf="!isAdmin">
+              <span class="dot status-{{ assessment.empAssessmentStatus | lowercase}}"></span>
+              {{ assessment.empAssessmentStatus }}
+            </td>
+            <td class="btn-tools" (click)="$event.stopPropagation()" *ngIf="isAdmin">
+              <button (click)="showAddEdit(assessment)" 
+                class="btn btn-success btn-sm row-btn">
+                <i class="fa fa-pencil"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    
-    <div class="group-assessment">
-        <div class="table-responsive style-1 ep-table-request">
-            <table class="dpa-table table table-striped">
-                <thead class="dpa-table-header">
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th *ngIf="isAdmin">Date Created</th>
-                    <th>Deadline</th>
-                    <th *ngIf="!isAdmin">Status</th>
-                    <th *ngIf="isAdmin"></th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let assessment of assessments" (click)="showAssessment(assessment)">
-                        <td>{{ assessment.assessmentName }}</td>
-                        <td>
-                            {{ assessment.assessmentDescription | slice:0:50  }}
-                            <span *ngIf="assessment.assessmentDescription.length > 50">...</span>
-                        </td>
-                        <td *ngIf="isAdmin">{{ assessment.createdDateTime | date: 'MM-dd-yyyy' }}</td>
-                        <td>{{ assessment.submissionDeadline | date: 'MM-dd-yyyy' }}</td>
-                        <td *ngIf="!isAdmin">
-                            <span class="dot status-{{(assessment.status) ? assessment.status : assessment.empAssessmentStatus | lowercase}}"></span>
-                            {{ (assessment.status) ? assessment.status : assessment.empAssessmentStatus }}
-                        </td>
-                        <td class="btn-tools" (click)="$event.stopPropagation()"
-                            *ngIf="isAdmin">
-                            <button (click)="showAddEdit(assessment)" 
-                                class="btn btn-success btn-sm row-btn">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+  </div>
 </section>

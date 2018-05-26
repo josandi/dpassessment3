@@ -3,13 +3,15 @@
     class="dpa-modal-form" role="form">
     <div class="row">
         <div class="col-md-12">
-          <label for="questionnaireName" class="dpa-label"> Questionnaire Description </label>
-          <input type="text" name="questionnaireName" [(ngModel)]="questionnaire.questionaireDescription"
+          <label for="questionnaireName" class="dpa-label">Questionnaire Description</label>
+          <input type="text" name="questionnaireName" 
+            [(ngModel)]="questionnaire.questionaireDescription"
             class="form-control" required />
         </div>
       <div class="col-md-12">
-        <label for="instructions" class="dpa-label"> Instructions </label>
-        <textarea type="text" name="instructions" [(ngModel)]="questionnaire.questionaireInstructions"
+        <label for="instructions" class="dpa-label">Instructions</label>
+        <textarea type="text" name="instructions" 
+          [(ngModel)]="questionnaire.questionaireInstructions"
           class="form-control" required ></textarea>
       </div>
     </div>
@@ -21,28 +23,34 @@
         <label for="description" class="dpa-label">
           New Question
           <span class="dpa-field-error" *ngIf="!questionFldsValid">
-              *All fields are required.
+            *All fields are required.
           </span>
         </label>
         <textarea type="text" name="description" id="newquestion" 
-          [(ngModel)]="question.description" class="form-control" ></textarea>
+          [(ngModel)]="question.description" class="form-control">
+        </textarea>
       </div>
+
       <div class="col-md-6">
-        <select class="form-control" [(ngModel)]="question.selectedCategory" name="questionCategory">
+        <select class="form-control" name="questionCategory"
+          [(ngModel)]="question.selectedCategory">
           <option *ngFor="let qstCategory of questionCategories" [ngValue]="qstCategory">
             {{ qstCategory.questionCategoryDesc }}
           </option>
         </select>  
       </div>
       <div class="col-md-6">
-        <select class="form-control" [(ngModel)]="question.selectedOptGroup" name="questionOptGroup">
+        <select class="form-control" name="questionOptGroup"
+          [(ngModel)]="question.selectedOptGroup">
           <option *ngFor="let optGroup of questionOptGroups" [ngValue]="optGroup">
             {{ optGroup.optionGroupDesc }}
           </option>
         </select>  
       </div>
+
       <div class="col-md-12 pull-right">
-        <button type="button" class="btn dpabtn-yellow col-md-4 pull-right" (click)="addQuestion()">
+        <button type="button" class="btn dpabtn-yellow col-md-4 pull-right" 
+          (click)="addQuestion()">
           Add Question
         </button>
       </div>
@@ -66,14 +74,16 @@
                   {{ question.questionDescription }}
                 </div>
                 <div class="qst-answer" >
-                  <div class="col-md-12 qst-options" *ngIf="arrayHasData(question.questionOptions)">
+                  <div class="col-md-12 qst-options" 
+                    *ngIf="arrayHasData(question.questionOptions)">
                     <label *ngFor="let option of question.questionOptions">
                       <input type="radio" name="ansopt-{{question.questionId}}"
                         [value]="option.optionDescription"/>
                         {{option.optionDescription}}
                     </label>
                   </div>
-                  <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.questionOptions)">
+                  <div class="col-md-12 qst-field" 
+                    *ngIf="!arrayHasData(question.questionOptions)">
                     <textarea class="form-control" 
                       name="anstxt-{{question.questionId}}">
                     </textarea>
@@ -89,7 +99,8 @@
         <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
             Cancel
         </button>
-        <button type="submit" class="btn btn-warning col-md-4" [disabled]="!questionnaireAddForm.valid">
+        <button type="submit" class="btn btn-warning col-md-4" 
+          [disabled]="!questionnaireAddForm.valid">
             {{btnSubmitName}} 
         </button>  
     </div>

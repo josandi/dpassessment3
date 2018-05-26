@@ -18,29 +18,33 @@ export class EmployeesComponent implements OnInit {
 	empAssessments = {};
 	bsModalRef: BsModalRef;
 
-  constructor( private _employeeService: EmployeesService, 
-  			   private modalService: BsModalService ) { }
+  constructor(private _employeeService: EmployeesService, 
+  			      private modalService: BsModalService ) { }
 
 	ngOnInit() {
 		this.getAllEmployees();
-	}
+  }
+  
+  // MAIN FUNCTIONS
 
+  /* Purpose: get list of employees */
 	getAllEmployees() {
 	    this._employeeService.getAllEmployees()
       		.subscribe(data =>
       			this.employees = data, 
-				error => this.errorMsg = error);
+				    error => this.errorMsg = error);
 	}
 
-	// modal display
+	// MODAL DISPLAY
 
+  /* Purpose: show detail of selected employee */
 	showEmployee(employee) {
 		this.employee = employee;
 
-	    const initialState = {
+	  const initialState = {
 		  employeeData: this.employee
-	    };
-	    this.employeeShowModal = this.modalService.show(
+	  };
+	  this.employeeShowModal = this.modalService.show(
 			EmployeeShowComponent,
 			Object.assign({initialState}, { class: 'modal-md' })
 		);

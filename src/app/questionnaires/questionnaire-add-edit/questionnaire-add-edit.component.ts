@@ -40,7 +40,8 @@ export class QuestionnaireAddEditComponent implements OnInit {
   }
 
   // MAIN FUNCTIONS
-
+  
+  /* Purpose: called when for is submitted */
   submitQuestionnaire() {
     if (this.isEdit) {
       this.updateQuestionnaire();
@@ -52,10 +53,11 @@ export class QuestionnaireAddEditComponent implements OnInit {
       }
     }
   }
-
+  
+  /* Purpose: adds question to array */
   addQuestion() {
     let questionToAdd: any = {};
-    let question = this.question.description;
+    let question = this.question.description;                     // get values from model
     let category = this.question.selectedCategory;
     let optgroup = this.question.selectedOptGroup;
 
@@ -63,7 +65,7 @@ export class QuestionnaireAddEditComponent implements OnInit {
 
     if(this.questionFldsValid) {
       if (!this._questionnaireService.findCategoryInArr(this.categories, category.questionCategoryId))
-        this.categories.push(category);
+        this.categories.push(category);                           // add question's category to arr if not yet existing
 
       questionToAdd = {
         'questionId': this.questionnaire.questionWithOptions.length + 1,
@@ -74,7 +76,7 @@ export class QuestionnaireAddEditComponent implements OnInit {
       }
       
       this.questionnaire.questionWithOptions.push(questionToAdd);
-      if (this.isEdit) {                // save directly to database if edit
+      if (this.isEdit) {                                          // save directly to database if edit
         questionToAdd.questionaireId = this.questionnaire.questionaireId;
         this.saveQuestion(questionToAdd);
       }
@@ -82,13 +84,14 @@ export class QuestionnaireAddEditComponent implements OnInit {
       this.question.description = null;
     }
   }
-
+  
+  /* Purpose: called when the user opts to remove a question */
   removeQuestion(question) {
     if (this.isEdit) {
       this.alertify.confirm(
         'This action will remove the question from the database. Proceed?',
         () => {
-          this.deleteQuestion(question.questionId);                   // remove directly from database if edit
+          this.deleteQuestion(question.questionId);               // remove directly from database if edit
           this.removeQuestionFromArray(question);
         }
       )
@@ -96,7 +99,8 @@ export class QuestionnaireAddEditComponent implements OnInit {
       this.removeQuestionFromArray(question);
     }
   }
-
+  
+  /* Purpose: removes the question from array */
   removeQuestionFromArray(question) {
     let categoryId = question.questionCategoryId;
     let qst_idx = this.questionnaire.questionWithOptions.indexOf(question);
@@ -109,8 +113,6 @@ export class QuestionnaireAddEditComponent implements OnInit {
       this.categories.splice(cat_idx, 1);
     }
   }
-
-  // API METHODS
 
   /* Purpose: Save new questionnaire */
   saveQuestionnaire() {
@@ -213,8 +215,9 @@ export class QuestionnaireAddEditComponent implements OnInit {
     );
   }  
 
-  // API GET
-
+  // PREPARE DATA FROM DATABASE
+  
+  /* Purpose: get specific questionnaire; used only in edit operation */
   getQuestionnaire(questionnaireId) {
     this._questionnaireService.getQuestionnaire(questionnaireId)
       .subscribe(data =>
@@ -225,7 +228,8 @@ export class QuestionnaireAddEditComponent implements OnInit {
         }
       );
   }
-
+  
+  /* Purpose: prepare list of all categories; used in categories dropdown */
   getQuestionCategories() {
     this._questionnaireService.getQuestionCategories()
       .subscribe(data =>
@@ -233,7 +237,8 @@ export class QuestionnaireAddEditComponent implements OnInit {
         error => this.errorMsg = error,
         () => this.question.selectedCategory = this.questionCategories[0] );
   }
-
+  
+  /* Purpose: prepare list of all option groups; used in option groups dropdown */
   getQuestionOptGroups() {
     this._questionnaireService.getQuestionOptGroups()
       .subscribe(data =>
@@ -241,7 +246,9 @@ export class QuestionnaireAddEditComponent implements OnInit {
         error => this.errorMsg = error,
         () => this.question.selectedOptGroup = this.questionOptGroups[0] );
   }
-
+  
+  /* Purpose: get option groups with it's corresponding options; 
+      - will be used in searching a specific group of options that will be pushed to the question when selected */
   getGroupedOptions() {
     this._questionnaireService.getGroupedOptions()
       .subscribe(data =>
@@ -250,25 +257,20 @@ export class QuestionnaireAddEditComponent implements OnInit {
   }
 
   // UTILITIES
-
+  
+  /* Purpose: find specific category in the questions array: used when checking if category still exists in the questions array */
   findCatInQuestionsArr(catId) {
     return this.questionnaire.questionWithOptions.find(x => x.questionCategoryId == catId);
   }
-
+  
+  /* Purpose: get unique categories from the question set */
   getCategoriesFromQuestionsArr(questions) {
     this.categories = this._questionnaireService.getCategoriesFromQuestionsArr(questions);
   }
-
+  
+  /* Purpose: get list of options selected for the specific question */
   getOptionGroupFromArray(optgroupId) {
     return this.groupedOptions.find(x => x.optionGroupId == optgroupId).options;
-  }
-
-  arrayHasData(arr) {
-    return (arr.length > 0) ? true : false;
-  }
-
-  closeModal() {
-    this.bsModalRef.hide();
   }
 
   /* Purpose: get questionnaire details only; used for saving/updating questionnaire table */
@@ -280,6 +282,16 @@ export class QuestionnaireAddEditComponent implements OnInit {
     questionnaireData.questionaireInstructions = this.questionnaire.questionaireInstructions;
 
     return questionnaireData;
+  }
+  
+  /* Purpose: condition to check if the display should be group of radio buttons or a textarea */
+  arrayHasData(arr) {
+    return (arr.length > 0) ? true : false;
+  }
+  
+  /* Purpose: hide current modal */
+  closeModal() {
+    this.bsModalRef.hide();
   }
 
 }

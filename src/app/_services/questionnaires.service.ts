@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { API } from '../_config/constants.config';
 import { AuthHttp } from 'angular2-jwt';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,12 @@ export class QuestionnairesService {
 
   private baseUrl: string = API.END_POINT;
 
-  constructor(private authHttp: AuthHttp) { }
+  constructor(private authHttp: AuthHttp,
+              private err: ErrorService) { }
 
   // API GET
 
+  /* Purpose: get all questionnaires */
   getAllQuestionnaires() {
     return this.authHttp.get(
         this.baseUrl + API.QUESTIONNAIRE.GET_ALL
@@ -24,15 +27,7 @@ export class QuestionnairesService {
       );
   }
 
-  getQuestionnaire(questionnaireId) {
-    return this.authHttp.get(
-        this.baseUrl + API.QUESTIONNAIRE.GET_QUESTIONS + questionnaireId
-      ).pipe(map((response: Response) => {
-        return response.json().data;
-      })
-    );
-  }
-
+  /* Purpose: get specific questionnaire */
   getQuestionnaireDetail(questionnaireId) {
     return this.authHttp.get(
         this.baseUrl + API.QUESTIONNAIRE.GET_ONE + questionnaireId
@@ -42,6 +37,17 @@ export class QuestionnairesService {
     );
   }
 
+  /* Purpose: get set of questions with corresponding options of a specific questionnaire */
+  getQuestionnaire(questionnaireId) {
+    return this.authHttp.get(
+        this.baseUrl + API.QUESTIONNAIRE.GET_QUESTIONS + questionnaireId
+      ).pipe(map((response: Response) => {
+        return response.json().data;
+      })
+    );
+  }
+
+  /* Purpose: get all question categories */
   getQuestionCategories() {
     return this.authHttp.get(
         this.baseUrl + API.QUESTION_CATEGORY.GET_ALL
@@ -51,6 +57,7 @@ export class QuestionnairesService {
       );
   }
 
+  /* Purpose: get all option groups */
   getQuestionOptGroups() {
     return this.authHttp.get(
         this.baseUrl + API.OPTION_GROUP.GET_ALL
@@ -60,6 +67,7 @@ export class QuestionnairesService {
     );
   }
 
+  /* Purpose: get all option groups with corresponding options */
   getGroupedOptions() {
     return this.authHttp.get(
         this.baseUrl + API.OPTION_GROUP.GET_ALL_WITH_OPTIONS
@@ -71,6 +79,7 @@ export class QuestionnairesService {
 
   // API POST
 
+  /* Purpose: save new questionnaire; returns questionnaire id so it will be used to save questions under it */
   saveQuestionnaire(questionnaire) {
     return this.authHttp.post(
         this.baseUrl + API.QUESTIONNAIRE.CREATE,
@@ -84,30 +93,31 @@ export class QuestionnairesService {
       );
   }
 
+  /* Purpose: save array of questions */
   saveQuestions(questionsArr) {
     return this.authHttp.post(
         this.baseUrl + API.QUESTION.INSERT_ARR,
         questionsArr
       ).pipe(map((response: Response) => {
-          return (response.ok) ? true : false;
-        })
-      );
+        return (response.ok) ? true : false;
+      }), catchError(this.err.handleAPIError));
   }
 
   // API PUT
 
+  /* Purpose: update questionnaire detail */
   updateQuestionnaire(questionnaire) {
     return this.authHttp.put(
       this.baseUrl + API.QUESTIONNAIRE.UPDATE,
       questionnaire
     ).pipe(map((response: Response) => {
-        return (response.ok) ? true : false;
-      })
-    );
+      return (response.ok) ? true : false;
+    }), catchError(this.err.handleAPIError));
   }
 
   // API DELETE
 
+  /* Purpose: delete a specific question; used in edit operation of questionnaire */
   deleteQuestion(questionId) {
     return this.authHttp.delete(
         this.baseUrl + API.QUESTION.REMOVE + '/?id=' + questionId
@@ -119,10 +129,12 @@ export class QuestionnairesService {
 
   // UTILITIES
 
+  /* Purpose: finds specific category in categories array */
   findCategoryInArr(categories, categoryId) {
     return categories.find(x => x.questionCategoryId == categoryId);
   }
 
+  /* Purpose: retrieves all unique categories from a set of questions */
   getCategoriesFromQuestionsArr(questions) {
     let categories: any = [];
 

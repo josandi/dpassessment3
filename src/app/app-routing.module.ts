@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AssessmentsComponent } from './assessments/assessments.component';
 import { EmployeesComponent } from './employees/employees.component';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { EmployeeShowComponent } from './employees/employee-show/employee-show.component';
 import { AssessmentAddEditComponent } from './assessments/assessment-add-edit/assessment-add-edit.component';
 import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
@@ -46,7 +45,6 @@ export class AppRoutingModule { }
 export const routingComponents = [DashboardComponent,
                                   AssessmentsComponent,
                                   EmployeesComponent,
-                                  UserSettingsComponent,
                                   EmployeeShowComponent,
                                   AssessmentShowComponent,
                                   AssessmentAddEditComponent,

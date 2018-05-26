@@ -13,7 +13,7 @@ export const API = {
         'GET_ONE': 'Assessment/',
         'CREATE': 'Assessment/CreateAssessment',
         'UPDATE': 'Assessment/UpdateAssessment',
-        'GET_LIST_FOR_EMPLOYEE': 'Assessment/EmployeeAssessmentList_Get/'        
+        'GET_EMPLOYEE_STATUS': 'Assessment/EmployeeAssessmentList_Get/'        
     },
     'EMPLOYEE': {
         'GET_ALL': 'Employees',
