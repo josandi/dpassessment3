@@ -19,6 +19,7 @@ import { AlertifyService } from './_services/alertify.service';
 import { LoginGuard } from './_guards/login.guard';
 import { AuthModule } from './auth/auth.module';
 import { EmployeesResolver } from './_resolvers/employees.resolver';
+import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { EmployeesResolver } from './_resolvers/employees.resolver';
     AuthGuard,
     LoginGuard,
     AlertifyService,
-    EmployeesResolver
+    EmployeesResolver,
+    AssessmentsResolver
   ],
   bootstrap: [AppComponent]
 })

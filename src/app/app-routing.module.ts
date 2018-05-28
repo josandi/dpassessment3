@@ -14,6 +14,7 @@ import { AssessmentEmployeeComponent } from './assessments/assessment-employee/a
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginGuard } from './_guards/login.guard';
 import { EmployeesResolver } from './_resolvers/employees.resolver';
+import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 
 
 const routes: Routes = [
@@ -23,9 +24,9 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent},
       { path: 'employees', component: EmployeesComponent, resolve: {employees: EmployeesResolver} },
-      { path: 'assessments', component: AssessmentsComponent },
+      { path: 'assessments', component: AssessmentsComponent, resolve: {assessments: AssessmentsResolver} },
       { path: 'questionnaires', component: QuestionnairesComponent }
     ]
   },

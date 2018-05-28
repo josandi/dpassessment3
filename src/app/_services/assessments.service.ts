@@ -4,6 +4,8 @@ import { map, catchError } from 'rxjs/operators';
 import { API } from '../_config/constants.config';
 import { AuthHttp } from 'angular2-jwt';
 import { ErrorService } from './error.service';
+import { PaginatedResult } from '../_models/pagination';
+import { Assessment } from '../_models/assessment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +19,41 @@ export class AssessmentsService {
   // API GET
 
   /* Purpose: get all assessments */
-  getAllAssessments() {
+  getAllAssessments(page?: number, itemsPerPage?: number) {
+    const paginatedResult: PaginatedResult<Assessment[]> = new PaginatedResult<Assessment[]>();
+    let queryStr = '?';
+    if(page != null && itemsPerPage != null) {
+      queryStr += 'PageNumber=' + page + '&PageSize=' + itemsPerPage;
+    }
+
     return this.authHttp.get(
-        this.baseUrl + API.ASSESSMENT.GET_ALL
+        this.baseUrl + API.ASSESSMENT.GET_ALL + queryStr
       ).pipe(map((response: Response) => {
-        return response.json();  
+        paginatedResult.result = response.json();
+        if(response.headers.get('Pagination') != null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;  
+      })
+    );
+  }
+
+  /* Purpose: get all assessments of a specific employee */
+  getUserAssessments(employeeId, page?: number, itemsPerPage?: number) {
+    const paginatedResult: PaginatedResult<Assessment[]> = new PaginatedResult<Assessment[]>();
+    let queryStr = employeeId + '?';
+    if(page != null && itemsPerPage != null) {
+      queryStr += 'PageNumber=' + page + '&PageSize=' + itemsPerPage;
+    }
+
+    return this.authHttp.get(
+      this.baseUrl + API.EMPLOYEE.GET_EMPLOYEE_ASSESSMENTS + queryStr
+    ).pipe(map((response: Response) => {
+      paginatedResult.result = response.json().employeeAssessmentList;
+      if(response.headers.get('Pagination') != null) {
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+      }
+      return paginatedResult;   
       })
     );
   }
@@ -34,16 +66,6 @@ export class AssessmentsService {
           return response.json();  
         })
       );
-  }
-
-  /* Purpose: get all assessments of a specific employee */
-  getUserAssessments(employeeId) {
-    return this.authHttp.get(
-      this.baseUrl + API.EMPLOYEE.GET_EMPLOYEE_ASSESSMENTS + employeeId
-    ).pipe(map((response: Response) => {
-        return response.json().employeeAssessmentList;  
-      })
-    );
   }
 
   /* Purpose: get a list of all questionnaires; used in add/edit assessment */
