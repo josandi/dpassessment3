@@ -1,22 +1,7 @@
-export interface EmployeeData {
-  employee_id: number;
-  firstname: string;
-  middlename: string;
-  lastname: string;
-  email_address: string;
-  contact_number: string;
-  position_id: number;
+export interface Employee {
+  aspNetUserId: number;
+  fullName: string;
+  email: string;
   position: string;
-}
-
-export interface EmployeeAssessment {
-  employee_id: number;
-  firstname: string;
-  middlename: string;
-  lastname: string;
-  email_address: string;
-  contact_number: string;
-  position_id: number;
-  position: string;
-  status: string;
+  contactNumber: string;
 }

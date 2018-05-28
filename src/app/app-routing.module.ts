@@ -13,6 +13,7 @@ import { AssessmentShowComponent } from './assessments/assessment-show/assessmen
 import { AssessmentEmployeeComponent } from './assessments/assessment-employee/assessment-employee.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginGuard } from './_guards/login.guard';
+import { EmployeesResolver } from './_resolvers/employees.resolver';
 
 
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'employees', component: EmployeesComponent },
+      { path: 'employees', component: EmployeesComponent, resolve: {employees: EmployeesResolver} },
       { path: 'assessments', component: AssessmentsComponent },
       { path: 'questionnaires', component: QuestionnairesComponent }
     ]

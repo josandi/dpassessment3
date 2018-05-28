@@ -3,6 +3,10 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { EmployeesService } from '../_services/employees.service';
 import { EmployeeShowComponent } from './employee-show/employee-show.component';
+import { Employee } from '../_models/employee';
+import { Pagination, PaginatedResult } from '../_models/pagination';
+import { ActivatedRoute } from '@angular/router';
+import { AlertifyService } from '../_services/alertify.service';
 
 
 @Component({
@@ -13,27 +17,37 @@ import { EmployeeShowComponent } from './employee-show/employee-show.component';
 export class EmployeesComponent implements OnInit {
 	employeeShowModal: BsModalRef;
 	errorMsg;
-	employees;
+	employees: Employee[];
 	employee = {};
 	empAssessments = {};
-	bsModalRef: BsModalRef;
+  bsModalRef: BsModalRef;
+  pagSize = 10;            // pagination
+  pageNumber = 1;
+  pagination: Pagination;
 
   constructor(private _employeeService: EmployeesService, 
-  			      private modalService: BsModalService ) { }
+              private modalService: BsModalService,
+              private route: ActivatedRoute,
+              private alertify: AlertifyService ) { }
 
 	ngOnInit() {
-		this.getAllEmployees();
+		this.route.data.subscribe(data => {
+      this.employees = data['employees'].result;
+      this.pagination = data['employees'].pagination;
+      console.log(this.pagination);
+    })
   }
-  
-  // MAIN FUNCTIONS
 
   /* Purpose: get list of employees */
-	getAllEmployees() {
-	    this._employeeService.getAllEmployees()
-      		.subscribe(data =>
-      			this.employees = data, 
-				    error => this.errorMsg = error);
-	}
+	loadEmployees() {
+	    this._employeeService.getAllEmployees(this.pagination.currentPage, this.pagination.itemsPerPage)
+        .subscribe((res: PaginatedResult<Employee[]>) => {
+          this.employees = res.result;
+          this.pagination = res.pagination;
+        }, error => {
+          this.alertify.error('error');
+        });
+  }
 
 	// MODAL DISPLAY
 
@@ -48,6 +62,14 @@ export class EmployeesComponent implements OnInit {
 			EmployeeShowComponent,
 			Object.assign({initialState}, { class: 'modal-md' })
 		);
-	}
+  }
+  
+  // UTILITIES
+
+  /* Purpose: retrieve next set of data based on the pagination */
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadEmployees();
+  }
 	
 }

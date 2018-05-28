@@ -1,10 +1,13 @@
 
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { map } from 'rxjs/operators';
-import { EmployeeData, EmployeeAssessment } from '../_models/employee';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Employee } from '../_models/employee';
 import { API } from '../_config/constants.config';
 import { AuthHttp } from 'angular2-jwt';
+import { ErrorService } from './error.service';
+import { PaginatedResult } from '../_models/pagination';
 
 @Injectable({
   providedIn: "root"
@@ -12,16 +15,28 @@ import { AuthHttp } from 'angular2-jwt';
 export class EmployeesService {
   private baseUrl: string = API.END_POINT;
 
-  constructor(private authHttp: AuthHttp) {}
+  constructor(private authHttp: AuthHttp,
+              private error: ErrorService) {}
 
   // API GET
 
   /* Purpose: get list of all employees */
-  getAllEmployees() {
+  getAllEmployees(page?: number, itemsPerPage?: number) {
+    const paginatedResult: PaginatedResult<Employee[]> = new PaginatedResult<Employee[]>();
+    let queryStr = '?';
+
+    if(page != null && itemsPerPage != null) {
+      queryStr += 'PageNumber=' + page + '&PageSize=' + itemsPerPage;
+    }
+
     return this.authHttp.get(
-        this.baseUrl + API.EMPLOYEE.GET_ALL
+        this.baseUrl + API.EMPLOYEE.GET_ALL + queryStr
       ).pipe( map((response: Response) => {
-        return response.json();
+        paginatedResult.result = response.json();
+        if(response.headers.get('Pagination') != null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
       })
     );
   }
@@ -32,7 +47,6 @@ export class EmployeesService {
         this.baseUrl + API.EMPLOYEE.GET_EMPLOYEE_ASSESSMENTS + empId
       ).pipe(map((response: Response) => {
         return response.json();
-      })
-    );
+      }), catchError(this.error.handleAPIError));
   }
 }

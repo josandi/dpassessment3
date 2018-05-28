@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './login/login.component';
@@ -17,6 +18,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AlertifyService } from './_services/alertify.service';
 import { LoginGuard } from './_guards/login.guard';
 import { AuthModule } from './auth/auth.module';
+import { EmployeesResolver } from './_resolvers/employees.resolver';
 
 @NgModule({
   declarations: [
@@ -36,12 +38,14 @@ import { AuthModule } from './auth/auth.module';
     FormsModule,
     MaterialModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
+    PaginationModule.forRoot()
   ],
   providers: [
     AuthGuard,
     LoginGuard,
-    AlertifyService
+    AlertifyService,
+    EmployeesResolver
   ],
   bootstrap: [AppComponent]
 })
