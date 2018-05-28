@@ -33,4 +33,12 @@
       </tbody>
     </table>
   </div>
+
+  <div class="dpa-pagination">
+    <pagination [boundaryLinks]="true" [(ngModel)]="pagination.currentPage"
+      [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+      (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
 </section>

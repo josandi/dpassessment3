@@ -15,6 +15,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { LoginGuard } from './_guards/login.guard';
 import { EmployeesResolver } from './_resolvers/employees.resolver';
 import { AssessmentsResolver } from './_resolvers/assessments.resolver';
+import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
 
 
 const routes: Routes = [
@@ -27,7 +28,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent},
       { path: 'employees', component: EmployeesComponent, resolve: {employees: EmployeesResolver} },
       { path: 'assessments', component: AssessmentsComponent, resolve: {assessments: AssessmentsResolver} },
-      { path: 'questionnaires', component: QuestionnairesComponent }
+      { path: 'questionnaires', component: QuestionnairesComponent, resolve: {questionnaires: QuestionnairesResolver} }
     ]
   },
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }

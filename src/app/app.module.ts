@@ -20,6 +20,7 @@ import { LoginGuard } from './_guards/login.guard';
 import { AuthModule } from './auth/auth.module';
 import { EmployeesResolver } from './_resolvers/employees.resolver';
 import { AssessmentsResolver } from './_resolvers/assessments.resolver';
+import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AssessmentsResolver } from './_resolvers/assessments.resolver';
     LoginGuard,
     AlertifyService,
     EmployeesResolver,
-    AssessmentsResolver
+    AssessmentsResolver,
+    QuestionnairesResolver
   ],
   bootstrap: [AppComponent]
 })

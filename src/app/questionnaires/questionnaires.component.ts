@@ -5,6 +5,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { QuestionnaireAddEditComponent } from './questionnaire-add-edit/questionnaire-add-edit.component';
 import { QuestionnaireShowComponent } from './questionnaire-show/questionnaire-show.component';
 import { Observable, Subscription, combineLatest } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Questionnaire } from '../_models/questionnaire';
+import { Pagination, PaginatedResult } from '../_models/pagination';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-questionnaires',
@@ -15,27 +19,36 @@ export class QuestionnairesComponent implements OnInit {
   questionnaireShowModal: BsModalRef;
   questionnaireAddEditModal: BsModalRef;
   errorMsg;
-  questionnaires: any;
+  questionnaires: Questionnaire[];
+  pagination: Pagination;
   questionnaire: any = {};
   bsModalRef: BsModalRef;
   subscriptions: Subscription[] =[];
 
   constructor(private _questionnaireService: QuestionnairesService,
+              private route: ActivatedRoute,
+              private alertify: AlertifyService,
               private modalService: BsModalService,
               private changeDetection: ChangeDetectorRef ) { }
 
   ngOnInit() {
-    this.getAllQuestionnaires();
+    this.route.data.subscribe(data => {
+      this.questionnaires = data['questionnaires'].result;
+      this.pagination = data['questionnaires'].pagination;
+    });
   }
 
 	// MAIN FUNCTIONS
 
   /* Purpose: get all questionnaires */
-  getAllQuestionnaires() {
-    this._questionnaireService.getAllQuestionnaires()
-      .subscribe(data =>
-        this.questionnaires = data, 
-        error => this.errorMsg = error);
+  loadQuestionnaires() {
+    this._questionnaireService.getAllQuestionnaires(this.pagination.currentPage, this.pagination.itemsPerPage)
+      .subscribe((res: PaginatedResult<Questionnaire[]>) => {
+        this.questionnaires = res.result;
+        this.pagination = res.pagination;
+      }, error => {
+        this.alertify.error(error);
+      });
   }
 
 	// MODAL DISPLAY
@@ -81,7 +94,7 @@ export class QuestionnairesComponent implements OnInit {
 
     this.subscriptions.push(
       this.modalService.onHide.subscribe((reason: string) => {
-        this.getAllQuestionnaires();                            // get updated questionnaires from db
+        this.loadQuestionnaires();                            // get updated questionnaires from db
       })
     );
 
@@ -99,6 +112,14 @@ export class QuestionnairesComponent implements OnInit {
       subscription.unsubscribe();
     });
     this.subscriptions = [];
+  }
+  
+  // UTILITIES
+
+  /* Purpose: retrieve next set of data based on the pagination */
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadQuestionnaires();
   }
 
 }

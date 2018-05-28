@@ -4,6 +4,8 @@ import { map, catchError } from 'rxjs/operators';
 import { API } from '../_config/constants.config';
 import { AuthHttp } from 'angular2-jwt';
 import { ErrorService } from './error.service';
+import { PaginatedResult } from '../_models/pagination';
+import { Questionnaire } from '../_models/questionnaire';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +20,23 @@ export class QuestionnairesService {
   // API GET
 
   /* Purpose: get all questionnaires */
-  getAllQuestionnaires() {
+  getAllQuestionnaires(page?: number, itemsPerPage?: number) {
+    const paginatedResult: PaginatedResult<Questionnaire[]> = new PaginatedResult<Questionnaire[]>();
+    let queryStr = '?';
+    if(page != null && itemsPerPage != null) {
+      queryStr += 'PageNumber=' + page + '&PageSize=' + itemsPerPage;
+    }
+
     return this.authHttp.get(
-        this.baseUrl + API.QUESTIONNAIRE.GET_ALL
+        this.baseUrl + API.QUESTIONNAIRE.GET_ALL + queryStr
       ).pipe(map((response: Response) => {
-          return response.json();
-        })
-      );
+        paginatedResult.result = response.json();
+        if(response.headers.get('Pagination') != null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
   }
 
   /* Purpose: get specific questionnaire */
