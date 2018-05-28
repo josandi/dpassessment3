@@ -32,18 +32,18 @@ export class EmployeesComponent implements OnInit {
 		this.route.data.subscribe(data => {
       this.employees = data['employees'].result;
       this.pagination = data['employees'].pagination;
-    })
+    });
   }
 
   /* Purpose: get list of employees */
 	loadEmployees() {
-	    this._employeeService.getAllEmployees(this.pagination.currentPage, this.pagination.itemsPerPage)
-        .subscribe((res: PaginatedResult<Employee[]>) => {
-          this.employees = res.result;
-          this.pagination = res.pagination;
-        }, error => {
-          this.alertify.error(error);
-        });
+    this._employeeService.getAllEmployees(this.pagination.currentPage, this.pagination.itemsPerPage)
+      .subscribe((res: PaginatedResult<Employee[]>) => {
+        this.employees = res.result;
+        this.pagination = res.pagination;
+      }, error => {
+        this.alertify.error(error);
+      });
   }
 
 	// MODAL DISPLAY
