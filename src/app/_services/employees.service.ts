@@ -24,7 +24,6 @@ export class EmployeesService {
   getAllEmployees(page?: number, itemsPerPage?: number) {
     const paginatedResult: PaginatedResult<Employee[]> = new PaginatedResult<Employee[]>();
     let queryStr = '?';
-
     if(page != null && itemsPerPage != null) {
       queryStr += 'PageNumber=' + page + '&PageSize=' + itemsPerPage;
     }

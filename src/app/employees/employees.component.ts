@@ -20,10 +20,8 @@ export class EmployeesComponent implements OnInit {
 	employees: Employee[];
 	employee = {};
 	empAssessments = {};
-  bsModalRef: BsModalRef;
-  pagSize = 10;            // pagination
-  pageNumber = 1;
   pagination: Pagination;
+  bsModalRef: BsModalRef;
 
   constructor(private _employeeService: EmployeesService, 
               private modalService: BsModalService,
@@ -34,7 +32,6 @@ export class EmployeesComponent implements OnInit {
 		this.route.data.subscribe(data => {
       this.employees = data['employees'].result;
       this.pagination = data['employees'].pagination;
-      console.log(this.pagination);
     })
   }
 
@@ -45,7 +42,7 @@ export class EmployeesComponent implements OnInit {
           this.employees = res.result;
           this.pagination = res.pagination;
         }, error => {
-          this.alertify.error('error');
+          this.alertify.error(error);
         });
   }
 

@@ -22,6 +22,6 @@ export class EmployeesResolver implements Resolve<Employee[]> {
                 this.alertify.error('Problem retrieving data');
                 this.router.navigate(['/dashboard']);
                 return Observable.of(null);
-              }) );
+              }));
   }
 }
