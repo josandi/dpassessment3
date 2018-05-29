@@ -21,6 +21,8 @@ import { AuthModule } from './auth/auth.module';
 import { EmployeesResolver } from './_resolvers/employees.resolver';
 import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
+import { TeamsComponent } from './teams/teams.component';
+import { TeamsResolver } from './_resolvers/teams.resolver';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
     LoginComponent,
     QuestionCategoryFilterPipe,
     OptionGroupFilterPipe,
-    GroupedOptionFilterPipe
+    GroupedOptionFilterPipe,
+    TeamsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
     LoginGuard,
     AlertifyService,
     EmployeesResolver,
+    TeamsResolver,
     AssessmentsResolver,
     QuestionnairesResolver
   ],

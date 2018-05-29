@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AssessmentsComponent } from './assessments/assessments.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeShowComponent } from './employees/employee-show/employee-show.component';
+import { TeamsComponent } from './teams/teams.component';
 import { AssessmentAddEditComponent } from './assessments/assessment-add-edit/assessment-add-edit.component';
 import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
 import { QuestionnaireShowComponent } from './questionnaires/questionnaire-show/questionnaire-show.component';
@@ -14,6 +15,7 @@ import { AssessmentEmployeeComponent } from './assessments/assessment-employee/a
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginGuard } from './_guards/login.guard';
 import { EmployeesResolver } from './_resolvers/employees.resolver';
+import { TeamsResolver } from './_resolvers/teams.resolver';
 import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
 
@@ -27,6 +29,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent},
       { path: 'employees', component: EmployeesComponent, resolve: {employees: EmployeesResolver} },
+      { path: 'teams', component: TeamsComponent, resolve: {teams: TeamsResolver} },
       { path: 'assessments', component: AssessmentsComponent, resolve: {assessments: AssessmentsResolver} },
       { path: 'questionnaires', component: QuestionnairesComponent, resolve: {questionnaires: QuestionnairesResolver} }
     ]

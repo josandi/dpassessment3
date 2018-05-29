@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "teamId": 1,
+      "teamName": "Alliance",
+      "teamDescription": "Team Alliance Description",
+      "project": "Defend Iserlohn",
+      "clientId": 1,
+      "clientName": "Mass"
+    },
+    {
+      "teamId": 2,
+      "teamName": "Galactic Empire",
+      "teamDescription": "Team Empire Description",
+      "project": "Intergalactic unity",
+      "clientId": 2,
+      "clientName": "Dynasty"
+    }
+  ]
+}

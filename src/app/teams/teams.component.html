@@ -1,0 +1,42 @@
+<section class="page-employees">
+  <div class="content-title">Teams
+    <button class="btn dpabtn-yellow" (click)="showAddEdit('')">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <div class="table-responsive style-1">
+    <table class="dpa-table table table-striped">
+      <thead class="dpa-table-header">
+        <th>Team Name</th>
+        <th>Description</th>
+        <th>Project</th>
+        <th>Client</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teams">
+          <td>{{ team.teamName }}</td>
+          <td>{{ team.teamDescription }}</td>
+          <td>{{ team.project }}</td>
+          <td>{{ team.clientName }}</td>
+          <td class="btn-tools" (click)="$event.stopPropagation()">
+            <button (click)="showAddEdit(team)" 
+              class="btn btn-success btn-sm row-btn">
+              <i class="fa fa-pencil"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- <div class="dpa-pagination">
+    <pagination [boundaryLinks]="true" [(ngModel)]="pagination.currentPage"
+      [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+      (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div> -->
+
+</section>

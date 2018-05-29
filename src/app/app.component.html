@@ -22,6 +22,10 @@
                         *ngIf="user.isAdmin">
                         <a><i class="fa fa-user fa-lg"></i>Employees</a>
                     </li>
+                    <li routerLink="/teams" routerLinkActive="active"
+                        *ngIf="user.isAdmin">
+                        <a><i class="fa fa-users fa-lg"></i>Teams</a>
+                    </li>
                     <li routerLink="/assessments" routerLinkActive="active">
                         <a><i class="fa fa-edit fa-lg"></i>Assessment</a>
                     </li>
