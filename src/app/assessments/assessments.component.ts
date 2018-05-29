@@ -75,7 +75,7 @@ export class AssessmentsComponent implements OnInit {
 
   /* Purpose: get assessments for a specfic employee; called if user is not admin */
   getUserAssessments(employeeId) {
-    this._assessmentsService.getUserAssessments(employeeId)
+    this._assessmentsService.getUserAssessments(employeeId, this.pagination.currentPage, this.pagination.itemsPerPage)
       		.subscribe((res: PaginatedResult<Assessment[]>) => {
             this.assessments = res.result;
             this.pagination = res.pagination;
