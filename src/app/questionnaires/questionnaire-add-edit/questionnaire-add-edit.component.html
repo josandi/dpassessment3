@@ -2,12 +2,12 @@
   <form #questionnaireAddForm="ngForm" (ngSubmit)="submitQuestionnaire()"
     class="dpa-modal-form" role="form">
     <div class="row">
-        <div class="col-md-12">
-          <label for="questionnaireName" class="dpa-label">Questionnaire Description</label>
-          <input type="text" name="questionnaireName" 
-            [(ngModel)]="questionnaire.questionaireDescription"
-            class="form-control" required />
-        </div>
+      <div class="col-md-12">
+        <label for="questionnaireName" class="dpa-label">Questionnaire Description</label>
+        <input type="text" name="questionnaireName" 
+          [(ngModel)]="questionnaire.questionaireDescription"
+          class="form-control" required />
+      </div>
       <div class="col-md-12">
         <label for="instructions" class="dpa-label">Instructions</label>
         <textarea type="text" name="instructions" 
@@ -61,48 +61,48 @@
     <div class="row pre-scrollable qst-questions">
       <fieldset [disabled]="true">
         <div *ngFor="let category of categories" class="qst-category">
-            <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
-            <ol>
-              <li *ngFor="let question of questionnaire.questionWithOptions 
-                | questionCategoryFilter:category.questionCategoryId">
-                <div class="qst-question col-md-12">
-                  <span class="pull-right">
-                    <a class="pointer-cursor" (click)="removeQuestion(question)">
-                      <i class="fa fa-times"></i>
-                    </a>
-                  </span>
-                  {{ question.questionDescription }}
+          <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
+          <ol>
+            <li *ngFor="let question of questionnaire.questionWithOptions 
+              | questionCategoryFilter:category.questionCategoryId">
+              <div class="qst-question col-md-12">
+                <span class="pull-right">
+                  <a class="pointer-cursor" (click)="removeQuestion(question)">
+                    <i class="fa fa-times"></i>
+                  </a>
+                </span>
+                {{ question.questionDescription }}
+              </div>
+              <div class="qst-answer" >
+                <div class="col-md-12 qst-options" 
+                  *ngIf="arrayHasData(question.questionOptions)">
+                  <label *ngFor="let option of question.questionOptions">
+                    <input type="radio" name="ansopt-{{question.questionId}}"
+                      [value]="option.optionDescription"/>
+                      {{option.optionDescription}}
+                  </label>
                 </div>
-                <div class="qst-answer" >
-                  <div class="col-md-12 qst-options" 
-                    *ngIf="arrayHasData(question.questionOptions)">
-                    <label *ngFor="let option of question.questionOptions">
-                      <input type="radio" name="ansopt-{{question.questionId}}"
-                        [value]="option.optionDescription"/>
-                        {{option.optionDescription}}
-                    </label>
-                  </div>
-                  <div class="col-md-12 qst-field" 
-                    *ngIf="!arrayHasData(question.questionOptions)">
-                    <textarea class="form-control" 
-                      name="anstxt-{{question.questionId}}">
-                    </textarea>
-                  </div>
+                <div class="col-md-12 qst-field" 
+                  *ngIf="!arrayHasData(question.questionOptions)">
+                  <textarea class="form-control" 
+                    name="anstxt-{{question.questionId}}">
+                  </textarea>
                 </div>
-              </li>
-            </ol>
+              </div>
+            </li>
+          </ol>
         </div>
       </fieldset>
     </div>
 
     <div class="row modal-footer">          
-        <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
-            Cancel
-        </button>
-        <button type="submit" class="btn btn-warning col-md-4" 
-          [disabled]="!questionnaireAddForm.valid">
-            {{btnSubmitName}} 
-        </button>  
+      <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-warning col-md-4" 
+        [disabled]="!questionnaireAddForm.valid">
+        {{btnSubmitName}} 
+      </button>  
     </div>
   </form>
 </div>

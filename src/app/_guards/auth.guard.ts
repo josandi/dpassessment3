@@ -41,6 +41,6 @@ export class AuthGuard implements CanActivate {
 
   /* Purpose: Check if page the user is trying to access is for admin only */
   forAdminOnlyPage(url) {
-    return (this.adminOnlyPageUrls.indexOf(url) > -1) ? true : false
+    return (this.adminOnlyPageUrls.indexOf(url) > -1) ? true : false;
   }
 }
