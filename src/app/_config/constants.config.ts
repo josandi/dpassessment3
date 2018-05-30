@@ -1,5 +1,5 @@
 export const API = {
-    'END_POINT': 'http://13.75.89.123:881/api/',
+    'END_POINT': 'https://devpartners.co/assessment/api/',
     'ACCOUNT': {
         'LOGIN': 'Account/login',
         'REFRESH_TOKEN': 'Account/RefreshToken'
