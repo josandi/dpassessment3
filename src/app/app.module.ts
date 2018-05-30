@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
@@ -23,6 +24,8 @@ import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
 import { TeamsComponent } from './teams/teams.component';
 import { TeamsResolver } from './_resolvers/teams.resolver';
+import { TeamAddEditComponent } from './teams/team-add-edit/team-add-edit.component';
+import { TeamShowComponent } from './teams/team-show/team-show.component';
 
 @NgModule({
   declarations: [
@@ -32,15 +35,18 @@ import { TeamsResolver } from './_resolvers/teams.resolver';
     QuestionCategoryFilterPipe,
     OptionGroupFilterPipe,
     GroupedOptionFilterPipe,
-    TeamsComponent
+    TeamsComponent,
+    TeamAddEditComponent,
+    TeamShowComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
-    ModalModule.forRoot(),
     FormsModule,
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
     MaterialModule,
     AppRoutingModule,
     AuthModule,

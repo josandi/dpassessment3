@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "roleId": 1,
+      "roleName": "Manager"
+    },
+    {
+      "roleId": 2,
+      "roleName": "Team Lead"
+    },
+    {
+      "roleId": 3,
+      "roleName": "Back-End Developer"
+    },
+    {
+      "roleId": 4,
+      "roleName": "Front-End Developer"
+    },
+    {
+      "roleId": 5,
+      "roleName": "Database"
+    }
+  ]
+}

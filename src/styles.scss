@@ -147,7 +147,7 @@ form .btn {
   margin-bottom: 0;
 }
 
-.qst-question i {
+.fa.fa-times {
   color: #337ab7;
 
   &:hover {
@@ -215,17 +215,21 @@ thead.dpa-table-header > tr > th {
   white-space: nowrap;
 }
 
-.dpa-table td.btn-tools {
+.dpa-table tbody > tr:last-child {
+  border-bottom: 1px solid #e5e7ed;
+}
+
+.table-list table td {
+  padding: 8px;
+}
+
+td.btn-tools {
   width: 1%;
   white-space: nowrap;
 }
 
-.dpa-table td.btn-tools button {
+td.btn-tools button {
   margin: 0 2px;
-}
-
-.dpa-table tbody > tr:last-child {
-  border-bottom: 1px solid #e5e7ed;
 }
 
 /* pagination */

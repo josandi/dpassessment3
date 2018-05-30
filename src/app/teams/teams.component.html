@@ -15,7 +15,7 @@
         <th></th>
       </thead>
       <tbody>
-        <tr *ngFor="let team of teams">
+        <tr *ngFor="let team of teams" (click)="showTeam(team)">
           <td>{{ team.teamName }}</td>
           <td>{{ team.teamDescription }}</td>
           <td>{{ team.project }}</td>

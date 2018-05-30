@@ -18,6 +18,8 @@ import { EmployeesResolver } from './_resolvers/employees.resolver';
 import { TeamsResolver } from './_resolvers/teams.resolver';
 import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
+import { TeamAddEditComponent } from './teams/team-add-edit/team-add-edit.component';
+import { TeamShowComponent } from './teams/team-show/team-show.component';
 
 
 const routes: Routes = [
@@ -41,6 +43,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   entryComponents : [EmployeeShowComponent,
+                    TeamShowComponent,
+                    TeamAddEditComponent,
                     AssessmentShowComponent,
                     AssessmentAddEditComponent,
                     AssessmentEmployeeComponent,
@@ -52,6 +56,8 @@ export const routingComponents = [DashboardComponent,
                                   AssessmentsComponent,
                                   EmployeesComponent,
                                   EmployeeShowComponent,
+                                  TeamShowComponent,
+                                  TeamAddEditComponent,
                                   AssessmentShowComponent,
                                   AssessmentAddEditComponent,
                                   AssessmentEmployeeComponent,

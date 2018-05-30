@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "clientId": 1,
+      "clientName": "Aria Sachou"
+    },
+    {
+      "clientId": 2,
+      "clientName": "Alicia Florence"
+    },
+    {
+      "clientId": 3,
+      "clientName": "Akari Mizunashi"
+    },
+    {
+      "clientId": 4,
+      "clientName": "Aika Granzchesta"
+    },
+    {
+      "clientId": 5,
+      "clientName": "Alice Carroll"
+    }
+  ]
+}

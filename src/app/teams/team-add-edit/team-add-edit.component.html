@@ -1,0 +1,100 @@
+<div class="dpa-modal container-fluid">
+  <form #teamAddEditForm="ngForm" (ngSubmit)="submitTeam()"
+    class="dpa-modal-form" role="form">
+
+    <!-- team details -->
+    <div class="row">
+      <div class="col-md-12">
+        <label for="teamName" class="dpa-label">Team Name</label>
+        <input type="text" name="teamName" 
+          [(ngModel)]="team.teamName"
+          class="form-control" required />
+      </div>
+      <div class="col-md-12">
+        <label for="description" class="dpa-label">Team Description</label>
+        <textarea type="text" name="description" 
+          [(ngModel)]="team.teamDescription"
+          class="form-control" required ></textarea>
+      </div>
+      <div class="col-md-8">
+        <label for="client" class="dpa-label">Client</label>
+        <select class="form-control" name="client"
+          [(ngModel)]="selectedClient">
+          <option *ngFor="let client of clients" [ngValue]="client">
+            {{ client.clientName }}
+          </option>
+        </select>  
+      </div>
+      <div class="col-md-12">
+        <label for="project" class="dpa-label">Project</label>
+        <input type="text" name="project" 
+          [(ngModel)]="team.project"
+          class="form-control" required />
+      </div>
+    </div>
+
+    <div class="modal-divider"></div>
+
+    <!-- adding member -->
+    <div class="row">
+      <div class="col-md-12">
+        <label for="memberName" class="dpa-label">Add Member </label>
+        <input class="form-control" name="memberName" 
+          [(ngModel)]="newMember.fullName" [typeahead]="employees" 
+          typeaheadOptionField="fullName" (typeaheadOnSelect)="onSelect($event)">
+      </div>
+
+      <div class="col-md-8">
+        <select class="form-control" name="memberRole"
+          [(ngModel)]="newMember.role">
+          <option *ngFor="let role of roles" [ngValue]="role">
+            {{ role.roleName }}
+          </option>
+        </select>  
+      </div>
+
+      <div class="col-md-4 pull-right">
+        <button class="btn dpabtn-yellow col-md-12 pull-right"
+          type="button" [disabled]="!canAddMember"
+          (click)="addMember()" >
+          Add to Team
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-divider"></div>
+  
+    <!-- members list -->
+    <div class="row table-responsive style-1 pre-scrollable table-list">
+      <table class="table">
+        <thead>
+          <th>Members</th>
+          <th>Role</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let member of members">
+            <td>{{ member.fullName }}</td>
+            <td>{{ member.role.roleName }}</td>
+            <td class="btn-tools">
+              <a class="pointer-cursor" (click)="removeMember(member)">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row modal-footer">
+      <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
+        Close
+      </button>
+      <button type="submit" class="btn btn-warning col-md-4" 
+        [disabled]="!teamAddEditForm.valid">
+        {{btnSubmitName}}
+      </button>  
+    </div>
+
+  </form>
+</div>

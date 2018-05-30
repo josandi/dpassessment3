@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "aspNetUserID": 1,
+      "fullName": "Reinhard von Lohengramm",
+      "roleName": "Manager"
+    },
+    {
+      "aspNetUserID": 2,
+      "fullName": "Siegfred Kircheis",
+      "roleName": "Team Lead"
+    },
+    {
+      "aspNetUserID": 3,
+      "fullName": "Oskar von Reuenthal",
+      "roleName": "Back-end Developer"
+    },
+    {
+      "aspNetUserID": 4,
+      "fullName": "Wolfgang Mittemeyer",
+      "roleName": "Front-end Developer"
+    }
+  ]
+}

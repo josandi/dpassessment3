@@ -43,6 +43,17 @@ export const API = {
 export const API_X = {
   END_POINT: "assets/test-data/",
   TEAM: {
-    GET_ALL: "team-getAll.json"
+    GET_ALL: "team-getAll.json",
+    GET_MEMBERS: "team-members.json",
+    GET_ASSESSMENTS: "team-assessments.json"
+  },
+  CLIENT: {
+    GET_LIST: "client-list.json"
+  },
+  EMPLOYEE: {
+    GET_LIST: "employee-list.json"
+  },
+  ROLE: {
+    GET_LIST: "role-list.json"
   }
 }

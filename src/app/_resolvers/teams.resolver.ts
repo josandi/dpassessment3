@@ -17,7 +17,6 @@ export class TeamsResolver implements Resolve<Team[]> {
               private alertify: AlertifyService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Team[]> {
-    console.log('resolver');
     return this.teamsService.getAllTeams(this.pageNumber, this.pageSize)
               .pipe(catchError (err => {
                 this.alertify.error('Problem retrieving data');

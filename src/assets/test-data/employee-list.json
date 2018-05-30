@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "aspNetUserID": 1,
+      "fullName": "Reinhard von Lohengramm"
+    },
+    {
+      "aspNetUserID": 2,
+      "fullName": "Siegfred Kircheis"
+    },
+    {
+      "aspNetUserID": 3,
+      "fullName": "Oskar von Reuenthal"
+    },
+    {
+      "aspNetUserID": 4,
+      "fullName": "Wolfgang Mittemeyer"
+    },
+    {
+      "aspNetUserID": 5,
+      "fullName": "Yang Wenli"
+    },
+    {
+      "aspNetUserID": 6,
+      "fullName": "Dusty Attenborough"
+    },
+    {
+      "aspNetUserID": 7,
+      "fullName": "Julian Minci"
+    }
+  ]
+}
