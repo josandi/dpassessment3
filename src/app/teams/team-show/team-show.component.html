@@ -1,69 +1,72 @@
 <div class="dpa-modal container-fluid">
-    <div class="modal-title">{{ team.teamName }}</div>
-  
-    <div class="modal-detail">
-      <table class="modal-table">
-        <tbody>
-          <tr>
-            <td>Description:</td>
-            <td>{{ team.teamDescription }}</td>
-          </tr>
-          <tr>
-            <td>Client:</td>
-            <td>{{ team.clientName}}</td>
-          </tr>
-          <tr>
-            <td>Project:</td>
-            <td>{{ team.project }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <div class="modal-divider"></div>
-  
-    <div class="row table-responsive pre-scrollable">
-      <div class="dpa-table-title">MEMBERS</div>
-  
-      <table class="table table-list">
-        <thead class="dpa-table-header">
-          <th>Name</th>
-          <th>Position</th>
-        </thead>
-  
-        <tbody>
-          <tr *ngFor="let member of members">
-            <td>{{ member.fullName }}</td>
-            <td>{{ member.roleName }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <div class="modal-divider"></div>
-  
-    <div class="row table-responsive pre-scrollable">
-      <div class="dpa-table-title">TEAM ASSESSMENTS</div>
-  
-      <table class="table table-list">
-        <thead class="dpa-table-header">
-          <th>Assessment Name</th>
-          <th>Date Create</th>
-        </thead>
-  
-        <tbody>
-          <tr *ngFor="let assessment of teamAssessments">
-            <td>{{ assessment.assessmentName }}</td>
-            <td>{{ assessment.dateCreated }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <div class="row modal-footer">
-      <button type="button" class="btn btn-default col-md-4" 
-        (click)="closeModal()">
-        Close
-      </button>
-    </div>
+  <div class="modal-title">{{ team.teamName }}</div>
+
+  <!-- team details -->
+  <div class="modal-detail">
+    <table class="modal-table">
+      <tbody>
+        <tr>
+          <td>Description:</td>
+          <td>{{ team.teamDescription }}</td>
+        </tr>
+        <tr>
+          <td>Client:</td>
+          <td>{{ team.clientName}}</td>
+        </tr>
+        <tr>
+          <td>Project:</td>
+          <td>{{ team.project }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
+  <div class="modal-divider"></div>
+
+  <!-- members list -->
+  <div class="row table-responsive pre-scrollable">
+    <div class="dpa-table-title">MEMBERS</div>
+
+    <table class="table table-list">
+      <thead class="dpa-table-header">
+        <th>Name</th>
+        <th>Position</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let member of members">
+          <td>{{ member.fullName }}</td>
+          <td>{{ member.roleName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-divider"></div>
+
+  <!-- team assessments -->
+  <div class="row table-responsive pre-scrollable">
+    <div class="dpa-table-title">TEAM ASSESSMENTS</div>
+
+    <table class="table table-list">
+      <thead class="dpa-table-header">
+        <th>Assessment Name</th>
+        <th>Date Create</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let assessment of teamAssessments">
+          <td>{{ assessment.assessmentName }}</td>
+          <td>{{ assessment.dateCreated }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row modal-footer">
+    <button type="button" class="btn btn-default col-md-4" 
+      (click)="closeModal()">
+      Close
+    </button>
+  </div>
+</div>
