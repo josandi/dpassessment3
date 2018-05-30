@@ -20,6 +20,9 @@ import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
 import { TeamAddEditComponent } from './teams/team-add-edit/team-add-edit.component';
 import { TeamShowComponent } from './teams/team-show/team-show.component';
+import { ClientsComponent } from './clients/clients.component';
+import { ClientsResolver } from './_resolvers/clients.resolver';
+import { ClientShowComponent } from './clients/client-show/client-show.component';
 
 
 const routes: Routes = [
@@ -32,6 +35,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent},
       { path: 'employees', component: EmployeesComponent, resolve: {employees: EmployeesResolver} },
       { path: 'teams', component: TeamsComponent, resolve: {teams: TeamsResolver} },
+      { path: 'clients', component: ClientsComponent, resolve: {clients: ClientsResolver} },
       { path: 'assessments', component: AssessmentsComponent, resolve: {assessments: AssessmentsResolver} },
       { path: 'questionnaires', component: QuestionnairesComponent, resolve: {questionnaires: QuestionnairesResolver} }
     ]
@@ -45,6 +49,7 @@ const routes: Routes = [
   entryComponents : [EmployeeShowComponent,
                     TeamShowComponent,
                     TeamAddEditComponent,
+                    ClientShowComponent,
                     AssessmentShowComponent,
                     AssessmentAddEditComponent,
                     AssessmentEmployeeComponent,
@@ -56,6 +61,9 @@ export const routingComponents = [DashboardComponent,
                                   AssessmentsComponent,
                                   EmployeesComponent,
                                   EmployeeShowComponent,
+                                  ClientsComponent,
+                                  ClientShowComponent,
+                                  TeamsComponent,
                                   TeamShowComponent,
                                   TeamAddEditComponent,
                                   AssessmentShowComponent,

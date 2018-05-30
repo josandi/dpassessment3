@@ -8,6 +8,9 @@ export const API = {
     GET_QUESTIONS_WITH_ANSWERS: "EmployeeAssessment/GetQuestionWithAns/",
     SUBMIT: "EmployeeAssessment/InsertEmployeeAssessment"
   },
+  CLIENT: {
+    GET_ALL: 'Clients'
+  },
   ASSESSMENT: {
     GET_ALL: "Assessment/GetAllAssessments",
     GET_ONE: "Assessment/",

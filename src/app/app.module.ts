@@ -22,10 +22,8 @@ import { AuthModule } from './auth/auth.module';
 import { EmployeesResolver } from './_resolvers/employees.resolver';
 import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
-import { TeamsComponent } from './teams/teams.component';
 import { TeamsResolver } from './_resolvers/teams.resolver';
-import { TeamAddEditComponent } from './teams/team-add-edit/team-add-edit.component';
-import { TeamShowComponent } from './teams/team-show/team-show.component';
+import { ClientsResolver } from './_resolvers/clients.resolver';
 
 @NgModule({
   declarations: [
@@ -34,10 +32,7 @@ import { TeamShowComponent } from './teams/team-show/team-show.component';
     LoginComponent,
     QuestionCategoryFilterPipe,
     OptionGroupFilterPipe,
-    GroupedOptionFilterPipe,
-    TeamsComponent,
-    TeamAddEditComponent,
-    TeamShowComponent
+    GroupedOptionFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -58,6 +53,7 @@ import { TeamShowComponent } from './teams/team-show/team-show.component';
     AlertifyService,
     EmployeesResolver,
     TeamsResolver,
+    ClientsResolver,
     AssessmentsResolver,
     QuestionnairesResolver
   ],

@@ -1,0 +1,29 @@
+<section class="page-employees">
+    <div class="content-title">Clients</div>
+  
+    <div class="table-responsive style-1">
+      <table class="dpa-table table table-striped">
+        <thead class="dpa-table-header">
+          <th>Client Name</th>
+          <th>Company Name</th>
+          <th>Email</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of clients" (click)="showClient(client)">
+            <td>{{ client.clientFullName }}</td>
+            <td>{{ client.companyName }}</td>
+            <td>{{ client.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="dpa-pagination">
+      <pagination [boundaryLinks]="true" [(ngModel)]="pagination.currentPage"
+        [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+        (pageChanged)="pageChanged($event)"
+        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
+  
+  </section>

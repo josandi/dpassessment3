@@ -20,11 +20,15 @@
                     </li>
                     <li routerLink="/employees" routerLinkActive="active"
                         *ngIf="user.isAdmin">
-                        <a><i class="fa fa-user fa-lg"></i>Employees</a>
+                        <a><i class="fa fa-address-card fa-lg"></i>Employees</a>
                     </li>
                     <li routerLink="/teams" routerLinkActive="active"
                         *ngIf="user.isAdmin">
                         <a><i class="fa fa-users fa-lg"></i>Teams</a>
+                    </li>
+                    <li routerLink="/clients" routerLinkActive="active"
+                        *ngIf="user.isAdmin">
+                        <a><i class="fa fa-id-badge fa-lg"></i>Clients</a>
                     </li>
                     <li routerLink="/assessments" routerLinkActive="active">
                         <a><i class="fa fa-edit fa-lg"></i>Assessment</a>
