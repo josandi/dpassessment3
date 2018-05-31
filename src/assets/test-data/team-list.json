@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "teamId": 1,
+      "teamName": "Alliance"
+    },
+    {
+      "teamId": 2,
+      "teamName": "Galactic Empire"
+    }
+  ]
+}

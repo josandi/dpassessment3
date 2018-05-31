@@ -64,6 +64,18 @@ form .btn {
   margin-bottom: 0;
 }
 
+.dpa-modal-form .row .dpa-mat-dtpgroup {
+  margin-bottom: 0;
+}
+
+div.dpa-mat-dtpgroup .input-group {
+  margin-bottom: 0;
+}
+
+div.dpa-mat-dtpgroup .mat-form-field-wrapper {
+  margin-bottom: 0 !important;
+}
+
 /* C O N T E N T */
 
 .dpa-page {
@@ -197,6 +209,11 @@ form .btn {
   margin: auto;
 }
 
+.dpa-inline-radio label {
+  text-align: left;
+  margin-right: 30px;
+}
+
 /* T A B L E */
 
 .dpa-table-title {
@@ -215,6 +232,11 @@ thead.dpa-table-header > tr > th {
 }
 
 .dpa-table td.col-status {
+  width: 30%;
+  white-space: nowrap;
+}
+
+.dpa-table td.col-date {
   width: 30%;
   white-space: nowrap;
 }
@@ -308,6 +330,10 @@ td.btn-tools button {
 .dpa-modal .pre-scrollable {
   margin: 0;
   padding: 5px;
+}
+
+.dpa-modal .pre-scrollable.short-scroll {
+  max-height: 200px;
 }
 
 /* header */

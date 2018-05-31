@@ -18,7 +18,7 @@ export class TeamsService {
 
   // API GET 
 
-  /* Purpose: get list of all teams */
+  /* Purpose: get all teams */
   getAllTeams(page?: number, itemsPerPage?: number) {
     const paginatedResult: PaginatedResult<Team[]> = new PaginatedResult<Team[]>();
     let queryStr = '?';
@@ -37,6 +37,15 @@ export class TeamsService {
       })
     );
   }
+
+  /* Purpose: get list of teams for dropdown */
+  getTeamsList() {
+    return this.authHttp.get(
+        this.baseUrl + API_X.TEAM.GET_LIST
+      ).pipe(map((response: Response) => {
+        return response.json().data;
+      }), catchError(err => this.error.handleAPIError(err)));
+  }
   
   /* Purpose: get clients list */
   getClientsList() {
@@ -44,7 +53,7 @@ export class TeamsService {
         this.baseUrl + API_X.CLIENT.GET_LIST
       ).pipe(map((response: Response) => {
         return response.json().data;
-      }), catchError(error => this.error.handleAPIError(error)));
+      }), catchError(err => this.error.handleAPIError(err)));
   }
 
   /* Purpose: get employees list */
@@ -53,7 +62,7 @@ export class TeamsService {
         this.baseUrl + API_X.EMPLOYEE.GET_LIST
       ).pipe(map((response: Response) => {
         return response.json().data;
-      }), catchError(error => this.error.handleAPIError(error)));
+      }), catchError(err => this.error.handleAPIError(err)));
   }
 
   /* Purpose: get roles */
@@ -62,7 +71,7 @@ export class TeamsService {
         this.baseUrl + API_X.ROLE.GET_LIST
       ).pipe(map((response: Response) => {
         return response.json().data;
-      }), catchError(error => this.error.handleAPIError(error)));
+      }), catchError(err => this.error.handleAPIError(err)));
   }
 
   /* Purpose: get team members */
@@ -71,7 +80,7 @@ export class TeamsService {
         this.baseUrl + API_X.TEAM.GET_MEMBERS
       ).pipe(map((response: Response) => {
         return response.json().data;
-      }), catchError(error => this.error.handleAPIError(error)));
+      }), catchError(err => this.error.handleAPIError(err)));
   }
 
   /* Purpose: get team members */
@@ -80,7 +89,7 @@ export class TeamsService {
         this.baseUrl + API_X.TEAM.GET_ASSESSMENTS
       ).pipe(map((response: Response) => {
         return response.json().data;
-      }), catchError(error => this.error.handleAPIError(error)));
+      }), catchError(err => this.error.handleAPIError(err)));
   }
 
   /* Purpose: get projects list */
@@ -89,7 +98,7 @@ export class TeamsService {
         API.END_POINT + API.TEAM.LIST_PROJECTS
       ).pipe(map((response: Response) => {
         return response.json();
-      }), catchError(error => this.error.handleAPIError(error)));
+      }), catchError(err => this.error.handleAPIError(err)));
   }
 
 }

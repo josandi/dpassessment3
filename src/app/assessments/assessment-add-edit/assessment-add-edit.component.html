@@ -15,7 +15,7 @@
         </textarea>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-8 dpa-mat-dtpgroup">
         <label for="deadline" class="dpa-label">Deadline</label>
         <p class="input-group">
           <mat-form-field>
@@ -31,12 +31,12 @@
 
     <div class="modal-divider"></div>
 
-    <div class="row table-responsive pre-scrollable">
+    <div class="row table-responsive pre-scrollable short-scroll">
       <div>
         Select from list of questionnaires below:
       </div>
 
-      <table class="dpa-table table table-striped">
+      <table class="dpa-table table table-list">
         <thead class="dpa-table-header">
           <th></th>
           <th>Description</th>
@@ -52,12 +52,62 @@
                 required />
             </td>
             <td>{{ questionnaire.questionaireDescription }}</td>
-            <td>{{ questionnaire.createdDateTime | date: 'MM-dd-yyyy' }}</td>
+            <td class="col-date">{{ questionnaire.createdDateTime | date: 'MM-dd-yyyy' }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
+    <div class="modal-divider"></div>
+
+    <div class="row">
+      <div class="col-md-12 dpa-inline-radio">
+        <label for="assessmentFor" class="dpa-label">Intended for:</label>
+        <label class="radio-inline">
+          <input type="radio" name="assessmentFor" [(ngModel)]="assessmentFor"
+            [value]="'employee'" [checked]="assessmentFor=='employee'">
+          All Employees
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="assessmentFor" [(ngModel)]="assessmentFor"
+            [value]="'client'" [checked]="assessmentFor=='client'">
+          Client
+        </label>
+      </div>
+
+      <div class="col-md-12 dpa-box" *ngIf="assessmentFor=='client'">
+        <div class="col-md-12">
+          <label for="client" class="dpa-label">Client</label>
+          <select class="form-control" name="client">
+            <option *ngFor="let client of clientsList" [ngValue]="client">
+              {{ client.clientFullName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-12 vertical-radio">
+          <label for="client" class="dpa-label">Type of Assessment</label>
+          <div class="radio">
+            <label>
+              <input type="radio" name="assessmentType">
+              General Feedback
+            </label>
+          </div>
+          <div class="form-inline radio team-inline">
+            <label>
+              <input type="radio" name="assessmentType"> 
+              Team
+            </label>
+            <select class="form-control col-md-9 pull-right" name="client">
+              <option *ngFor="let team of teamsList" [ngValue]="team">
+                {{ team.teamName }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
     <div class="row modal-footer">
       <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
         Cancel

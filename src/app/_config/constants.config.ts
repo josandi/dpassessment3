@@ -9,7 +9,8 @@ export const API = {
     SUBMIT: "EmployeeAssessment/InsertEmployeeAssessment"
   },
   CLIENT: {
-    GET_ALL: 'Clients'
+    GET_ALL: 'Clients',
+    GET_LIST: 'Clients/ListOfClientsForDropDown'
   },
   ASSESSMENT: {
     GET_ALL: "Assessment/GetAllAssessments",
@@ -50,6 +51,7 @@ export const API_X = {
   END_POINT: "assets/test-data/",
   TEAM: {
     GET_ALL: "team-getAll.json",
+    GET_LIST: "team-list.json",
     GET_MEMBERS: "team-members.json",
     GET_ASSESSMENTS: "team-assessments.json"
   },

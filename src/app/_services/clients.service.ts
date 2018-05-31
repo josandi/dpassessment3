@@ -7,6 +7,7 @@ import { API } from '../_config/constants.config';
 import { PaginatedResult } from '../_models/pagination';
 import { Client } from '../_models/client';
 import { environment } from '../../environments/environment';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,12 @@ import { environment } from '../../environments/environment';
 export class ClientsService {
   private baseUrl: string = environment.apiUrl;
 
-  constructor(private authHttp: AuthHttp) { }
+  constructor(private authHttp: AuthHttp,
+              private error: ErrorService) { }
 
   // API GET
 
-  /* Purpose: get list of all clients */
+  /* Purpose: get all clients */
   getAllClients(page?: number, itemsPerPage?: number) {
     const paginatedResult: PaginatedResult<Client[]> = new PaginatedResult<Client[]>();
     let queryStr = '?';
@@ -36,5 +38,14 @@ export class ClientsService {
         return paginatedResult;
       })
     );
+  }
+
+  /* Purpose: get list of clients for dropdown */
+  getClientsList() {
+    return this.authHttp.get(
+        this.baseUrl + API.CLIENT.GET_LIST
+      ).pipe(map((response: Response) => {
+        return response.json();
+      }), catchError( err => this.error.handleAPIError(err) ));
   }
 }

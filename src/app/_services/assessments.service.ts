@@ -99,6 +99,16 @@ export class AssessmentsService {
     );
   }
 
+  /* Purpose: get all clients for dropdown */
+  getClientsList() {
+
+  }
+
+  /* Purpose: get all teams for dropdown */
+  getTeamsList() {
+    
+  }
+
   // API POST
 
   /* Purpose: add new assessment */
