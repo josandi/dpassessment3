@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       .subscribe(data => {
         this.alertify.success("Logged in successfully!");
         this.loginUser.emit(true);                        // triggers function in the app component: to show/hide the sidebar based on the user type
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['dashboard']);
       }, error => {
         this.errorMsg = 'User cannot be found.';
       });

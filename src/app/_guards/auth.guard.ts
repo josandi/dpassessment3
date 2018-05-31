@@ -26,14 +26,14 @@ export class AuthGuard implements CanActivate {
         if(!this.forAdminOnlyPage(state.url)) {     // if user only: check page accessibility first
           return true;
         } else {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['dashboard']);
           return false;
         }
       }  
     }
 
     this.alertify.error('You need to login to access this page');
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
     return false;
   }
 

@@ -27,7 +27,7 @@ export class AssessmentsResolver implements Resolve<Assessment[]> {
       return this.asessmentsService.getAllAssessments(this.pageNumber, this.pageSize)
               .pipe(catchError (err => {
                 this.alertify.error('Problem retrieving data');
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['assessment/dashboard']);
                 return Observable.of(null);
               }));
     } else {                                  // for non-admin; user-specific assessments
@@ -36,7 +36,7 @@ export class AssessmentsResolver implements Resolve<Assessment[]> {
       return this.asessmentsService.getUserAssessments(userId, this.pageNumber, this.pageSize)
               .pipe(catchError (err => {
                 this.alertify.error('Problem retrieving data');
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['dashboard']);
                 return Observable.of(null);
               }));
     } 

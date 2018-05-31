@@ -48,7 +48,7 @@ export class AuthService {
     localStorage.removeItem('dpa-token');
 
     this.alertify.message('Logged out');              // NOTE: set app.component.ts canAccessApp = false
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
   }
 
   // TOKEN VALIDATION //

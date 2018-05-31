@@ -1,5 +1,5 @@
 export const API = {
-    'END_POINT': 'https://devpartners.co/assessment/api/',
+    'END_POINT': '/assessment/api/',
     'ACCOUNT': {
         'LOGIN': 'Account/login',
         'REFRESH_TOKEN': 'Account/RefreshToken'

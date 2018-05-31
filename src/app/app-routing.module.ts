@@ -31,7 +31,7 @@ const routes: Routes = [
       { path: 'questionnaires', component: QuestionnairesComponent, resolve: {questionnaires: QuestionnairesResolver} }
     ]
   },
-  { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -11,7 +11,7 @@ export class LoginGuard implements CanActivate {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.loggedIn()) {          // cannot access login page when already logged in
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['dashboard']);
       return false;
     }      
 

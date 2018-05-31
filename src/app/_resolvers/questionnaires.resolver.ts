@@ -20,7 +20,7 @@ export class QuestionnairesResolver implements Resolve<Questionnaire[]> {
     return this.questionnairesService.getAllQuestionnaires(this.pageNumber, this.pageSize)
               .pipe(catchError (err => {
                 this.alertify.error('Problem retrieving data');
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['dashboard']);
                 return Observable.of(null);
               }));
   }
