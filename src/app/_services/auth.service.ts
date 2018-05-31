@@ -7,12 +7,13 @@ import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';
 import { API } from '../_config/constants.config';
 import { ErrorService } from './error.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl: string = API.END_POINT;
+  private baseUrl: string = environment.apiUrl;
   userToken;
   isLoggedIn: boolean = false;
   jwtHelper: JwtHelper = new JwtHelper();
@@ -33,7 +34,6 @@ export class AuthService {
       ).pipe(map((response: Response) => {
         const user = response.json();
         if(user) {                                    // successful login
-          console.log(user.jwt);                      //    - remove after development phase
           this.userToken = user.jwt;
           this.saveToLocalStorage(user);
         }
@@ -46,6 +46,8 @@ export class AuthService {
     localStorage.removeItem('dpa-fullname');
     localStorage.removeItem('dpa-role');
     localStorage.removeItem('dpa-token');
+    localStorage.removeItem('dpa-userid');
+    localStorage.removeItem('dpa-username');
 
     this.alertify.message('Logged out');              // NOTE: set app.component.ts canAccessApp = false
     this.router.navigate(['login']);
@@ -91,7 +93,6 @@ export class AuthService {
       let newToken = response.json();
 
       if(newToken.jwt) {                                        // if refresh is successful: save and return new token
-        console.log('New token successfully generated: ' + newToken.jwt);
         localStorage.setItem('dpa-token', newToken.jwt);
         return newToken.jwt;
       } else {                                              // otherwise: signout and return null
@@ -104,7 +105,6 @@ export class AuthService {
       }
     }), 
     catchError (err => {
-      console.log('Refresh Token Error: ' + err);
       return null;
     }) );
   }

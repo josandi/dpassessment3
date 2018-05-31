@@ -18,7 +18,6 @@ export class QuestionnairesService {
               private err: ErrorService) { }
 
   // API GET
-
   /* Purpose: get all questionnaires */
   getAllQuestionnaires(page?: number, itemsPerPage?: number) {
     const paginatedResult: PaginatedResult<Questionnaire[]> = new PaginatedResult<Questionnaire[]>();
@@ -90,7 +89,6 @@ export class QuestionnairesService {
   }
 
   // API POST
-
   /* Purpose: save new questionnaire; returns questionnaire id so it will be used to save questions under it */
   saveQuestionnaire(questionnaire) {
     return this.authHttp.post(
@@ -116,7 +114,6 @@ export class QuestionnairesService {
   }
 
   // API PUT
-
   /* Purpose: update questionnaire detail */
   updateQuestionnaire(questionnaire) {
     return this.authHttp.put(
@@ -128,7 +125,6 @@ export class QuestionnairesService {
   }
 
   // API DELETE
-
   /* Purpose: delete a specific question; used in edit operation of questionnaire */
   deleteQuestion(questionId) {
     return this.authHttp.delete(
@@ -140,7 +136,6 @@ export class QuestionnairesService {
   }
 
   // UTILITIES
-
   /* Purpose: finds specific category in categories array */
   findCategoryInArr(categories, categoryId) {
     return categories.find(x => x.questionCategoryId == categoryId);
