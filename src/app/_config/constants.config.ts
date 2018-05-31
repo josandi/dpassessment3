@@ -22,6 +22,9 @@ export const API = {
     GET_ALL: "Employees",
     GET_EMPLOYEE_ASSESSMENTS: "Employees/GetEmployeeAssessmentDetail/"
   },
+  TEAM: {
+    LIST_PROJECTS: "ProjectTeam/ListOfProjectsForDropDown"
+  },
   QUESTIONNAIRE: {
     GET_ALL: "Questionaire",
     GET_ONE: "Questionaire/",

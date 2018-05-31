@@ -20,15 +20,15 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-8">      <!-- project section -->
         <label for="project" class="dpa-label">Project</label>
         <input class="form-control" name="project" 
-          [(ngModel)]="team.project" [typeahead]="employees" 
-          typeaheadOptionField="fullName">
+          [(ngModel)]="team.project" [typeahead]="projects" 
+          typeaheadOptionField="projectName" (typeaheadOnSelect)="onProjectSelect($event)">
       </div>
       <div class="col-md-4 dpa-checkbox">
         <input class="form-check-input" type="checkbox" value="" id="cbNewProject"
-          [checked]="isNewProject" (change)="isNewProject = !isNewProject">
+          [checked]="isNewProject" (change)="onNewProjectCheckChange()">
         <label class="form-check-label" for="cbNewProject">
           <i>New Project</i>
         </label>

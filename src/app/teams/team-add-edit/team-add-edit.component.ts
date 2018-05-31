@@ -13,6 +13,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 export class TeamAddEditComponent implements OnInit {
   errorMsg: any = {};
   team: Team;
+  teamToAdd: any = {};
   clients: any;
   employees: any;
   projects: any;
@@ -37,6 +38,7 @@ export class TeamAddEditComponent implements OnInit {
 
     this.getClientsList();
     this.getEmployeesList();
+    this.getProjectsList();
     this.getEmpRolesList();
   }
 
@@ -92,15 +94,12 @@ export class TeamAddEditComponent implements OnInit {
       );
   }
 
-  /* Purpose: retrieve roles list for the dropdown */
+  /* Purpose: retrieve list of all projects for the auto complete */
   getProjectsList() {
-    this._teamsService.getEmpRolesList()
+    this._teamsService.getProjects()
       .subscribe(data =>
         this.projects = data, 
-        error => this.errorMsg = error,
-        () => {
-          console.log(this.roles)
-        }
+        error => this.errorMsg = error
       );
   }
 
@@ -122,6 +121,22 @@ export class TeamAddEditComponent implements OnInit {
   onMemberSelect(event: TypeaheadMatch): void {
     this.newMember.aspNetUserID = event.item.aspNetUserID;
     this.canAddMember = true;
+  }
+
+  onProjectSelect(event: TypeaheadMatch): void {
+    this.isNewProject = false;
+    this.team.projectDescription = event.item.projectDesc;
+    this.selectedClient.clientId = event.item.clientId;
+    this.selectedClient.clientName = event.item.clientFullName;
+    console.log(this.selectedClient);
+  }
+
+  /* Purpose: Clear fields when check box for new project is changed */
+  onNewProjectCheckChange() {
+    this.isNewProject = !this.isNewProject;
+    this.team.project = null;
+    this.team.projectDescription = null;
+    this.selectedClient = this.clients[0];
   }
 
   /* Purpose: check if employee already added in the members list */

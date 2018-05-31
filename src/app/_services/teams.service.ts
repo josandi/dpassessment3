@@ -86,9 +86,9 @@ export class TeamsService {
   /* Purpose: get projects list */
   getProjects() {
     return this.authHttp.get(
-        API.END_POINT + API_X.TEAM.GET_ASSESSMENTS
+        API.END_POINT + API.TEAM.LIST_PROJECTS
       ).pipe(map((response: Response) => {
-        return response.json().data;
+        return response.json();
       }), catchError(error => this.error.handleAPIError(error)));
   }
 
