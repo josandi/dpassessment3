@@ -6,13 +6,14 @@ import { AuthHttp } from 'angular2-jwt';
 import { ErrorService } from './error.service';
 import { PaginatedResult } from '../_models/pagination';
 import { Questionnaire } from '../_models/questionnaire';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionnairesService {
 
-  private baseUrl: string = API.END_POINT;
+  private baseUrl: string = environment.apiUrl;
 
   constructor(private authHttp: AuthHttp,
               private err: ErrorService) { }

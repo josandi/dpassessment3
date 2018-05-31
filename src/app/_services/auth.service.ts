@@ -7,12 +7,13 @@ import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';
 import { API } from '../_config/constants.config';
 import { ErrorService } from './error.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl: string = API.END_POINT;
+  private baseUrl: string = environment.apiUrl;
   userToken;
   isLoggedIn: boolean = false;
   jwtHelper: JwtHelper = new JwtHelper();

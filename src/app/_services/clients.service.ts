@@ -6,12 +6,13 @@ import { map, catchError } from 'rxjs/operators';
 import { API } from '../_config/constants.config';
 import { PaginatedResult } from '../_models/pagination';
 import { Client } from '../_models/client';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
-  private baseUrl: string = API.END_POINT;
+  private baseUrl: string = environment.apiUrl;
 
   constructor(private authHttp: AuthHttp) { }
 

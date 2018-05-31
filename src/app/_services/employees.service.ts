@@ -8,12 +8,13 @@ import { API } from '../_config/constants.config';
 import { AuthHttp } from 'angular2-jwt';
 import { ErrorService } from './error.service';
 import { PaginatedResult } from '../_models/pagination';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: "root"
 })
 export class EmployeesService {
-  private baseUrl: string = API.END_POINT;
+  private baseUrl: string = environment.apiUrl;
 
   constructor(private authHttp: AuthHttp,
               private error: ErrorService) {}
