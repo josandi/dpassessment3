@@ -10,26 +10,47 @@
           [(ngModel)]="team.teamName"
           class="form-control" required />
       </div>
+    </div>
+    <div class="row">
       <div class="col-md-12">
         <label for="description" class="dpa-label">Team Description</label>
         <textarea type="text" name="description" 
           [(ngModel)]="team.teamDescription"
           class="form-control" required ></textarea>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <label for="project" class="dpa-label">Project</label>
+        <input class="form-control" name="project" 
+          [(ngModel)]="team.project" [typeahead]="employees" 
+          typeaheadOptionField="fullName">
+      </div>
+      <div class="col-md-4 dpa-checkbox">
+        <input class="form-check-input" type="checkbox" value="" id="cbNewProject"
+          [checked]="isNewProject" (change)="isNewProject = !isNewProject">
+        <label class="form-check-label" for="cbNewProject">
+          <i>New Project</i>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label for="projDescription" class="dpa-label">Project Description</label>
+        <textarea type="text" name="projDescription" 
+          [(ngModel)]="team.projectDescription" [disabled]="!isNewProject"
+          class="form-control" required ></textarea>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-8">
         <label for="client" class="dpa-label">Client</label>
         <select class="form-control" name="client"
-          [(ngModel)]="selectedClient">
+          [(ngModel)]="selectedClient" [disabled]="!isNewProject">
           <option *ngFor="let client of clients" [ngValue]="client">
             {{ client.clientName }}
           </option>
         </select>  
-      </div>
-      <div class="col-md-12">
-        <label for="project" class="dpa-label">Project</label>
-        <input type="text" name="project" 
-          [(ngModel)]="team.project"
-          class="form-control" required />
       </div>
     </div>
 
@@ -41,7 +62,7 @@
         <label for="memberName" class="dpa-label">Add Member </label>
         <input class="form-control" name="memberName" 
           [(ngModel)]="newMember.fullName" [typeahead]="employees" 
-          typeaheadOptionField="fullName" (typeaheadOnSelect)="onSelect($event)">
+          typeaheadOptionField="fullName" (typeaheadOnSelect)="onMemberSelect($event)">
       </div>
 
       <div class="col-md-8">

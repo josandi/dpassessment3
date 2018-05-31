@@ -15,12 +15,14 @@ export class TeamAddEditComponent implements OnInit {
   team: Team;
   clients: any;
   employees: any;
+  projects: any;
   roles: any;
   newMember: any = {};
   members: any = [];
   selectedClient: any = {};
   btnSubmitName: string = 'Save';
   isEdit: boolean = false;
+  isNewProject: boolean = false;
   canAddMember: boolean = false;
 
   constructor(private _teamsService: TeamsService,
@@ -91,6 +93,18 @@ export class TeamAddEditComponent implements OnInit {
   }
 
   /* Purpose: retrieve roles list for the dropdown */
+  getProjectsList() {
+    this._teamsService.getEmpRolesList()
+      .subscribe(data =>
+        this.projects = data, 
+        error => this.errorMsg = error,
+        () => {
+          console.log(this.roles)
+        }
+      );
+  }
+
+  /* Purpose: retrieve roles list for the dropdown */
   getEmpRolesList() {
     this._teamsService.getEmpRolesList()
       .subscribe(data =>
@@ -105,7 +119,7 @@ export class TeamAddEditComponent implements OnInit {
   // UTILITIES
 
   /* Purpose: only allow adding of new member if an employee is selected from the list */
-  onSelect(event: TypeaheadMatch): void {
+  onMemberSelect(event: TypeaheadMatch): void {
     this.newMember.aspNetUserID = event.item.aspNetUserID;
     this.canAddMember = true;
   }

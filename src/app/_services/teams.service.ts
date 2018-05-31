@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { PaginatedResult } from '../_models/pagination';
 import { Team } from '../_models/team';
 import { AuthHttp } from 'angular2-jwt';
-import { API_X } from '../_config/constants.config';
+import { API, API_X } from '../_config/constants.config';
 import { map, catchError } from 'rxjs/operators';
 import { ErrorService } from './error.service';
 
@@ -78,6 +78,15 @@ export class TeamsService {
   getTeamAssessments(teamId) {
     return this.authHttp.get(
         this.baseUrl + API_X.TEAM.GET_ASSESSMENTS
+      ).pipe(map((response: Response) => {
+        return response.json().data;
+      }), catchError(error => this.error.handleAPIError(error)));
+  }
+
+  /* Purpose: get projects list */
+  getProjects() {
+    return this.authHttp.get(
+        API.END_POINT + API_X.TEAM.GET_ASSESSMENTS
       ).pipe(map((response: Response) => {
         return response.json().data;
       }), catchError(error => this.error.handleAPIError(error)));
