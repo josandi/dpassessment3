@@ -15,16 +15,17 @@
       <div class="col-md-12">
         <label for="description" class="dpa-label">Team Description</label>
         <textarea type="text" name="description" 
-          [(ngModel)]="team.teamDescription"
+          [(ngModel)]="team.teamDesc"
           class="form-control" required ></textarea>
       </div>
     </div>
     <div class="row">
       <div class="col-md-8">      <!-- project section -->
         <label for="project" class="dpa-label">Project</label>
-        <input class="form-control" name="project" 
-          [(ngModel)]="team.project" [typeahead]="projects" 
-          typeaheadOptionField="projectName" (typeaheadOnSelect)="onProjectSelect($event)">
+        <input class="form-control" name="project" required
+          [(ngModel)]="team.projectName" [typeahead]="projects" 
+          typeaheadOptionField="projectName" (typeaheadOnSelect)="onProjectSelect($event)"
+          (typeaheadNoResults)="projectNoResult($event)">
       </div>
       <div class="col-md-4 dpa-checkbox">
         <input class="form-check-input" type="checkbox" value="" id="cbNewProject"
@@ -38,8 +39,8 @@
       <div class="col-md-12">
         <label for="projDescription" class="dpa-label">Project Description</label>
         <textarea type="text" name="projDescription" 
-          [(ngModel)]="team.projectDescription" [disabled]="!isNewProject"
-          class="form-control" required ></textarea>
+          [(ngModel)]="team.projectDesc" [disabled]="!isNewProject"
+          class="form-control" required></textarea>
       </div>
     </div>
     <div class="row">
@@ -48,7 +49,7 @@
         <select class="form-control" name="client"
           [(ngModel)]="selectedClient" [disabled]="!isNewProject">
           <option *ngFor="let client of clients" [ngValue]="client">
-            {{ client.clientName }}
+            {{ client.clientFullName }}
           </option>
         </select>  
       </div>
@@ -69,7 +70,7 @@
         <select class="form-control" name="memberRole"
           [(ngModel)]="newMember.role">
           <option *ngFor="let role of roles" [ngValue]="role">
-            {{ role.roleName }}
+            {{ role.teamRoleName }}
           </option>
         </select>  
       </div>
@@ -95,8 +96,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let member of members">
-            <td>{{ member.fullName }}</td>
-            <td>{{ member.role.roleName }}</td>
+            <td>{{ member.empFullName }}</td>
+            <td>{{ member.teamRoleName }}</td>
             <td class="btn-tools">
               <a class="pointer-cursor" (click)="removeMember(member)">
                 <i class="fa fa-times"></i>
@@ -107,6 +108,7 @@
       </table>
     </div>
 
+    <!-- buttons -->
     <div class="row modal-footer">
       <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
         Close

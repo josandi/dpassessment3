@@ -1,9 +1,10 @@
 export interface Team {
   teamId: number;
   teamName: string;
-  teamDescription: string;
-  project: string;
-  projectDescription: string;
+  teamDesc: string;
+  projectId: string;
+  projectName: string;
+  projectDesc: string;
   clientId: number;
-  clientName: string;
+  clientFullName: string;
 }

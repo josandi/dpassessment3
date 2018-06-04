@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../../_models/team';
 import { TeamsService } from '../../_services/teams.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { EmployeesService } from '../../_services/employees.service';
 
 @Component({
   selector: 'app-team-show',

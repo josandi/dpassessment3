@@ -7,15 +7,15 @@
       <tbody>
         <tr>
           <td>Description:</td>
-          <td>{{ team.teamDescription }}</td>
-        </tr>
-        <tr>
-          <td>Client:</td>
-          <td>{{ team.clientName}}</td>
+          <td>{{ team.teamDesc }}</td>
         </tr>
         <tr>
           <td>Project:</td>
-          <td>{{ team.project }}</td>
+          <td>{{ team.projectName }}</td>
+        </tr>
+        <tr>
+          <td>Client:</td>
+          <td>{{ team.clientFullName}}</td>
         </tr>
       </tbody>
     </table>
@@ -35,8 +35,8 @@
 
       <tbody>
         <tr *ngFor="let member of members">
-          <td>{{ member.fullName }}</td>
-          <td>{{ member.roleName }}</td>
+          <td>{{ member.empFullName }}</td>
+          <td>{{ member.teamRoleName }}</td>
         </tr>
       </tbody>
     </table>

@@ -1,11 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Team } from '../_models/team';
-import { Pagination } from '../_models/pagination';
+import { Pagination, PaginatedResult } from '../_models/pagination';
 import { Observable, Subscription, combineLatest } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TeamAddEditComponent } from './team-add-edit/team-add-edit.component';
 import { TeamShowComponent } from './team-show/team-show.component';
+import { TeamsService } from '../_services/teams.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-teams',
@@ -19,7 +21,9 @@ export class TeamsComponent implements OnInit {
   teamShowModal: BsModalRef;
   teamAddEditModal: BsModalRef;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private _teamsService: TeamsService,
+              private route: ActivatedRoute,
+              private alertify: AlertifyService,
               private modalService: BsModalService,
               private changeDetection: ChangeDetectorRef) { }
 
@@ -31,6 +35,18 @@ export class TeamsComponent implements OnInit {
   }
 
   // MAIN FUNCTIONALITIES
+
+  loadTeams() {
+    this._teamsService.getAllTeams(this.pagination.currentPage, this.pagination.itemsPerPage)
+      .subscribe((res: PaginatedResult<Team[]>) => {
+        this.teams = res.result;
+        this.pagination = res.pagination;
+      }, error => {
+        this.alertify.error(error);
+      })
+  }
+
+  // MODAL DISPLAY
 
   /* Purpose: display team details */
   showTeam(team) {
@@ -81,7 +97,7 @@ export class TeamsComponent implements OnInit {
     
     this.subscriptions.push(
       this.modalService.onHide.subscribe((reason: string) => {
-        // this.loadQuestionnaires();                            // get updated questionnaires from db
+        this.loadTeams();                            // get updated questionnaires from db
       })
     );
 
@@ -99,6 +115,14 @@ export class TeamsComponent implements OnInit {
       subscription.unsubscribe();
     });
     this.subscriptions = [];
+  }
+
+  // UTILITIES
+
+  /* Purpose: retrieve next set of data based on the pagination */
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadTeams();
   }
 
 }

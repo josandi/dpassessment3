@@ -17,9 +17,9 @@
       <tbody>
         <tr *ngFor="let team of teams" (click)="showTeam(team)">
           <td>{{ team.teamName }}</td>
-          <td>{{ team.teamDescription }}</td>
-          <td>{{ team.project }}</td>
-          <td>{{ team.clientName }}</td>
+          <td>{{ team.teamDesc }}</td>
+          <td>{{ team.projectName }}</td>
+          <td>{{ team.clientFullName }}</td>
           <td class="btn-tools" (click)="$event.stopPropagation()">
             <button (click)="showAddEdit(team)" 
               class="btn btn-success btn-sm row-btn">
@@ -31,12 +31,12 @@
     </table>
   </div>
 
-  <!-- <div class="dpa-pagination">
+  <div class="dpa-pagination">
     <pagination [boundaryLinks]="true" [(ngModel)]="pagination.currentPage"
       [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
       (pageChanged)="pageChanged($event)"
       previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
     </pagination>
-  </div> -->
+  </div>
 
 </section>

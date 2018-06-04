@@ -4,13 +4,13 @@ export const API = {
     LOGIN: "Account/login",
     REFRESH_TOKEN: "Account/RefreshToken"
   },
-  EMP_ASSESSMENT: {
-    GET_QUESTIONS_WITH_ANSWERS: "EmployeeAssessment/GetQuestionWithAns/",
-    SUBMIT: "EmployeeAssessment/InsertEmployeeAssessment"
-  },
   CLIENT: {
     GET_ALL: 'Clients',
     GET_LIST: 'Clients/ListOfClientsForDropDown'
+  },
+  EMP_ASSESSMENT: {
+    GET_QUESTIONS_WITH_ANSWERS: "EmployeeAssessment/GetQuestionWithAns/",
+    SUBMIT: "EmployeeAssessment/InsertEmployeeAssessment"
   },
   ASSESSMENT: {
     GET_ALL: "Assessment/GetAllAssessments",
@@ -23,8 +23,14 @@ export const API = {
     GET_ALL: "Employees",
     GET_EMPLOYEE_ASSESSMENTS: "Employees/GetEmployeeAssessmentDetail/"
   },
-  TEAM: {
-    LIST_PROJECTS: "ProjectTeam/ListOfProjectsForDropDown"
+  PROJECT_TEAM: {
+    GET_ALL_TEAMS: "ProjectTeam/GetAllTeams",
+    GET_TEAM_MEMBERS: "ProjectTeam/GetTeamMembersById/",
+    LIST_ROLES: "ProjectTeam/GetAllRoles",
+    LIST_PROJECTS: "ProjectTeam/ListOfProjectsForDropDown",
+    CREATE_W_NEWPROJ: "ProjectTeam/ProjectAndTeamMembers_Create",
+    CREATE_W_EXISTINGPROJ: "ProjectTeam/AddNewTeamAndTeamMembers",
+    UPDATE: "ProjectTeam/ProjectAndTeamMembers_Edit"
   },
   QUESTIONNAIRE: {
     GET_ALL: "Questionaire",

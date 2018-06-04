@@ -6,12 +6,14 @@ import { AuthHttp } from 'angular2-jwt';
 import { API, API_X } from '../_config/constants.config';
 import { map, catchError } from 'rxjs/operators';
 import { ErrorService } from './error.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamsService {
-  private baseUrl: string = API_X.END_POINT;
+  private baseUrl_X: string = API_X.END_POINT;
+  private baseUrl: string = environment.apiUrl;
 
   constructor(private authHttp: AuthHttp,
               private error: ErrorService) { }
@@ -27,9 +29,9 @@ export class TeamsService {
     }
 
     return this.authHttp.get(
-        this.baseUrl + API_X.TEAM.GET_ALL + queryStr
+        this.baseUrl + API.PROJECT_TEAM.GET_ALL_TEAMS + queryStr
       ).pipe(map( (response: Response) => {
-        paginatedResult.result = response.json().data;
+        paginatedResult.result = response.json();
         if(response.headers.get('Pagination') != null) {
           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
         }
@@ -41,16 +43,7 @@ export class TeamsService {
   /* Purpose: get list of teams for dropdown */
   getTeamsList() {
     return this.authHttp.get(
-        this.baseUrl + API_X.TEAM.GET_LIST
-      ).pipe(map((response: Response) => {
-        return response.json().data;
-      }), catchError(err => this.error.handleAPIError(err)));
-  }
-  
-  /* Purpose: get clients list */
-  getClientsList() {
-    return this.authHttp.get(
-        this.baseUrl + API_X.CLIENT.GET_LIST
+        this.baseUrl_X + API_X.TEAM.GET_LIST
       ).pipe(map((response: Response) => {
         return response.json().data;
       }), catchError(err => this.error.handleAPIError(err)));
@@ -59,34 +52,34 @@ export class TeamsService {
   /* Purpose: get employees list */
   getEmployeesList() {
     return this.authHttp.get(
-        this.baseUrl + API_X.EMPLOYEE.GET_LIST
+        this.baseUrl_X + API_X.EMPLOYEE.GET_LIST
       ).pipe(map((response: Response) => {
         return response.json().data;
       }), catchError(err => this.error.handleAPIError(err)));
   }
 
-  /* Purpose: get roles */
-  getEmpRolesList() {
+  /* Purpose: get list of employee roles */
+  getEmpRoleList() {
     return this.authHttp.get(
-        this.baseUrl + API_X.ROLE.GET_LIST
-      ).pipe(map((response: Response) => {
-        return response.json().data;
-      }), catchError(err => this.error.handleAPIError(err)));
+      this.baseUrl + API.PROJECT_TEAM.LIST_ROLES
+    ).pipe(map((response: Response) => {
+      return response.json();
+    }), catchError(err => this.error.handleAPIError(err)));
   }
 
   /* Purpose: get team members */
   getTeamMembers(teamId) {
     return this.authHttp.get(
-        this.baseUrl + API_X.TEAM.GET_MEMBERS
+        this.baseUrl + API.PROJECT_TEAM.GET_TEAM_MEMBERS + teamId
       ).pipe(map((response: Response) => {
-        return response.json().data;
+        return response.json();
       }), catchError(err => this.error.handleAPIError(err)));
   }
 
   /* Purpose: get team members */
   getTeamAssessments(teamId) {
     return this.authHttp.get(
-        this.baseUrl + API_X.TEAM.GET_ASSESSMENTS
+        this.baseUrl_X + API_X.TEAM.GET_ASSESSMENTS
       ).pipe(map((response: Response) => {
         return response.json().data;
       }), catchError(err => this.error.handleAPIError(err)));
@@ -95,10 +88,37 @@ export class TeamsService {
   /* Purpose: get projects list */
   getProjects() {
     return this.authHttp.get(
-        API.END_POINT + API.TEAM.LIST_PROJECTS
+        this.baseUrl + API.PROJECT_TEAM.LIST_PROJECTS
       ).pipe(map((response: Response) => {
         return response.json();
       }), catchError(err => this.error.handleAPIError(err)));
+  }
+
+  // API POST
+
+  /* Purpose: save new team; uses different endpoints for new project and for existing projects  */
+  saveNewTeam(team, isNewProject: boolean) {
+    let endpoint = (isNewProject) ? API.PROJECT_TEAM.CREATE_W_NEWPROJ : 
+                                    API.PROJECT_TEAM.CREATE_W_EXISTINGPROJ;
+    
+    return this.authHttp.post(
+        this.baseUrl + endpoint,
+        team
+      ).pipe(map((response: Response) => {
+        return (response.ok) ? true : false;
+      }), catchError( err => this.error.handleAPIError(err)));
+  }
+
+  // API PUT
+
+  /* Purpose: update specific team */
+  updateTeam(team) {
+    return this.authHttp.put(
+        this.baseUrl + API.PROJECT_TEAM.UPDATE,
+        team
+      ).pipe(map((response: Response) => {
+        return (response.ok) ? true : false;
+      }), catchError( err => this.error.handleAPIError(err)));
   }
 
 }
