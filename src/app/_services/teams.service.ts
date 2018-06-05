@@ -43,9 +43,9 @@ export class TeamsService {
   /* Purpose: get list of teams for dropdown */
   getTeamsList() {
     return this.authHttp.get(
-        this.baseUrl_X + API_X.TEAM.GET_LIST
+        this.baseUrl + API.PROJECT_TEAM.GET_ALL_TEAMS
       ).pipe(map((response: Response) => {
-        return response.json().data;
+        return response.json();
       }), catchError(err => this.error.handleAPIError(err)));
   }
 

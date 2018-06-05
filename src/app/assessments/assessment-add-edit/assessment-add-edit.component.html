@@ -1,17 +1,18 @@
 <div class="dpa-modal container-fluid">
   <form #assessmentForm="ngForm" (ngSubmit)="submitAssessment()" 
     class="dpa-modal-form" role="form">
+    <!-- assessment details -->
     <div class="row">
       <div class="col-md-12">
         <label for="assessmentname" class="dpa-label">Assessment Name</label>
         <input type="text" name="assessmentname" 
-          [(ngModel)]="assessmentData.assessmentName" class="form-control" required>
+          [(ngModel)]="assessment.assessmentName" class="form-control" required>
       </div>
 
       <div class="col-md-12">
         <label for="description" class="dpa-label">Description</label>
         <textarea type="text" name="description" 
-          [(ngModel)]="assessmentData.assessmentDescription" class="form-control" required>
+          [(ngModel)]="assessment.assessmentDescription" class="form-control" required>
         </textarea>
       </div>
 
@@ -21,7 +22,7 @@
           <mat-form-field>
             <input matInput [matDatepicker]="picker" name="deadline" 
               placeholder="Choose a date" [min]="minDeadline" 
-              [(ngModel)]="assessmentData.submissionDeadline" required />
+              [(ngModel)]="assessment.submissionDeadline" required />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -31,6 +32,7 @@
 
     <div class="modal-divider"></div>
 
+    <!-- questionnaires list -->
     <div class="row table-responsive pre-scrollable short-scroll">
       <div>
         Select from list of questionnaires below:
@@ -47,7 +49,7 @@
             (click)="showQuestionnaire(questionnaire)">
             <td (click)="$event.stopPropagation()">
               <input type="radio" name="questionnaireID" 
-                [(ngModel)]="assessmentData.questionaireId" 
+                [(ngModel)]="assessment.questionaireId" 
                 [value]="questionnaire.questionaireId"
                 required />
             </td>
@@ -60,45 +62,58 @@
 
     <div class="modal-divider"></div>
 
+    <!-- assessment options: intended for and assessment type -->
     <div class="row">
-      <div class="col-md-12 dpa-inline-radio">
+      <div class="col-md-12 dpa-inline-radio">            <!-- intended for -->
         <label for="assessmentFor" class="dpa-label">Intended for:</label>
         <label class="radio-inline">
-          <input type="radio" name="assessmentFor" [(ngModel)]="assessmentFor"
-            [value]="'employee'" [checked]="assessmentFor=='employee'">
+          <input type="radio" name="assessmentFor" required 
+            [(ngModel)]="assessment.intendedFor" [value]="AssessmentOpts.For.AllEmployees" 
+            [checked]="assessment.intendedFor==AssessmentOpts.For.AllEmployees">
           All Employees
         </label>
         <label class="radio-inline">
-          <input type="radio" name="assessmentFor" [(ngModel)]="assessmentFor"
-            [value]="'client'" [checked]="assessmentFor=='client'">
+          <input type="radio" name="assessmentFor" required
+            [(ngModel)]="assessment.intendedFor" [value]="AssessmentOpts.For.Client" 
+            [checked]="assessment.intendedFor==AssessmentOpts.For.Client">
           Client
         </label>
       </div>
 
-      <div class="col-md-12 dpa-box" *ngIf="assessmentFor=='client'">
+      <div class="col-md-12 dpa-box"                    
+        *ngIf="assessment.intendedFor==AssessmentOpts.For.Client">
         <div class="col-md-12">
           <label for="client" class="dpa-label">Client</label>
-          <select class="form-control" name="client">
+          <select class="form-control" name="client"
+            [(ngModel)]="selectedClient">
             <option *ngFor="let client of clientsList" [ngValue]="client">
               {{ client.clientFullName }}
             </option>
           </select>
         </div>
 
-        <div class="col-md-12 vertical-radio">
-          <label for="client" class="dpa-label">Type of Assessment</label>
+        <div class="col-md-12 vertical-radio">          <!-- assessment type -->
+          <label for="assessmentType" class="dpa-label">Type of Assessment</label>
           <div class="radio">
             <label>
-              <input type="radio" name="assessmentType">
+              <input type="radio" name="assessmentType" required
+                [(ngModel)]="assessment.assessmentType"
+                [value]="AssessmentOpts.Type.GeneralFeedback"
+                [checked]="assessment.assessmentType==AssessmentOpts.Type.GeneralFeedback">
               General Feedback
             </label>
           </div>
           <div class="form-inline radio team-inline">
             <label>
-              <input type="radio" name="assessmentType"> 
+              <input type="radio" name="assessmentType" required
+                [(ngModel)]="assessment.assessmentType"
+                [value]="AssessmentOpts.Type.TeamAssessment"
+                [checked]="assessment.assessmentType==AssessmentOpts.Type.TeamAssessment"> 
               Team
             </label>
-            <select class="form-control col-md-9 pull-right" name="client">
+            <select class="form-control col-md-9 pull-right" 
+              name="team" [(ngModel)]="selectedTeam"
+              [disabled]="assessment.assessmentType!=AssessmentOpts.Type.TeamAssessment">
               <option *ngFor="let team of teamsList" [ngValue]="team">
                 {{ team.teamName }}
               </option>
@@ -108,6 +123,7 @@
       </div>
     </div>
  
+    <!-- buttons -->
     <div class="row modal-footer">
       <button type="button" class="btn btn-default col-md-4" (click)="closeModal()">
         Cancel

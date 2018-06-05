@@ -6,6 +6,7 @@ import { AssessmentsService } from '../../_services/assessments.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { ClientsService } from '../../_services/clients.service';
 import { TeamsService } from '../../_services/teams.service';
+import { Assessment } from '../../_models/assessment';
 
 @Component({
   selector: 'app-assessment-add-edit',
@@ -17,12 +18,25 @@ export class AssessmentAddEditComponent implements OnInit {
   isEdit: boolean = false;
   btnSubmitName: string = 'Save';
   assessmentAddEditModal: BsModalRef;
-  assessmentData: any = {};
+  assessmentData: Assessment;                   // sent from the main page
+  assessment: any = {};                         // set current model
   questionnaires: any;
-  assessmentFor: string = 'employee';
   minDeadline: Date;
-  clientsList: any = {};
-  teamsList: any = {};
+  clientsList: any = [];
+  teamsList: any = [];
+  selectedTeam: any;
+  selectedClient: any;
+  readonly AssessmentOpts = {                   // assessment options
+    For: {
+      AllEmployees: 0,
+      Client: 1
+    },
+    Type: {
+      EmployeeAssessment: 0,
+      TeamAssessment: 1,
+      GeneralFeedback: 2
+    }
+  }
   
   constructor(private _assessmentsService: AssessmentsService,
               private clientsService: ClientsService,
@@ -35,17 +49,76 @@ export class AssessmentAddEditComponent implements OnInit {
     if(this.assessmentData){          // check type of operation
       this.isEdit = true;
       this.btnSubmitName = 'Update';
+      this.getAssessmentDetail();
     } else {
-      this.assessmentData = {};
+      this.isEdit = false;
+      this.assessment = {};
+      this.getDropdownLists();
     }
 
     this.getQuestionnairesList();
-    this.getClientsList();
-    this.getTeamsList();
     this.minDeadline = new Date();    // to restrict deadline dtp selection
   }
 
   // MAIN FUNCTIONS
+
+  /* Purpose: get assessment details */
+  getAssessmentDetail() {
+    this._assessmentsService.getAssessmentDetail(this.assessmentData.assessmentId)
+      .subscribe(data => 
+        this.assessment = data,
+        error => this.errorMsg = error,
+        () => {
+          this.setTempAssessmentValues(1);  // TEMP: while endpoint doesnt return type and intended for
+          console.log(this.assessment);
+          this.getDropdownLists();
+        }
+      );
+  }
+
+  /* Purpose: called when form is submitted */
+  submitAssessment() {
+    this.appendAssessmentOptionValues();
+    (this.isEdit) ? this.updateAssessment() : this.saveAssessment();
+  }
+
+  /* Purpose: save new assessment */
+  saveAssessment() {
+    let response: any;
+    console.log(this.assessment);
+
+    // this._assessmentsService.saveAssessment(this.assessment)
+    //   .subscribe(
+    //     data => response = data,
+    //     error => this.alertify.error('Saving assessment - failed!'),
+    //     () => { 
+    //       if (response) {
+    //         this.alertify.success('Assessment saved successfully!');
+    //       }
+    //       this.closeModal();
+    //     }
+    //   );
+  }
+
+  /* Purpose: update assessment */
+  updateAssessment() {
+    let response: any;
+    console.log(this.assessment);
+
+    // this._assessmentsService.updateAssessment(this.assessment)
+    //   .subscribe(
+    //     data => response = data,
+    //     error => this.alertify.error('Updating assessment - failed!'),
+    //     () => { 
+    //       if (response) {
+    //         this.alertify.success('Assessment - successfully updated!');
+    //       }
+    //       this.closeModal();
+    //     }
+    //   );
+  }
+
+  // PREPARE DATA FROM API
 
   /* Purpose: get questionnaires to display a selection when creating an assessment */
   getQuestionnairesList() {
@@ -55,57 +128,18 @@ export class AssessmentAddEditComponent implements OnInit {
       error => this.errorMsg = error);
   }
 
-  /* Purpose: called when form is submitted */
-  submitAssessment() {
-    if (this.isEdit) {
-      this.updateAssessment();
-    } else {
-      this.saveAssessment();
-    }
+  getDropdownLists() {
+    this.getClientsList();
+    this.getTeamsList();
   }
-
-  /* Purpose: save new assessment */
-  saveAssessment() {
-    let response: any;
-
-    this._assessmentsService.saveAssessment(this.assessmentData)
-      .subscribe(
-        data => response = data,
-        error => this.alertify.error('Saving assessment - failed!'),
-        () => { 
-          if (response) {
-            this.alertify.success('Assessment saved successfully!');
-          }
-          this.closeModal();
-        }
-      );
-  }
-
-  /* Purpose: update assessment */
-  updateAssessment() {
-    let response: any;
-
-    this._assessmentsService.updateAssessment(this.assessmentData)
-      .subscribe(
-        data => response = data,
-        error => this.alertify.error('Updating assessment - failed!'),
-        () => { 
-          if (response) {
-            this.alertify.success('Assessment - successfully updated!');
-          }
-          this.closeModal();
-        }
-      );
-  }
-
-  // PREPARE DATA FROM API
 
   /* Purpose: get list of clients for dropdown */
   getClientsList() {
     this.clientsService.getClientsList()
       .subscribe(data =>
         this.clientsList = data,
-        error => this.errorMsg = error);
+        error => this.errorMsg = error, 
+        () => { this.setInitialSelectedClient(); });
   }
 
   /* Purpose: get list of teams for dropdown */
@@ -113,14 +147,15 @@ export class AssessmentAddEditComponent implements OnInit {
     this.teamsService.getTeamsList()
       .subscribe(data =>
         this.teamsList = data,
-        error => this.errorMsg = error);
+        error => this.errorMsg = error,
+        () => { this.setInitialSelectedTeam(); });
   }
 
   // MODAL DISPLAY
 
   /* Purpose: shows questionnaire */
   showQuestionnaire(questionnaire) {
-    this.assessmentData.questionaireId = questionnaire.questionaireId;
+    this.assessment.questionaireId = questionnaire.questionaireId;
 
     const initialState = {
       questionnaire: questionnaire
@@ -134,6 +169,71 @@ export class AssessmentAddEditComponent implements OnInit {
   /* Purpose: hides current modal */
   closeModal() {
     this.bsModalRef.hide();
+  }
+
+  // UTILITIES
+
+  /* Purpose: set initial value for selected client*/
+  setInitialSelectedClient() {
+    if (this.isEdit && this.assessment.intendedFor === this.AssessmentOpts.For.Client) {
+      this.selectedClient = this.clientsList.find(x => x.clientId == this.assessment.clientId);
+      return;
+    }
+    this.selectedClient = this.clientsList[0];
+  }
+
+  /* Purpose: set initial value for selected team */
+  setInitialSelectedTeam() {
+    if (this.isEdit && this.assessment.intendedFor === this.AssessmentOpts.For.Client && 
+        this.assessment.assessmentType === this.AssessmentOpts.Type.TeamAssessment) {
+          this.selectedTeam = this.teamsList.find(x => x.teamId == this.assessment.teamId);
+          console.log(this.selectedTeam);          
+          return;
+    }
+    this.selectedTeam = this.teamsList[0];
+  }
+
+  /* Purpose: append selected values to assessment model for save and update */
+  appendAssessmentOptionValues() {
+    if (this.assessment.intendedFor==this.AssessmentOpts.For.AllEmployees) {
+      this.assessment.clientId = 0;                           // assessment for employees
+      this.assessment.teamId = 0;
+      this.assessment.assessmentType = this.AssessmentOpts.Type.EmployeeAssessment;
+      return;
+    }
+
+    this.assessment.clientId = this.selectedClient.clientId;  // assessment for clients
+    this.assessment.teamId = (this.assessment.assessmentType === this.AssessmentOpts.Type.GeneralFeedback) 
+                                ? 0 : this.selectedTeam.teamId;
+  }
+
+  // FOR TEST - SHOULD BE REMOVED
+
+  /* Purpose: set values while current endpoint does not return those values yet */
+  setTempAssessmentValues(type) {
+    switch (type) {
+      case 1: { /* FOR ALL EMPLOYEES */
+        this.assessment.intendedFor = 0;
+        this.assessment.clientId = 0;
+        this.assessment.teamId = 0;
+        this.assessment.assessmentType = 0;
+        break;
+      }
+      case 2: { /* FOR CLIENT > General Feedback */
+        this.assessment.intendedFor = 1;
+        this.assessment.clientId = 98;
+        this.assessment.teamId = 0;
+        this.assessment.assessmentType = 2;
+        break;
+      }
+      case 3: { /* FOR CLIENT > Team */
+        this.assessment.intendedFor = 1;
+        this.assessment.clientId = 98;
+        this.assessment.teamId = 5;
+        this.assessment.assessmentType = 1;
+        break;
+      }
+    }
   }
 
 }

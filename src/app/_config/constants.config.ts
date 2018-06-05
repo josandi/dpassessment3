@@ -25,6 +25,7 @@ export const API = {
   },
   PROJECT_TEAM: {
     GET_ALL_TEAMS: "ProjectTeam/GetAllTeams",
+    GET_TEAM_DETAILS: "ProjectTeam/GetTeamDetails/",
     GET_TEAM_MEMBERS: "ProjectTeam/GetTeamMembersById/",
     LIST_ROLES: "ProjectTeam/GetAllRoles",
     LIST_PROJECTS: "ProjectTeam/ListOfProjectsForDropDown",
