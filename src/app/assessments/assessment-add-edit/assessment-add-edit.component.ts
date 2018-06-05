@@ -60,8 +60,6 @@ export class AssessmentAddEditComponent implements OnInit {
         this.assessment = data,
         error => this.errorMsg = error,
         () => {
-          this.setTempAssessmentValues(1);  // TEMP: while endpoint doesnt return type and intended for
-          console.log(this.assessment);
           this.getDropdownLists();
         }
       );
@@ -197,34 +195,4 @@ export class AssessmentAddEditComponent implements OnInit {
     this.assessment.teamId = (this.assessment.assessmentType === this.AssessmentOpts.Type.GeneralFeedback) 
                                 ? 0 : this.selectedTeam.teamId;
   }
-
-  // FOR TEST - SHOULD BE REMOVED
-
-  /* Purpose: set values while current endpoint does not return those values yet */
-  setTempAssessmentValues(type) {
-    switch (type) {
-      case 1: { /* FOR ALL EMPLOYEES */
-        this.assessment.intendedFor = 0;
-        this.assessment.clientId = 0;
-        this.assessment.teamId = 0;
-        this.assessment.assessmentType = 0;
-        break;
-      }
-      case 2: { /* FOR CLIENT > General Feedback */
-        this.assessment.intendedFor = 1;
-        this.assessment.clientId = 98;
-        this.assessment.teamId = 0;
-        this.assessment.assessmentType = 2;
-        break;
-      }
-      case 3: { /* FOR CLIENT > Team */
-        this.assessment.intendedFor = 1;
-        this.assessment.clientId = 98;
-        this.assessment.teamId = 5;
-        this.assessment.assessmentType = 1;
-        break;
-      }
-    }
-  }
-
 }
