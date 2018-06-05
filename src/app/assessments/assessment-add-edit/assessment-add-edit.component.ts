@@ -7,6 +7,7 @@ import { AlertifyService } from '../../_services/alertify.service';
 import { ClientsService } from '../../_services/clients.service';
 import { TeamsService } from '../../_services/teams.service';
 import { Assessment } from '../../_models/assessment';
+import { AssessmentOpts } from '../../_config/constants.config'
 
 @Component({
   selector: 'app-assessment-add-edit',
@@ -26,17 +27,7 @@ export class AssessmentAddEditComponent implements OnInit {
   teamsList: any = [];
   selectedTeam: any;
   selectedClient: any;
-  readonly AssessmentOpts = {                   // assessment options
-    For: {
-      AllEmployees: 0,
-      Client: 1
-    },
-    Type: {
-      EmployeeAssessment: 0,
-      TeamAssessment: 1,
-      GeneralFeedback: 2
-    }
-  }
+  readonly AssessmentOpts = AssessmentOpts;     // constant values for assessment options
   
   constructor(private _assessmentsService: AssessmentsService,
               private clientsService: ClientsService,

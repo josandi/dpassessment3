@@ -72,3 +72,15 @@ export const API_X = {
     GET_LIST: "role-list.json"
   }
 }
+
+export const AssessmentOpts = {
+  For: {
+    AllEmployees: 0,
+    Client: 1
+  },
+  Type: {
+    EmployeeAssessment: 0,
+    TeamAssessment: 1,
+    GeneralFeedback: 2
+  }
+}
