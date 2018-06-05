@@ -35,6 +35,7 @@ export class TeamAddEditComponent implements OnInit {
               private bsModalRef: BsModalRef) { }
 
   ngOnInit() {
+    console.log(this.team);
     if(Object.keys(this.team).length !== 0) {
       this.isEdit = true;
       this.btnSubmitName = 'Update';
@@ -127,9 +128,7 @@ export class TeamAddEditComponent implements OnInit {
       .subscribe(data =>
         this.clients = data, 
         error => this.errorMsg = error,
-        () => {
-          this.selectedClient = this.clients[0];
-        }
+        () => { this.setInitialSelectedClient(); }
       );
   }
 
@@ -172,7 +171,7 @@ export class TeamAddEditComponent implements OnInit {
       );
   }
 
-  // UTILITIES
+  // TEMPLATE UTILITIES
 
   /* Purpose: only allow adding of new member if an employee is selected from the list */
   onMemberSelect(event: TypeaheadMatch): void {
@@ -180,6 +179,7 @@ export class TeamAddEditComponent implements OnInit {
     this.canAddMember = true;
   }
 
+  /* Purpose: set values on project select */
   onProjectSelect(event: TypeaheadMatch): void {
     this.isNewProject = false;
     this.team.projectId = event.item.projectId;
@@ -189,7 +189,7 @@ export class TeamAddEditComponent implements OnInit {
     this.selectedClient.clientFullName = event.item.clientFullName;
   }
 
-  /* Purpose: Clear fields when check box for new project is changed */
+  /* Purpose: clear fields when check box for new project is changed */
   onNewProjectCheckChange() {
     this.isNewProject = !this.isNewProject;
     this.clearProjectRelatedFields();
@@ -201,6 +201,17 @@ export class TeamAddEditComponent implements OnInit {
       this.alertify.error('Project not existing. Check New Project to add a new one.');
       this.clearProjectRelatedFields();
     } 
+  }
+
+  // CONTROLLER UTILITIES
+
+  /* Purpose: set initially selected client for dropdown */
+  setInitialSelectedClient() {
+    if(this.isEdit) {                           // if edit: set selected dropdown to the actual client
+      this.selectedClient = this.clients.find(client => client.clientId == this.team.clientId);
+      return;
+    }
+    this.selectedClient = this.clients[0];      // if add
   }
 
   /* Purpose: check if employee already added in the members list */
