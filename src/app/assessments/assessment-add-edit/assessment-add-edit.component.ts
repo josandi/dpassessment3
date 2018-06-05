@@ -78,17 +78,17 @@ export class AssessmentAddEditComponent implements OnInit {
     let response: any;
     console.log(this.assessment);
 
-    // this._assessmentsService.saveAssessment(this.assessment)
-    //   .subscribe(
-    //     data => response = data,
-    //     error => this.alertify.error('Saving assessment - failed!'),
-    //     () => { 
-    //       if (response) {
-    //         this.alertify.success('Assessment saved successfully!');
-    //       }
-    //       this.closeModal();
-    //     }
-    //   );
+    this._assessmentsService.saveAssessment(this.assessment)
+      .subscribe(
+        data => response = data,
+        error => this.alertify.error('Saving assessment - failed!'),
+        () => { 
+          if (response) {
+            this.alertify.success('Assessment saved successfully!');
+          }
+          this.closeModal();
+        }
+      );
   }
 
   /* Purpose: update assessment */
@@ -96,17 +96,17 @@ export class AssessmentAddEditComponent implements OnInit {
     let response: any;
     console.log(this.assessment);
 
-    // this._assessmentsService.updateAssessment(this.assessment)
-    //   .subscribe(
-    //     data => response = data,
-    //     error => this.alertify.error('Updating assessment - failed!'),
-    //     () => { 
-    //       if (response) {
-    //         this.alertify.success('Assessment - successfully updated!');
-    //       }
-    //       this.closeModal();
-    //     }
-    //   );
+    this._assessmentsService.updateAssessment(this.assessment)
+      .subscribe(
+        data => response = data,
+        error => this.alertify.error('Updating assessment - failed!'),
+        () => { 
+          if (response) {
+            this.alertify.success('Assessment - successfully updated!');
+          }
+          this.closeModal();
+        }
+      );
   }
 
   // PREPARE DATA FROM API

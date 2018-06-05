@@ -20,8 +20,6 @@ export class AssessmentEmployeeComponent implements OnInit {
   currAssessmentStatus: string;
   enableFields: boolean = false;
 
-  tryModel = 1;
-
   constructor(private bsModalRef: BsModalRef,
               private alertify: AlertifyService,
               private authService: AuthService,
@@ -50,22 +48,22 @@ export class AssessmentEmployeeComponent implements OnInit {
    }
   
   /* Purpose: retrieves all the necessary data for the view */
-   getEmployeeAssessment() {
-     this._assessmentService.getAssessmentDetail(
-          this.assessment.assessmentId
-        ).subscribe(data =>
-          this.assessment = data, 
-          error => this.errorMsg = error,
-          () => {          
-            if(this.currAssessmentStatus === 'Unanswered') {   // unanswered: questionnaire only
-              this.getQuestionnaire();
-            } else {                                           // completed: get questionnaire with answers
-              this.getQuestionnaireDetail();
-              this.getEmpAssessmentQuestionnaire();
-            }
-          } 
-        );
-   }
+  getEmployeeAssessment() {
+    this._assessmentService.getAssessmentDetail(
+        this.assessment.assessmentId
+      ).subscribe(data =>
+        this.assessment = data, 
+        error => this.errorMsg = error,
+        () => {          
+          if(this.currAssessmentStatus === 'Unanswered') {   // unanswered: questionnaire only
+            this.getQuestionnaire();
+          } else {                                           // completed: get questionnaire with answers
+            this.getQuestionnaireDetail();
+            this.getEmpAssessmentQuestionnaire();
+          }
+        } 
+      );
+  }
 
   /* Purpose: gets entire questionnaire; called when status is unanswered*/
   getQuestionnaire() {
