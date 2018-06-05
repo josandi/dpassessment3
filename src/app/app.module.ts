@@ -24,6 +24,7 @@ import { AssessmentsResolver } from './_resolvers/assessments.resolver';
 import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
 import { TeamsResolver } from './_resolvers/teams.resolver';
 import { ClientsResolver } from './_resolvers/clients.resolver';
+import { AssessmentQuestionnaireComponent } from './assessments/assessment-questionnaire/assessment-questionnaire.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ClientsResolver } from './_resolvers/clients.resolver';
     LoginComponent,
     QuestionCategoryFilterPipe,
     OptionGroupFilterPipe,
-    GroupedOptionFilterPipe
+    GroupedOptionFilterPipe,
+    AssessmentQuestionnaireComponent
   ],
   imports: [
     BrowserModule,

@@ -70,6 +70,9 @@ export const API_X = {
   },
   ROLE: {
     GET_LIST: "role-list.json"
+  },
+  ASSESSMENT: {
+    GET_DETAIL: "assessment-detail.json"
   }
 }
 

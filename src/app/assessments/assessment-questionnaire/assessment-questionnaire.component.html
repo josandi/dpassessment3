@@ -1,0 +1,47 @@
+<form #questionnaireShowForm="ngForm" class="dpa-modal-form" role="form" 
+  (ngSubmit)="submitQuestionnaire()">
+  <fieldset [disabled]="!enableFields">
+    <div class="qst-instructions">
+      <div class="dpa-label">Instructions:</div>
+      <span>{{ questionnaire.questionaireInstructions }}</span>
+    </div>
+
+    <div class="row qst-questions">
+      <div *ngFor="let category of categories" class="qst-category">
+        <div class="dpa-label">{{ category.questionCategoryDesc }}</div>
+        <ol>
+          <li *ngFor="let question of questionnaire.questionWithOptions 
+              | questionCategoryFilter:category.questionCategoryId">
+            <div class="qst-question col-md-12">
+              {{ question.questionDescription }}
+            </div>
+
+            <div class="qst-answer">
+              <div class="col-md-12 qst-options" 
+                *ngIf="arrayHasData(question.questionOptions)">
+                <label *ngFor="let option of question.questionOptions">
+                  <input type="radio" name="ansopt-{{question.questionId}}" 
+                    [value]="option.optionsId" 
+                    [checked]="option.optionsId == question.employeeAnswer"
+                    (change)="setSelectedOptionToModel(question.questionId, option)" 
+                    required /> {{option.optionDescription}}
+                </label>
+              </div>
+              <div class="col-md-12 qst-field" *ngIf="!arrayHasData(question.questionOptions)">
+                <textarea class="form-control" name="anstxt-{{question.questionId}}" 
+                  [(ngModel)]="question.employeeAnswer" required>
+                </textarea>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="row modal-footer">
+    <button type="submit" class="btn btn-warning col-md-4" *ngIf="enableFields">
+      Submit
+    </button>
+  </div>
+</form>

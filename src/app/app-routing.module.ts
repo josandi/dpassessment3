@@ -23,9 +23,11 @@ import { TeamShowComponent } from './teams/team-show/team-show.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ClientsResolver } from './_resolvers/clients.resolver';
 import { ClientShowComponent } from './clients/client-show/client-show.component';
+import { AssessmentClientComponent } from './assessments/assessment-client/assessment-client.component';
 
 
 const routes: Routes = [
+  { path: 'assessment/:hash', component: AssessmentClientComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   {
     path: '',
@@ -53,6 +55,7 @@ const routes: Routes = [
                     AssessmentShowComponent,
                     AssessmentAddEditComponent,
                     AssessmentEmployeeComponent,
+                    AssessmentClientComponent,
                     QuestionnaireShowComponent,
                     QuestionnaireAddEditComponent]
 })
@@ -69,6 +72,7 @@ export const routingComponents = [DashboardComponent,
                                   AssessmentShowComponent,
                                   AssessmentAddEditComponent,
                                   AssessmentEmployeeComponent,
+                                  AssessmentClientComponent,
                                   QuestionnairesComponent,
                                   QuestionnaireShowComponent,
                                   QuestionnaireAddEditComponent];

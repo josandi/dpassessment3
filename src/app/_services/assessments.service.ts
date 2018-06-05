@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { map, catchError } from 'rxjs/operators';
-import { API } from '../_config/constants.config';
+import { API, API_X } from '../_config/constants.config';
 import { AuthHttp } from 'angular2-jwt';
 import { ErrorService } from './error.service';
 import { PaginatedResult } from '../_models/pagination';
@@ -93,6 +93,16 @@ export class AssessmentsService {
   getEmpAssessmentQuestionnaire(assessmentId, employeeId) {
     return this.authHttp.get(
         this.baseUrl + API.EMP_ASSESSMENT.GET_QUESTIONS_WITH_ANSWERS + assessmentId + '/' + employeeId
+      ).pipe(map((response: Response) => {
+        return response.json();
+      })
+    );
+  }
+
+  /* TEMP: get assessment details based on the hash */
+  getAssessmentDetailsByHash(strHash) {
+    return this.authHttp.get(
+        API_X.END_POINT + API_X.ASSESSMENT.GET_DETAIL
       ).pipe(map((response: Response) => {
         return response.json();
       })

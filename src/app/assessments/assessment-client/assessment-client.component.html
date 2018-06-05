@@ -1,0 +1,32 @@
+<div class="dpa-panel">
+  <div class="dpa-panel-title">{{assessment.assessmentName}}</div>
+
+  <div class="modal-detail">
+    <table class="modal-table">
+      <tbody>
+        <tr>
+          <td>Description:</td>
+          <td>{{assessment.assessmentDescription}}</td>
+        </tr>
+        <tr>
+          <td>Date Created:</td>
+          <td>{{assessment.createdDateTime | date: 'MM-dd-yyyy'}}</td>
+        </tr>
+        <tr>
+          <td>Assessed by:</td>
+          <td>Some Client Name</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-divider"></div>
+
+  <div class="asmnt-questionnaire">
+    <app-assessment-questionnaire
+      [assessment]="assessment"
+      (submitAnsweredAssessment)="submitAnsweredAssessment($event)"
+      >
+    </app-assessment-questionnaire>
+  </div>
+</div>
