@@ -25,6 +25,8 @@ import { QuestionnairesResolver } from './_resolvers/questionnaires.resolver';
 import { TeamsResolver } from './_resolvers/teams.resolver';
 import { ClientsResolver } from './_resolvers/clients.resolver';
 import { AssessmentQuestionnaireComponent } from './assessments/assessment-questionnaire/assessment-questionnaire.component';
+import { SidebarComponent } from './navigation/sidebar/sidebar.component';
+import { TopbarComponent } from './navigation/topbar/topbar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { AssessmentQuestionnaireComponent } from './assessments/assessment-quest
     QuestionCategoryFilterPipe,
     OptionGroupFilterPipe,
     GroupedOptionFilterPipe,
-    AssessmentQuestionnaireComponent
+    AssessmentQuestionnaireComponent,
+    SidebarComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,

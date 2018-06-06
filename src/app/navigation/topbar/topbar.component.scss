@@ -1,0 +1,48 @@
+.navbar {                                           // copied from navbar.less
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+.navbar-default {
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+
+.dpa-toolbar ul li{                                // custom toolbar css
+  display: inline;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.dpa-toolbar .navbar {
+  padding-top: 15px;
+  padding-bottom: 0;
+}
+
+.dpa-toolbar .container-fluid{
+  padding: 0;
+}
+
+.dpa-toolbar ul{
+  padding-left: 0;
+}
+
+.dpa-toolbar ul li a{
+  color: #777;
+}
+
+.dpa-toolbar ul li a:hover {
+  color: #777;
+  text-decoration: none;
+}
+
+.dpa-toolbar ul li span {
+  margin-right: 3px;
+}
+
+.dpa-toolbar .nav-hamburger {
+  margin-left: 30px;
+  display: none;
+}

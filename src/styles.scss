@@ -15,6 +15,20 @@ fieldset {
   width: 100%;
 }
 
+a, span {
+    text-decoration: none;
+}
+
+a:focus {
+    text-decoration: none;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
 /* bootstrap */
 
 form .btn {
@@ -81,6 +95,10 @@ div.dpa-mat-dtpgroup .mat-form-field-wrapper {
 .dpa-page {
   padding-left: 300px;
   color: #686666;
+}
+
+.page-content {
+  margin: 30px 70px;
 }
 
 .user-auth-page .dpa-page {

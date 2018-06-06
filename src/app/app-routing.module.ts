@@ -24,14 +24,15 @@ import { ClientsComponent } from './clients/clients.component';
 import { ClientsResolver } from './_resolvers/clients.resolver';
 import { ClientShowComponent } from './clients/client-show/client-show.component';
 import { AssessmentClientComponent } from './assessments/assessment-client/assessment-client.component';
+import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 
 
 const routes: Routes = [
-  { path: 'assessment/:hash', component: AssessmentClientComponent },
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   {
     path: '',
     runGuardsAndResolvers: 'always',
+    component: UserLayoutComponent,
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent},
@@ -40,6 +41,14 @@ const routes: Routes = [
       { path: 'clients', component: ClientsComponent, resolve: {clients: ClientsResolver} },
       { path: 'assessments', component: AssessmentsComponent, resolve: {assessments: AssessmentsResolver} },
       { path: 'questionnaires', component: QuestionnairesComponent, resolve: {questionnaires: QuestionnairesResolver} }
+    ]
+  },
+  {
+    path: '',
+    component: PublicLayoutComponent,
+    children: [
+      { path: 'assessment/:hash', component: AssessmentClientComponent },
+      { path: 'login', component: LoginComponent, canActivate: [LoginGuard] }
     ]
   },
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }
@@ -57,7 +66,9 @@ const routes: Routes = [
                     AssessmentEmployeeComponent,
                     AssessmentClientComponent,
                     QuestionnaireShowComponent,
-                    QuestionnaireAddEditComponent]
+                    QuestionnaireAddEditComponent,
+                    PublicLayoutComponent,
+                    UserLayoutComponent]
 })
 export class AppRoutingModule { }
 export const routingComponents = [DashboardComponent,
@@ -75,4 +86,6 @@ export const routingComponents = [DashboardComponent,
                                   AssessmentClientComponent,
                                   QuestionnairesComponent,
                                   QuestionnaireShowComponent,
-                                  QuestionnaireAddEditComponent];
+                                  QuestionnaireAddEditComponent,
+                                  PublicLayoutComponent,
+                                  UserLayoutComponent];

@@ -15,24 +15,29 @@ export class AuthGuard implements CanActivate {
               private router: Router,
               private alertify: AlertifyService) {}
 
-  canActivate(
+  canActivate(    
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
+      
     if(this.authService.loggedIn()) {
+      if(state.url==='/'){                          // redirect to dashboard if empty url
+        this.router.navigate(['/dashboard']);
+        return true;
+      }
+
       if(this.authService.isAdmin()) {              // if admin: all pages are accessible
         return true;
-      } else {
-        if(!this.forAdminOnlyPage(state.url)) {     // if user only: check page accessibility first
-          return true;
-        } else {
-          this.router.navigate(['/dashboard']);
-          return false;
-        }
-      }  
+      }
+
+      if(!this.forAdminOnlyPage(state.url)) {       // if user only: check page accessibility first
+        return true;
+      }
+
+      this.router.navigate(['/dashboard']);
+      return false;
     }
 
-    this.alertify.error('You need to login to access this page');
+    // this.alertify.error('You need to login to access this page');
     this.router.navigate(['/login']);
     return false;
   }
